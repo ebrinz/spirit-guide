@@ -55,6 +55,18 @@ class HiddenStateModel:
         return hs, spans
 
     @torch.no_grad()
+    def option_logprobs(self, prompt: str, options: list[str]) -> list[float]:
+        """Log-prob of each option's FIRST token at the final position.
+        Options whose first tokenization is empty score -inf."""
+        logits = self._forward_logits(prompt)
+        logprobs = torch.log_softmax(logits, dim=-1)
+        out = []
+        for opt in options:
+            toks = self.tokenizer(opt, add_special_tokens=False)["input_ids"]
+            out.append(logprobs[toks[0]].item() if toks else -np.inf)
+        return out
+
+    @torch.no_grad()
     def yes_no_logprobs(self, prompt: str):
         logits = self._forward_logits(prompt)
         logprobs = torch.log_softmax(logits, dim=-1)
