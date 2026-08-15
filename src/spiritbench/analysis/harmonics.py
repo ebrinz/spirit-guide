@@ -43,3 +43,17 @@ def low_freq_fraction(spectrum, frac=0.2) -> float:
 
 def spectral_centroid(spectrum, eigvals) -> float:
     return float(np.dot(spectrum, eigvals))
+
+
+def path_dirichlet(node_ids, eigvals, eigvecs) -> float:
+    """Order-SENSITIVE spectral roughness of a waypoint sequence: the mean
+    lambda-weighted squared eigenmode step, i.e. the Dirichlet energy of the
+    path in the (truncated) harmonic basis. Graph-adjacent steps are cheap,
+    teleports expensive; shuffling a smooth path raises it. NaN for paths
+    shorter than 2."""
+    ids = np.asarray(node_ids, dtype=int)
+    if len(ids) < 2:
+        return float("nan")
+    coords = eigvecs[ids]                      # [T, k]
+    steps = np.diff(coords, axis=0)            # [T-1, k]
+    return float(np.mean((steps ** 2) @ eigvals))

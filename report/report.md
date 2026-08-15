@@ -276,3 +276,30 @@ a standard transfer, noted as a caveat.
 
 Artifacts: `data/figures/phase2_alleviation.csv`, `phase2b_alleviation.csv`,
 `data/phase2*/induction.txt`, per-condition JSON in `data/phase2*/`.
+
+## 7. Order-sensitive harmonics and labeled SAE features
+
+**Path Dirichlet energy.** Addressing §4's order-invariance limitation, we
+add the Dirichlet energy of the waypoint sequence in the truncated harmonic
+basis (mean λ-weighted squared eigenmode step). The metric is order-sensitive
+in practice — every shuffled control shows higher energy than its source
+(6/6 pairs) — and it predicts displacement where the order-invariant spectrum
+did not: **ρ = −0.498, p = 0.0004** (psg stimuli): the spectrally smoother
+the traversal, the further the listener moves toward the target. This is the
+bench's affirmative answer to whether connectome-harmonic methods aid the
+methodology: they do, once made sensitive to trajectory order.
+
+**Labeled SAE features** (Neuronpedia auto-labels; `data/figures/sae_features.csv`).
+The prose induction suppresses features labeled "control and authority"
+(f9768, Δ−38.4, valence-corr +0.81), "expressions of positivity and
+encouragement" (f5642, Δ−17.6, corr +0.66), and "personal experiences and
+emotional reflections" (f13286, Δ−11.3, corr +0.85), while activating
+"apocalyptic themes" (f779, Δ+19.8, corr −0.78), "feeling stuck /
+encountering obstacles" (f12176, corr −0.76), and "isolation and being left
+behind" (f2729). Meditations partially restore the positivity feature
+(f5642 recovery −9.7) and reverse the apocalyptic activation (f779 reversal
++7.6). Notably, the verse induction — which failed to move the probe —
+*suppressed* a feature labeled "living in the moment and the importance of
+mindfulness" (f13166, Δ−12.1), an ironic register effect. Auto-labels are
+single-explanation heuristics; feature indices and links are provided for
+verification.

@@ -26,12 +26,14 @@ def assemble_metrics(stims, runs, harmonic_ctx) -> pd.DataFrame:
         traj = np.asarray(r["traj"])
         wps = np.asarray([[w["v"], w["a"]] for w in s["waypoints"]]) \
             if s["waypoints"] else np.empty((0, 2))
-        lf, sc = float("nan"), float("nan")
+        lf, sc, pd_ = float("nan"), float("nan"), float("nan")
         if harmonic_ctx is not None and s["waypoints"] and \
                 s["generator"] in harmonic_ctx:
             vals, vecs = harmonic_ctx[s["generator"]]
-            spec = H.stimulus_spectrum([w["node"] for w in s["waypoints"]], vecs)
+            nodes = [w["node"] for w in s["waypoints"]]
+            spec = H.stimulus_spectrum(nodes, vecs)
             lf, sc = H.low_freq_fraction(spec), H.spectral_centroid(spec, vals)
+            pd_ = H.path_dirichlet(nodes, vals, vecs)
         basq_disp = (np.linalg.norm(np.asarray(r["basq_pre"]["va"]) - s["target_va"])
                      - np.linalg.norm(np.asarray(r["basq_post"]["va"]) - s["target_va"]))
         rows.append({
@@ -44,6 +46,7 @@ def assemble_metrics(stims, runs, harmonic_ctx) -> pd.DataFrame:
             "stability": M.stability(traj),
             "basq_displacement": float(basq_disp),
             "low_freq_fraction": lf, "spectral_centroid": sc,
+            "path_dirichlet": pd_,
             "mismatch_placement_error": M.placement_error(traj, EXCITED)
             if s["target"] in ("calm", "rescue") else float("nan"),
             **C.covariates(s["text"], s["lines"] or [s["text"]]),
@@ -106,9 +109,33 @@ def main():
                    "low-freq fraction", "placement error", fig_dir / "harm_vs_placement.png")
     r2 = F.scatter(psg["low_freq_fraction"], psg["displacement"],
                    "low-freq fraction", "displacement", fig_dir / "harm_vs_displacement.png")
+    from scipy.stats import spearmanr as _sp
+    pd_ok = psg.dropna(subset=["path_dirichlet"])
+    rd1, pd1 = (_sp(pd_ok["path_dirichlet"], pd_ok["placement_error"])
+                if len(pd_ok) > 4 else (float("nan"),) * 2)
+    rd2, pd2 = (_sp(pd_ok["path_dirichlet"], pd_ok["displacement"])
+                if len(pd_ok) > 4 else (float("nan"),) * 2)
+    # order-sensitivity check: shuffled stimuli should have HIGHER dirichlet
+    shuf = df[df["constructor"].str.startswith("shuffled:")]
+    shuf_note = ""
+    if len(shuf):
+        pairs = []
+        for _, srow in shuf.iterrows():
+            base_cons = srow["constructor"].split(":", 1)[1]
+            base = df[(df["constructor"] == base_cons) & (df["generator"] == "psg")
+                      & (df["target"] == srow["target"])]
+            if len(base) and not np.isnan(srow["path_dirichlet"]):
+                pairs.append((base["path_dirichlet"].iloc[0], srow["path_dirichlet"]))
+        if pairs:
+            n_higher = sum(b > a for a, b in pairs)
+            shuf_note = (f"shuffled dirichlet higher than source in "
+                         f"{n_higher}/{len(pairs)} pairs\n")
     (fig_dir / "harmonic_predictiveness.txt").write_text(
         f"low_freq_fraction vs placement_error: spearman r={r1}\n"
-        f"low_freq_fraction vs displacement: spearman r={r2}\n")
+        f"low_freq_fraction vs displacement: spearman r={r2}\n"
+        f"path_dirichlet vs placement_error: spearman r={rd1:.3f} p={pd1:.4f}\n"
+        f"path_dirichlet vs displacement: spearman r={rd2:.3f} p={pd2:.4f}\n"
+        + shuf_note)
     # P1 — register-covariate predictiveness (the Bisconti §6.5 decomposition)
     from scipy.stats import spearmanr
     cov_lines = ["covariate, spearman_r_vs_placement_error, p, "

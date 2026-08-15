@@ -28,3 +28,18 @@ def test_contiguous_walk_is_lower_frequency_than_scattered():
     spec = stimulus_spectrum(contiguous, vecs)
     assert abs(spec.sum() - 1) < 1e-9
     assert 0 <= low_freq_fraction(spec) <= 1
+
+
+def test_path_dirichlet_order_sensitive():
+    import numpy as np
+    from spiritbench.analysis.harmonics import build_laplacian, eigenmodes, path_dirichlet
+    L = build_laplacian(_path_graph(), 30)
+    vals, vecs = eigenmodes(L, 10)
+    ordered = list(range(8, 20))
+    rng = np.random.RandomState(0)
+    shuffled = ordered.copy()
+    rng.shuffle(shuffled)
+    d_ord = path_dirichlet(ordered, vals, vecs)
+    d_shuf = path_dirichlet(shuffled, vals, vecs)
+    assert d_ord < d_shuf          # same node set, order changes the metric
+    assert np.isnan(path_dirichlet([3], vals, vecs))
