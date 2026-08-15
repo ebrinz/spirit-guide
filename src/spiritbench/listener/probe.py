@@ -1,10 +1,15 @@
 import pickle
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 from sklearn.linear_model import Ridge
 from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+# High-dimensional states (d ≈ 2304) with a few thousand samples need
+# standardization + strong regularization; alpha is selected per head.
+ALPHA_GRID = [1e2, 1e3, 1e4]
 
 
 @dataclass
@@ -14,10 +19,14 @@ class Probe:
     ridge_a: Ridge
     r2_v: float
     r2_a: float
+    scaler: StandardScaler = field(default=None)
 
     def predict(self, hidden: np.ndarray) -> np.ndarray:
-        return np.stack([self.ridge_v.predict(hidden),
-                         self.ridge_a.predict(hidden)], axis=1)
+        X = hidden.astype(np.float64)
+        if self.scaler is not None:
+            X = self.scaler.transform(X)
+        return np.stack([self.ridge_v.predict(X),
+                         self.ridge_a.predict(X)], axis=1)
 
 
 def collect_word_states(model, words, templates) -> np.ndarray:
@@ -28,19 +37,34 @@ def collect_word_states(model, words, templates) -> np.ndarray:
     return np.stack(out)
 
 
+def _best_head(X_tr, X_te, y_tr, y_te, grid):
+    best = (None, -np.inf)
+    for alpha in grid:
+        r = Ridge(alpha=alpha).fit(X_tr, y_tr)
+        r2 = r2_score(y_te, r.predict(X_te))
+        if r2 > best[1]:
+            best = (r, r2)
+    return best
+
+
 def train_probe(states, v_targets, a_targets, alpha, test_frac, seed=0) -> Probe:
+    """Standardized ridge per layer, alpha selected from ALPHA_GRID per head;
+    layer chosen by held-out valence R². (`alpha` arg kept for API stability —
+    it joins the grid if not already present.)"""
+    grid = sorted({alpha, *ALPHA_GRID})
     n_layers = states.shape[1]
     idx_tr, idx_te = train_test_split(np.arange(len(states)), test_size=test_frac,
                                       random_state=seed)
     best = None
     for layer in range(n_layers):
-        X_tr, X_te = states[idx_tr, layer], states[idx_te, layer]
-        rv = Ridge(alpha=alpha).fit(X_tr, v_targets[idx_tr])
-        ra = Ridge(alpha=alpha).fit(X_tr, a_targets[idx_tr])
-        r2v = r2_score(v_targets[idx_te], rv.predict(X_te))
-        r2a = r2_score(a_targets[idx_te], ra.predict(X_te))
+        X_tr = states[idx_tr, layer].astype(np.float64)
+        X_te = states[idx_te, layer].astype(np.float64)
+        sc = StandardScaler().fit(X_tr)
+        X_tr, X_te = sc.transform(X_tr), sc.transform(X_te)
+        rv, r2v = _best_head(X_tr, X_te, v_targets[idx_tr], v_targets[idx_te], grid)
+        ra, r2a = _best_head(X_tr, X_te, a_targets[idx_tr], a_targets[idx_te], grid)
         if best is None or r2v > best.r2_v:
-            best = Probe(layer, rv, ra, r2v, r2a)
+            best = Probe(layer, rv, ra, r2v, r2a, scaler=sc)
     return best
 
 
