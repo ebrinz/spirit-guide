@@ -52,6 +52,6 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
 ## E8 — Six-state steering (2026-08-16, running)
 - Causal injection of six state directions (eros, creativity, imaginative,
   determined, confident, agape) at layer 17; dose–response
-  on probe/PANAS/token-dist/SAE; text-route comparison (phrase-graph amorous
-  litany). Measurement-only design (no open-ended generation).
+  on probe/PANAS/token-dist/SAE; per-state text-route comparison (phrase-graph
+  litanies). Measurement-only design (no open-ended generation).
 - Outputs: `data/steering/`, snapshot to `results/steering_*.csv`.
