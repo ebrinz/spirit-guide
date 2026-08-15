@@ -1,5 +1,6 @@
 """Build all bench stimuli (core grid + sweeps + controls) into data/stimuli/stimuli.jsonl."""
 import json
+import os
 from pathlib import Path
 
 from spiritbench.config import load_config, REPO_ROOT
@@ -54,12 +55,16 @@ def main():
     for cons in CONSTRUCTORS:
         for gen in ["psg", "word-template"]:
             for tname, tva in list(targets.items()) + [("rescue", targets["calm"])]:
+                if cons == "valley" and tname == "rescue":
+                    continue  # valley ignores start_va: output is byte-identical to calm
                 start = cfg["rescue_start"] if tname == "rescue" else cfg["neutral_start"]
                 runs.append((cons, gen, tname, tuple(tva), tuple(start),
                              "medium", "plain", None, 42))
     # sweeps on valley + harmonic-golden, psg, calm + rescue
     for cons in ["valley", "harmonic-golden"]:
         for tname in ["calm", "rescue"]:
+            if cons == "valley" and tname == "rescue":
+                continue  # valley ignores start_va: output is byte-identical to calm
             tva = tuple(targets["calm"])
             start = cfg["rescue_start"] if tname == "rescue" else cfg["neutral_start"]
             for length in ["short", "long"]:
@@ -79,7 +84,8 @@ def main():
         rec = ad.stimulus_record(art, ids, cons, gen, tname, tva,
                                  {"length": length, "intensity": intensity,
                                   "style": style or "unfiltered", "seed": seed,
-                                  "start_va": list(start)})
+                                  "start_va": list(start),
+                                  "n_lines_actual": len(set(ids))})
         if gen == "word-template":
             rec["lines"] = ad.template_wrap(rec["lines"], length, seed, cfg["ot_repo"])
             rec["text"] = "\n".join(rec["lines"])
@@ -91,9 +97,11 @@ def main():
                 and r["params"]["style"] == "unfiltered"]:
         records.append(shuffled(rec, seed=99))
     records.append(neutral_stimulus("calm", targets["calm"]))
-    with open(out, "w") as f:
+    tmp = out.with_suffix(".jsonl.tmp")
+    with open(tmp, "w") as f:
         for r in records:
             f.write(json.dumps(r) + "\n")
+    os.replace(tmp, out)
     print(f"wrote {len(records)} stimuli; {len(failures)} failures")
     for fail in failures:
         print("FAILED:", fail)  # no silent caps

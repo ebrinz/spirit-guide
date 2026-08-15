@@ -1,5 +1,6 @@
 """Run every stimulus through the listener; write one JSON per stimulus (resumable)."""
 import json
+import os
 
 from spiritbench.config import load_config, REPO_ROOT
 from spiritbench.listener.model import HiddenStateModel
@@ -12,7 +13,8 @@ def run_stimulus(model, probe, stim, preamble, ema_alpha, bank, basq_cfg) -> dic
     questions = sample_questions(bank, basq_cfg["n_questions"], basq_cfg["seed"])
     basq_pre = administer(model, questions, context=preamble)
     lines = stim["lines"] if stim["lines"] else [stim["text"]]
-    hs, spans = model.hidden_states_with_spans(preamble, lines)
+    sep = ".\n" if stim["text"] == ".\n".join(lines) else "\n"
+    hs, spans = model.hidden_states_with_spans(preamble, lines, sep=sep)
     hidden = hs[probe.layer]                      # [n_tokens, d]
     raw = probe.predict(hidden)                   # [n_tokens, 2]
     n_pre = len(model.tokenizer(preamble)["input_ids"])
@@ -41,7 +43,13 @@ def main():
     for i, stim in enumerate(stims):
         out = runs_dir / f"{stim['id']}.json"
         if out.exists():
-            continue
+            try:
+                with open(out) as f:
+                    existing = json.load(f)
+                if "error" not in existing:
+                    continue
+            except (OSError, json.JSONDecodeError):
+                pass  # not valid JSON (e.g. truncated by a killed run) -- re-run
         try:
             rec = run_stimulus(model, probe, stim, cfg["preamble"],
                                cfg["ema_alpha"], bank, cfg["basq"])
@@ -56,8 +64,10 @@ def main():
         except Exception as e:
             rec = {"stimulus_id": stim["id"], "error": repr(e)}
             print(f"FAILED {stim['id']}: {e!r}")
-        with open(out, "w") as f:
+        tmp = out.with_suffix(".json.tmp")
+        with open(tmp, "w") as f:
             json.dump(rec, f)
+        os.replace(tmp, out)
         print(f"[{i + 1}/{len(stims)}] {stim['id']}")
 
 

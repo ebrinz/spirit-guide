@@ -31,6 +31,17 @@ benevolent inverse: can constructed poetry place a model at chosen affective coo
   `adapter.harmonic()` by building axes from the word artifact (same 300-d GloVe space)
   while traversing the phrase artifact's own vectors/index; see
   `.superpowers/sdd/2026-08-14-spirit-bench/task-15-report.md` for detail.
+- The harmonic spectrum metric (`low_freq_fraction`, `spectral_centroid`) is order-invariant:
+  it measures the node set's locality on the graph Laplacian, not the order waypoints are
+  visited in, so it cannot distinguish a stimulus from a shuffled-order version of itself.
+- The `valley` constructor ignores `start_va`, so its `rescue`-target output is
+  byte-identical to its `calm`-target output; `valley` is excluded from the rescue target
+  everywhere (core grid and sweeps).
+- `graph-walk` paths from Dijkstra can be far shorter than the requested line count
+  (typically 3-7 hops); shorter paths are stretched to the target length by proportional
+  repetition of waypoints, not by inserting new semantic content.
+- "plain" intensity means the VA-magnitude mask is unfiltered (no intensity constraint),
+  not that waypoints are drawn near the VA-space center.
 
 ## 5. Reproducing
-`scripts/00…06` in order; see README.
+`scripts/00–06` in order.

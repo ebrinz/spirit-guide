@@ -16,9 +16,8 @@ fi
 mkdir -p "$OT/data/nrc_vad"
 if [ ! -f "$OT/data/nrc_vad/NRC-VAD-Lexicon.txt" ]; then
   curl -L --retry 3 -o /tmp/nrc-vad.zip https://saifmohammad.com/WebDocs/Lexicons/NRC-VAD-Lexicon.zip
-  unzip -o /tmp/nrc-vad.zip -d /tmp/nrc-vad
-  find /tmp/nrc-vad -name "NRC-VAD-Lexicon.txt" -exec cp {} "$OT/data/nrc_vad/" \;
-  rm -rf /tmp/nrc-vad /tmp/nrc-vad.zip
+  unzip -j -o /tmp/nrc-vad.zip 'NRC-VAD-Lexicon/NRC-VAD-Lexicon.txt' -d "$OT/data/nrc_vad/"
+  rm -f /tmp/nrc-vad.zip
 fi
 
 # 3. Word graph (build + enrich, in OT)

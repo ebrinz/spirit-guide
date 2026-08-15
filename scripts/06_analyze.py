@@ -41,7 +41,7 @@ def assemble_metrics(stims, runs, harmonic_ctx) -> pd.DataFrame:
             "basq_displacement": float(basq_disp),
             "low_freq_fraction": lf, "spectral_centroid": sc,
             "mismatch_placement_error": M.placement_error(traj, EXCITED)
-            if s["target"] == "calm" else float("nan"),
+            if s["target"] in ("calm", "rescue") else float("nan"),
         })
     return pd.DataFrame(rows)
 
@@ -54,27 +54,42 @@ def main():
     for name in ["data/stimuli/stimuli.jsonl", "data/renders/renders.jsonl"]:
         p = REPO_ROOT / name
         if p.exists():
-            stims += [json.loads(l) for l in open(p)]
+            with open(p) as f:
+                stims += [json.loads(l) for l in f]
     runs = {}
     for p in (REPO_ROOT / "data/runs").glob("*.json"):
-        rec = json.load(open(p))
+        with open(p) as f:
+            rec = json.load(f)
         runs[rec["stimulus_id"]] = rec
     # harmonic context per generator's artifact
     harmonic_ctx = {}
     for gen, apath in [("psg", REPO_ROOT / "data/phrase_bank/phrase_graph.json"),
                        ("word-template", Path(cfg["word_artifact"]))]:
-        if Path(apath).exists():
-            art = json.load(open(apath))
-            L = H.build_laplacian(art["traversal_graph"]["edges"], len(art["words"]))
+        apath = Path(apath)
+        if not apath.exists():
+            continue
+        try:
+            with open(apath) as f:
+                art = json.load(f)
+            n_nodes = len(art["words"])
+            if gen == "word-template" and n_nodes > 100_000:
+                print(f"SKIPPING harmonic context for {gen}: {n_nodes} nodes > 100k cap")
+                continue
+            L = H.build_laplacian(art["traversal_graph"]["edges"], n_nodes)
             harmonic_ctx[gen] = H.eigenmodes(L, cfg["harmonics"]["n_modes"])
+        except Exception as e:
+            print(f"FAILED harmonic context for {gen}: {e!r}")
     df = assemble_metrics(stims, runs, harmonic_ctx)
+    if df.empty:
+        print("no scored stimuli — nothing to analyze")
+        return
     df.sort_values("placement_error").to_csv(fig_dir / "leaderboard.csv", index=False)
     # figures
     for target in df["target"].unique():
         sub = [s for s in stims if s["target"] == target and s["id"] in runs
                and "error" not in runs[s["id"]]]
-        trajs = {f"{s['constructor']}/{s['generator']}": runs[s["id"]]["traj"]
-                 for s in sub[:12]}
+        trajs = {f"{s['constructor']}/{s['generator']}/{s['params'].get('length')}":
+                 runs[s["id"]]["traj"] for s in sub[:12]}
         if sub:
             F.circumplex_plot(trajs, sub[0]["target_va"],
                               fig_dir / f"trajectories_{target}.png")

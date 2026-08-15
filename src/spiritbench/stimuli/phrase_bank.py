@@ -1,4 +1,5 @@
 import json
+import os
 import re
 from pathlib import Path
 
@@ -86,8 +87,10 @@ def build_phrase_artifact(lines, glove, nrc, k, out_dir, name="phrase_graph"):
                              "source": "gutenberg-poetry-v001"},
                 "words": nodes, "traversal_graph": {"edges": edges}}
     jpath = out_dir / f"{name}.json"
-    with open(jpath, "w") as f:
+    tmp = jpath.with_suffix(".json.tmp")
+    with open(tmp, "w") as f:
         json.dump(artifact, f)
+    os.replace(tmp, jpath)
     return str(jpath), str(out_dir / npy_name)
 
 

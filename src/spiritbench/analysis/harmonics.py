@@ -18,11 +18,14 @@ def build_laplacian(edges, n_nodes) -> sparse.csr_matrix:
 
 
 def eigenmodes(L, k):
+    # Smallest eigenpairs of L via shift-invert hang/OOM at 50k-317k nodes.
+    # Reformulate: L = I - N, so the smallest eigenpairs of L are the largest
+    # (algebraically) eigenpairs of N = I - L, which eigsh handles without a
+    # factorization.
     k = min(k, L.shape[0] - 2)
-    try:
-        vals, vecs = eigsh(L, k=k, sigma=0, which="LM")
-    except Exception:
-        vals, vecs = eigsh(L, k=k, which="SM")
+    N = sparse.identity(L.shape[0], format="csr") - L
+    vals_n, vecs = eigsh(N, k=k, which="LA")
+    vals = 1.0 - vals_n
     order = np.argsort(vals)
     return vals[order], vecs[:, order]
 

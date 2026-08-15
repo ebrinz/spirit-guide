@@ -75,7 +75,7 @@ def graph_walk(art: Art, start_va, target_va, n_lines, seed, ot_repo) -> list[in
     target = nearest_node_to_va(art, target_va)
     adjacency = build_adjacency(art.edges)
     path = find_path(start, target, art.nodes, adjacency, tuple(target_va))
-    if len(path) > n_lines:  # resample evenly, always keeping endpoints
+    if len(path) != n_lines:  # resample (stretch or shrink) to n_lines, keeping endpoints
         idx = np.linspace(0, len(path) - 1, n_lines).round().astype(int)
         path = [path[i] for i in idx]
     return path
@@ -145,6 +145,17 @@ def stimulus_record(art: Art, node_ids, constructor, generator, target_name,
 
 LENGTH_LINES = {"short": 8, "medium": 24, "long": 56}
 
+# Memoized word-artifact Art, keyed by path. The word artifact JSON+vectors can be
+# multiple GB, so both harmonic()'s and style_mask()'s "anchor words absent from this
+# artifact" fallback share one load per process instead of re-reading it every call.
+_word_art_cache: dict[str, Art] = {}
+
+
+def _load_word_art(word_artifact_path: str) -> Art:
+    if word_artifact_path not in _word_art_cache:
+        _word_art_cache[word_artifact_path] = load_art(word_artifact_path)
+    return _word_art_cache[word_artifact_path]
+
 
 def style_mask(art: Art, style, axes_path) -> np.ndarray:
     if style is None:
@@ -158,8 +169,18 @@ def style_mask(art: Art, style, axes_path) -> np.ndarray:
         if any(w in art.id_of for w in pos_words) else None
     neg = np.mean([art.vectors[art.id_of[w]] for w in neg_words if w in art.id_of], axis=0) \
         if any(w in art.id_of for w in neg_words) else None
-    if pos is None or neg is None:  # axis words absent (e.g. phrase artifact): project on raw GloVe diff
-        raise ValueError("concreteness axis words not in artifact; pass a GloVe-diff axis vector")
+    if pos is None or neg is None:
+        # Axis words absent (e.g. phrase artifact: entries are multi-word lines, so
+        # single-word anchors like "concrete"/"abstract" never match). Same fallback
+        # pattern as harmonic(): build the axis from the word artifact's own vocabulary
+        # instead (same 300-d GloVe space as art.vectors), then keep projecting art's
+        # own vectors.
+        from spiritbench.config import load_config
+        word_art = _load_word_art(load_config()["word_artifact"])
+        pos = np.mean([word_art.vectors[word_art.id_of[w]]
+                       for w in pos_words if w in word_art.id_of], axis=0)
+        neg = np.mean([word_art.vectors[word_art.id_of[w]]
+                       for w in neg_words if w in word_art.id_of], axis=0)
     direction = pos - neg
     proj = art.vectors @ direction
     if style == "imagist":
@@ -203,18 +224,13 @@ def harmonic(art: Art, artifact_path, start_va, target_va, n_lines, preset, seed
         # in its vocabulary (entries are multi-word lines), so build_va_axes silently
         # returns a degenerate (nan or 0-d) axis. Phrase vectors are mean-GloVe
         # vectors in the same 300-d space as the word artifact, so build the axes
-        # from the word artifact's own vocabulary instead, and keep traversing the
-        # phrase artifact's vectors/index (already loaded above).
+        # from the word artifact's own vocabulary instead (memoized: see
+        # _load_word_art), and keep traversing the phrase artifact's vectors/index
+        # (already loaded above).
         from spiritbench.config import load_config
-        word_artifact_path = load_config()["word_artifact"]
-        with open(word_artifact_path) as f:
-            word_meta = json.load(f)
-        word_vectors_path = str(Path(word_artifact_path).parent /
-                                word_meta["metadata"]["vectors_file"])
-        word_vectors, word_word_index, _ = hp.load_data(
-            word_artifact_path, word_vectors_path, vocab_cap=len(word_meta["words"]))
-        v_axis, a_axis = hp.build_va_axes(word_vectors, word_word_index)
-        semantic_axes = hp.load_semantic_axes(semantic_axes_path, word_vectors, word_word_index)
+        word_art = _load_word_art(load_config()["word_artifact"])
+        v_axis, a_axis = hp.build_va_axes(word_art.vectors, word_art.id_of)
+        semantic_axes = hp.load_semantic_axes(semantic_axes_path, word_art.vectors, word_art.id_of)
     start_word = art.word(nearest_node_to_va(art, start_va))
     target_word = art.word(nearest_node_to_va(art, target_va))
     path = hp.plan_harmonic_waypoints(
@@ -224,12 +240,22 @@ def harmonic(art: Art, artifact_path, start_va, target_va, n_lines, preset, seed
 
 
 def template_wrap(lines, length, seed, ot_repo) -> list[str]:
+    # OT's build_sentences/build_short_sentences/build_long_sentences shuffle their
+    # word pool internally, destroying waypoint order. Reimplement inline: pair (or
+    # triple) words in ORDER and round-robin the same template lists OT uses, so the
+    # meditation's line order tracks the waypoint order.
     _ot(ot_repo)
-    from eeg.sentence_builder import build_sentences, build_short_sentences, build_long_sentences
-    fn = {"short": build_short_sentences, "medium": build_sentences,
-          "long": build_long_sentences}[length]
+    from eeg.sentence_builder import TEMPLATES, SHORT_TEMPLATES, LONG_TEMPLATES
+    templates, n_slots = {"short": (SHORT_TEMPLATES, 2), "medium": (TEMPLATES, 2),
+                          "long": (LONG_TEMPLATES, 3)}[length]
     n = max(1, len(lines) // 2)
     pool = list(lines)
-    while len(pool) < 3 * n:
+    while len(pool) < n_slots * n:  # pad by cycling the original list
         pool += lines
-    return fn(pool, n=n, seed=seed)
+    keys = ["a", "b", "c"][:n_slots]
+    sentences = []
+    for i in range(n):
+        values = {k: pool[n_slots * i + j] for j, k in enumerate(keys)}
+        template = templates[i % len(templates)]
+        sentences.append(template.format(**values))
+    return sentences

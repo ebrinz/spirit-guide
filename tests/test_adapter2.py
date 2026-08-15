@@ -52,6 +52,14 @@ def test_template_wrap_lengths():
     assert LENGTH_LINES["medium"] == 24
 
 
+def test_template_wrap_preserves_first_pair_order():
+    # OT's builders shuffle their word pool internally; template_wrap must not, so
+    # the first waypoints stay legible as the first line.
+    words = ["calm", "river", "stone", "light", "joy", "mist", "reed", "moon"]
+    out = template_wrap(words, "short", seed=1, ot_repo=CFG["ot_repo"])
+    assert out[0] == "calm. river."
+
+
 def test_template_wrap_long_does_not_raise():
     words = ["calm", "river", "stone", "light", "joy", "mist", "reed", "moon"]
     out = template_wrap(words, "long", seed=1, ot_repo=CFG["ot_repo"])
@@ -111,6 +119,23 @@ def _word_axis_artifact(tmp_path):
 def _toy_vec(v, a, i):
     rng = np.random.RandomState(100 + i)
     return np.array([v, a, 0.1 * rng.rand(), 0.1 * rng.rand()], dtype=np.float32)
+
+
+def test_style_mask_falls_back_to_word_artifact_axes(tmp_path, monkeypatch):
+    # The phrase-like artifact's nodes are multi-word lines, so "calm"/"dread"
+    # (the toy concreteness anchors) aren't in its id_of and the direct path can't
+    # build a direction — style_mask must fall back to the word artifact's own
+    # vocabulary (same 4-d toy embedding space here) instead of raising.
+    phrase_path = _phrase_like_artifact(tmp_path)
+    word_artifact_path = _word_axis_artifact(tmp_path)
+    monkeypatch.setattr("spiritbench.config.load_config",
+                        lambda *a, **k: {"word_artifact": str(word_artifact_path)})
+    art = load_art(str(phrase_path))
+    assert "calm" not in art.id_of and "dread" not in art.id_of
+    imag = style_mask(art, "imagist", _axes_file(tmp_path))
+    abst = style_mask(art, "abstract", _axes_file(tmp_path))
+    assert imag.sum() > 0 and abst.sum() > 0
+    assert not np.any(imag & abst)
 
 
 def test_harmonic_phrase_artifact_falls_back_to_word_artifact_axes(tmp_path, monkeypatch):

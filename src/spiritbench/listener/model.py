@@ -2,6 +2,9 @@ import numpy as np
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+YES_VARIANTS = ["yes", " yes", "Yes", " Yes"]
+NO_VARIANTS = ["no", " no", "No", " No"]
+
 
 class HiddenStateModel:
     def __init__(self, model_id: str, device: str = "cpu"):
@@ -9,25 +12,42 @@ class HiddenStateModel:
         self.tokenizer = AutoTokenizer.from_pretrained(model_id)
         dtype = torch.float16 if device == "mps" else torch.float32
         self.model = AutoModelForCausalLM.from_pretrained(
-            model_id, dtype=dtype, output_hidden_states=True).to(device).eval()
+            model_id, dtype=dtype).to(device).eval()
         self.n_layers = self.model.config.num_hidden_layers + 1
+        for label, variants in (("yes", YES_VARIANTS), ("no", NO_VARIANTS)):
+            if not any(len(self.tokenizer(v, add_special_tokens=False)["input_ids"]) == 1
+                      for v in variants):
+                raise ValueError(
+                    f"none of the {label!r} variants {variants} tokenize to a single "
+                    f"token for model {model_id!r}; yes_no_logprobs would always score -inf")
 
     @torch.no_grad()
     def _forward(self, text: str):
+        """Forward pass that also returns hidden states (all n_layers)."""
         ids = self.tokenizer(text, return_tensors="pt").to(self.device)
-        out = self.model(**ids)
+        out = self.model(**ids, output_hidden_states=True)
         hs = torch.stack(out.hidden_states, dim=0)[:, 0]  # [n_layers, n_tokens, d]
-        return hs.float().cpu().numpy(), out.logits[0, -1].float().cpu(), ids["input_ids"].shape[1]
+        result = hs.float().cpu().numpy(), out.logits[0, -1].float().cpu(), ids["input_ids"].shape[1]
+        if self.device == "mps":
+            torch.mps.empty_cache()
+        return result
+
+    @torch.no_grad()
+    def _forward_logits(self, text: str):
+        """Logits-only forward pass — skips materializing all hidden-state layers."""
+        ids = self.tokenizer(text, return_tensors="pt").to(self.device)
+        out = self.model(**ids, output_hidden_states=False)
+        return out.logits[0, -1].float().cpu()
 
     def hidden_states(self, text: str) -> np.ndarray:
         hs, _, _ = self._forward(text)
         return hs
 
-    def hidden_states_with_spans(self, preamble: str, lines: list[str]):
+    def hidden_states_with_spans(self, preamble: str, lines: list[str], sep: str = ".\n"):
         spans, prefix = [], preamble
         for i, line in enumerate(lines):
             start = len(self.tokenizer(prefix)["input_ids"])
-            prefix = prefix + line + (".\n" if i < len(lines) - 1 else "")
+            prefix = prefix + line + (sep if i < len(lines) - 1 else "")
             end = len(self.tokenizer(prefix)["input_ids"])
             spans.append((start, max(end, start + 1)))
         hs = self.hidden_states(prefix)
@@ -36,7 +56,7 @@ class HiddenStateModel:
 
     @torch.no_grad()
     def yes_no_logprobs(self, prompt: str):
-        _, logits, _ = self._forward(prompt)
+        logits = self._forward_logits(prompt)
         logprobs = torch.log_softmax(logits, dim=-1)
 
         def score(variants):
@@ -46,4 +66,4 @@ class HiddenStateModel:
                 if len(toks) == 1:
                     tot = np.logaddexp(tot, logprobs[toks[0]].item())
             return tot
-        return score(["yes", " yes", "Yes", " Yes"]), score(["no", " no", "No", " No"])
+        return score(YES_VARIANTS), score(NO_VARIANTS)
