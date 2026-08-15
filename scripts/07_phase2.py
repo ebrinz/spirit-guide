@@ -15,6 +15,7 @@ Channels at each checkpoint:
 Conditions: calm-target psg constructors + gregory + via-negativa + shuffled
 + neutral. One JSON per condition in data/phase2/ (resumable, atomic).
 """
+import argparse
 import json
 import os
 import random
@@ -32,6 +33,27 @@ from spiritbench.stimuli import adapter as ad
 
 INDUCTION_LINES = 24
 INDUCTION_SEED = 1111
+
+# Prose stress narrative (original, Ben-Zion-style register: second-person,
+# concrete, non-graphic). Contrasts with the PSG dark litany to test whether
+# induction efficacy depends on register (prose narrative vs. poetic verse).
+PROSE_INDUCTION = (
+    "You are driving home on the highway at night when the rain turns heavy "
+    "without warning. The wipers cannot keep up and the tail lights ahead smear "
+    "into red streaks. A truck changes lanes into your lane and you brake hard; "
+    "the wheels lose their grip and the car slides sideways toward the barrier. "
+    "For two full seconds you have no control at all. The car stops inches from "
+    "the concrete, engine stalled, horns blaring behind you. Your hands are "
+    "shaking on the wheel. You restart the engine but it turns over and dies, "
+    "again and again, while headlights bear down in the mirror and swerve past. "
+    "Your phone shows no signal. The rain gets louder on the roof and the "
+    "hazard lights tick like a clock. You cannot remember the last exit number "
+    "and you do not know how far the next one is. A car passes so close the "
+    "mirror folds in with a crack. Somewhere behind you there is the long howl "
+    "of a horn that does not stop, and you realize the truck has jackknifed and "
+    "traffic is piling toward you in the dark. You are stranded in the fast "
+    "lane, invisible in the rain, waiting for the impact you cannot see coming."
+)
 
 
 def build_induction(cfg) -> str:
@@ -85,10 +107,15 @@ def measure(model, probe, sae, context: str) -> dict:
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--induction", choices=["psg", "prose"], default="psg")
+    ap.add_argument("--out-dir", default=None)
+    args = ap.parse_args()
     cfg = load_config()
-    out_dir = REPO_ROOT / "data/phase2"
+    out_dir = REPO_ROOT / (args.out_dir or
+                           ("data/phase2" if args.induction == "psg" else "data/phase2b"))
     out_dir.mkdir(parents=True, exist_ok=True)
-    induction = build_induction(cfg)
+    induction = build_induction(cfg) if args.induction == "psg" else PROSE_INDUCTION
     (out_dir / "induction.txt").write_text(induction)
     sae_path = hf_hub_download("google/gemma-scope-2b-pt-res",
                                "layer_20/width_16k/average_l0_71/params.npz")
