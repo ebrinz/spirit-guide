@@ -33,7 +33,8 @@ def main():
     runs_dir = REPO_ROOT / "data/runs"
     runs_dir.mkdir(parents=True, exist_ok=True)
     stims = []
-    for name in ["data/stimuli/stimuli.jsonl", "data/renders/renders.jsonl"]:
+    for name in ["data/stimuli/stimuli.jsonl", "data/stimuli/stimuli_additions.jsonl",
+                 "data/renders/renders.jsonl"]:
         p = REPO_ROOT / name
         if p.exists():
             stims += [json.loads(l) for l in open(p)]

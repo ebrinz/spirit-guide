@@ -259,3 +259,35 @@ def template_wrap(lines, length, seed, ot_repo) -> list[str]:
         template = templates[i % len(templates)]
         sentences.append(template.format(**values))
     return sentences
+
+
+# ── Lit-review additions (P2 via negativa, P3 Gregory layering) ──────────────
+
+NEGATION_FRAMES = ["not {p}", "nor {p}"]
+
+
+def antipode(target_va) -> tuple[float, float]:
+    """The reflection of a VA target through the center of the circumplex."""
+    return (1.0 - target_va[0], 1.0 - target_va[1])
+
+
+def negate_lines(lines) -> list[str]:
+    """Via negativa (Maimonides, Guide I.58-59): specify the target only by
+    negating its complement — every antipode phrase is negated, nothing asserted."""
+    return [NEGATION_FRAMES[i % len(NEGATION_FRAMES)].format(p=l)
+            for i, l in enumerate(lines)]
+
+
+def gregory_wrap(lines) -> list[str]:
+    """Gregory (1992) semantic layering: opening statement, an and-layered
+    parallel series (Wårvik's Bible-register and-initial density), closing
+    statement — repeated in blocks of 5 along the waypoint path."""
+    out, block = [], 5
+    for i in range(0, len(lines), block):
+        chunk = lines[i:i + block]
+        out.append(f"there is {chunk[0]}")
+        for line in chunk[1:-1]:
+            out.append(f"and {line}")
+        if len(chunk) > 1:
+            out.append(f"this is {chunk[-1]}")
+    return out
