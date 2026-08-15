@@ -19,8 +19,12 @@ def build_laplacian(edges, n_nodes) -> sparse.csr_matrix:
 
 def eigenmodes(L, k):
     k = min(k, L.shape[0] - 2)
-    vals, vecs = eigsh(L, k=k, which="SM")
-    return vals, vecs
+    try:
+        vals, vecs = eigsh(L, k=k, sigma=0, which="LM")
+    except Exception:
+        vals, vecs = eigsh(L, k=k, which="SM")
+    order = np.argsort(vals)
+    return vals[order], vecs[:, order]
 
 
 def stimulus_spectrum(node_ids, eigvecs) -> np.ndarray:
