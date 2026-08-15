@@ -140,10 +140,12 @@ def style_mask(art: Art, style, axes_path) -> np.ndarray:
     with open(axes_path) as f:
         axes = json.load(f)
     ax = axes["concreteness"]
-    pos = np.mean([art.vectors[art.id_of[w]] for w in ax["positive"] if w in art.id_of], axis=0) \
-        if any(w in art.id_of for w in ax["positive"]) else None
-    neg = np.mean([art.vectors[art.id_of[w]] for w in ax["negative"] if w in art.id_of], axis=0) \
-        if any(w in art.id_of for w in ax["negative"]) else None
+    pos_words = ax.get("positive", ax.get("pos"))
+    neg_words = ax.get("negative", ax.get("neg"))
+    pos = np.mean([art.vectors[art.id_of[w]] for w in pos_words if w in art.id_of], axis=0) \
+        if any(w in art.id_of for w in pos_words) else None
+    neg = np.mean([art.vectors[art.id_of[w]] for w in neg_words if w in art.id_of], axis=0) \
+        if any(w in art.id_of for w in neg_words) else None
     if pos is None or neg is None:  # axis words absent (e.g. phrase artifact): project on raw GloVe diff
         raise ValueError("concreteness axis words not in artifact; pass a GloVe-diff axis vector")
     direction = pos - neg
@@ -199,6 +201,6 @@ def template_wrap(lines, length, seed, ot_repo) -> list[str]:
           "long": build_long_sentences}[length]
     n = max(1, len(lines) // 2)
     pool = list(lines)
-    while len(pool) < 2 * n:
+    while len(pool) < 3 * n:
         pool += lines
     return fn(pool, n=n, seed=seed)
