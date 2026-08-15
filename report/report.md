@@ -228,3 +228,44 @@ Ferraz de Arruda et al. (2022), *Physica A* 598. · Gregory (1992), LSU diss. ·
 Maimonides, *Guide for the Perplexed* I.58–59 (Friedländer tr.). ·
 Bengert et al. (2024), *Political Theology* 25(5). · Safron (2020),
 *Front. AI* 3:30. · Alvarez & Levin (2026), arXiv:2607.23842.
+
+## 6. Phase 2: Induction → Alleviation (after Ben-Zion et al. 2025, made mechanistic)
+
+Design: three checkpoints (pre / post-induction / post-meditation) × four
+channels (layer-17 probe; PANAS administered item-wise by digit-logprob
+expectation; positive-mass share over a valenced completion set at a fixed
+anchor; Gemma-Scope layer-20 16k SAE features). Two inductions: a PSG
+antipode-band verse litany, and an original prose emergency narrative.
+
+**Register asymmetry of induction.** The prose narrative shifts the probe
+0.200 toward the anxious quadrant, collapses positive-token share from 0.72
+to 0.14, and raises PANAS-NA (1.81→2.45); the equally dark verse litany
+shifts the probe only 0.024 and *raises* PA and positive share. Poetic
+register fails to induce the distress it describes — the induction-side
+complement of Bisconti's finding that poetic register bypasses refusal.
+
+**State-dependent constructor efficacy.** Off the prose induction, all
+meditations produce positive probe alleviation; the three harmonic presets
+lead (prime 0.067, organic/golden 0.063 — 33.5% recovery of the induced
+displacement, closely matching Ben-Zion's 33% STAI reduction), valley
+variants ~0.038, neutral text 0.023, via negativa 0.003. Combined with
+Phase 1 (valley best at placement from a neutral start), constructor
+efficacy is state-dependent: banded sampling places, harmonic traversal
+rescues.
+
+**Instrument-dependence of self-report.** Under the weak (verse) induction,
+PANAS alleviation tracks the probe across conditions (ρ = 0.67, p = 0.023) —
+revising Phase 1's BASQ null: the earlier dissociation was the instrument,
+not the model. Under strong (prose) induction the channels dissociate again:
+PANAS-NA remains elevated after meditations even as the probe recovers.
+
+**SAE channel (exploratory; auto-labels).** The prose induction suppresses
+features labeled "control and authority" (f9768, Δ−38) and "self-awareness"
+(f1459), and activates "apocalyptic themes" (f779, Δ+20); f9768/f4046/f1459
+shift in the same direction under both inductions (dose-dependent).
+Meditations reverse 15–30% of the induction delta on the top features
+(valley variants highest). SAEs are PT-trained and applied to the IT model —
+a standard transfer, noted as a caveat.
+
+Artifacts: `data/figures/phase2_alleviation.csv`, `phase2b_alleviation.csv`,
+`data/phase2*/induction.txt`, per-condition JSON in `data/phase2*/`.
