@@ -129,3 +129,76 @@ def stimulus_record(art: Art, node_ids, constructor, generator, target_name,
             "waypoints": [{"node": int(i), "v": art.va(i)[0], "a": art.va(i)[1]}
                           for i in node_ids],
             "lines": lines, "text": text}
+
+
+LENGTH_LINES = {"short": 8, "medium": 24, "long": 56}
+
+
+def style_mask(art: Art, style, axes_path) -> np.ndarray:
+    if style is None:
+        return np.ones(len(art.nodes), dtype=bool)
+    with open(axes_path) as f:
+        axes = json.load(f)
+    ax = axes["concreteness"]
+    pos = np.mean([art.vectors[art.id_of[w]] for w in ax["positive"] if w in art.id_of], axis=0) \
+        if any(w in art.id_of for w in ax["positive"]) else None
+    neg = np.mean([art.vectors[art.id_of[w]] for w in ax["negative"] if w in art.id_of], axis=0) \
+        if any(w in art.id_of for w in ax["negative"]) else None
+    if pos is None or neg is None:  # axis words absent (e.g. phrase artifact): project on raw GloVe diff
+        raise ValueError("concreteness axis words not in artifact; pass a GloVe-diff axis vector")
+    direction = pos - neg
+    proj = art.vectors @ direction
+    if style == "imagist":
+        return proj >= np.quantile(proj, 0.6)
+    if style == "abstract":
+        return proj <= np.quantile(proj, 0.4)
+    raise ValueError(style)
+
+
+def polygon_pca(art: Art, start_va, target_va, n_lines, seed) -> list[int]:
+    from sklearn.decomposition import PCA
+    rng = np.random.RandomState(seed)
+    ids = []
+    focus = nearest_node_to_va(art, start_va)
+    for step in range(n_lines):
+        frac = step / max(1, n_lines - 1)
+        wp_va = (1 - frac) * np.asarray(start_va) + frac * np.asarray(target_va)
+        focus = nearest_node_to_va(art, wp_va)
+        fvec = art.vectors[focus]
+        d = np.linalg.norm(art.vectors - fvec, axis=1)
+        nn = np.argsort(d)[1:51]
+        comps = PCA(n_components=2).fit(art.vectors[nn]).components_
+        theta = np.deg2rad(15 * step) + 2 * np.pi * (step % 5) / 5
+        radius = 0.15 * np.linalg.norm(fvec)
+        probe_vec = fvec + radius * (np.cos(theta) * comps[0] + np.sin(theta) * comps[1])
+        pick = int(np.argmin(np.linalg.norm(art.vectors - probe_vec, axis=1)))
+        ids.append(pick)
+    return ids
+
+
+def harmonic(art: Art, artifact_path, start_va, target_va, n_lines, preset, seed,
+             ot_repo, semantic_axes_path) -> list[int]:
+    _ot(ot_repo)
+    import eeg.harmonic_path as hp
+    hp.get_vocab_mask = lambda id_to_word: np.ones(len(id_to_word), dtype=bool)
+    vectors, word_index, id_to_word, v_axis, a_axis, semantic_axes = \
+        hp.load_harmonic_inputs(artifact_path, axes_path=semantic_axes_path,
+                                vocab_cap=len(art.nodes))
+    start_word = art.word(nearest_node_to_va(art, start_va))
+    target_word = art.word(nearest_node_to_va(art, target_va))
+    path = hp.plan_harmonic_waypoints(
+        vectors, word_index, id_to_word, semantic_axes, v_axis, a_axis,
+        start_word, target_word, steps=n_lines, preset=preset, seed=seed)
+    return [art.id_of[s["focus"]] for s in path if s["focus"] in art.id_of][:n_lines]
+
+
+def template_wrap(lines, length, seed, ot_repo) -> list[str]:
+    _ot(ot_repo)
+    from eeg.sentence_builder import build_sentences, build_short_sentences, build_long_sentences
+    fn = {"short": build_short_sentences, "medium": build_sentences,
+          "long": build_long_sentences}[length]
+    n = max(1, len(lines) // 2)
+    pool = list(lines)
+    while len(pool) < 2 * n:
+        pool += lines
+    return fn(pool, n=n, seed=seed)
