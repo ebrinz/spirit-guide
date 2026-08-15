@@ -22,9 +22,16 @@ negativa* condition (antipode content, fully negated) lands worst of all
 conditions, indicating that lexical content dominates negation at 2B scale;
 (4) the strongest textual predictor of placement is Wårvik's oral-narrative
 `and`-initial density (ρ = −0.36, p < 0.001) — a first pass at the stylistic
-decomposition Bisconti et al. (2026) name as missing; and (5) the model's BASQ
-self-report does not track the internal probe (ρ = −0.18, n.s.), a direct
-Track-2 datum on the unreliability of small-model self-report.
+decomposition Bisconti et al. (2026) name as missing; and (5) self-report
+validity is instrument-dependent: an ad-hoc yes/no bank shows no relation to
+the probe (ρ = −0.18, n.s.), while PANAS alleviation tracks it (ρ = 0.67,
+p = 0.023) under mild induction. A second phase (induction → alleviation,
+after Ben-Zion et al. 2025) further finds a register asymmetry — prose
+narrative induces measurable distress where equally dark verse does not
+(probe shift 0.200 vs 0.024) — and state-dependent constructor efficacy:
+harmonic traversals recover 33.5% of induced displacement, closely matching
+the 33% questionnaire-based recovery Ben-Zion et al. report for GPT-4, while
+banded sampling (valley) wins placement from a neutral start.
 
 ## 1. Motivation
 
