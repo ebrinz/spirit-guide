@@ -194,10 +194,27 @@ def harmonic(art: Art, artifact_path, start_va, target_va, n_lines, preset, seed
              ot_repo, semantic_axes_path) -> list[int]:
     _ot(ot_repo)
     import eeg.harmonic_path as hp
-    hp.get_vocab_mask = lambda id_to_word: np.ones(len(id_to_word), dtype=bool)
+    hp.get_vocab_mask = lambda id_to_word: np.zeros(len(id_to_word), dtype=bool)
     vectors, word_index, id_to_word, v_axis, a_axis, semantic_axes = \
         hp.load_harmonic_inputs(artifact_path, axes_path=semantic_axes_path,
                                 vocab_cap=len(art.nodes))
+    if v_axis.ndim == 0 or a_axis.ndim == 0 or np.isnan(v_axis).any() or np.isnan(a_axis).any():
+        # Phrase artifact: VA/semantic axis anchor words (e.g. "good"/"joy") aren't
+        # in its vocabulary (entries are multi-word lines), so build_va_axes silently
+        # returns a degenerate (nan or 0-d) axis. Phrase vectors are mean-GloVe
+        # vectors in the same 300-d space as the word artifact, so build the axes
+        # from the word artifact's own vocabulary instead, and keep traversing the
+        # phrase artifact's vectors/index (already loaded above).
+        from spiritbench.config import load_config
+        word_artifact_path = load_config()["word_artifact"]
+        with open(word_artifact_path) as f:
+            word_meta = json.load(f)
+        word_vectors_path = str(Path(word_artifact_path).parent /
+                                word_meta["metadata"]["vectors_file"])
+        word_vectors, word_word_index, _ = hp.load_data(
+            word_artifact_path, word_vectors_path, vocab_cap=len(word_meta["words"]))
+        v_axis, a_axis = hp.build_va_axes(word_vectors, word_word_index)
+        semantic_axes = hp.load_semantic_axes(semantic_axes_path, word_vectors, word_word_index)
     start_word = art.word(nearest_node_to_va(art, start_va))
     target_word = art.word(nearest_node_to_va(art, target_va))
     path = hp.plan_harmonic_waypoints(
