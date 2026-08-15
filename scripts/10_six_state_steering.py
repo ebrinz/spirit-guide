@@ -31,8 +31,8 @@ from spiritbench.stimuli import adapter as ad
 from spiritbench.stimuli.phrase_bank import load_glove
 
 STATES = {
-    "eros": ["desire", "passion", "kiss", "caress", "embrace", "tender",
-             "longing", "intimate", "sensual", "beloved", "romance", "adore"],
+    "eros": ["lust", "crave", "ache", "yearn", "burn", "hunger",
+             "flesh", "heat", "breathless", "entwined", "devour", "kiss"],
     "creativity": ["create", "invent", "compose", "craft", "design", "original",
                    "inspire", "art", "curious", "spark", "weave", "shape"],
     "imaginative": ["imagine", "dream", "wonder", "vision", "fantasy", "envision",
