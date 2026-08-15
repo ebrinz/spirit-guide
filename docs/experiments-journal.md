@@ -49,8 +49,9 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   NRC/phrase-graph frame; nearest phrase-graph line: "to be the blessed
   morning when you wake".
 
-## E8 — Eros steering (2026-08-16, running)
-- Causal injection of a sensual-register direction at layer 17; dose–response
+## E8 — Six-state steering (2026-08-16, running)
+- Causal injection of six state directions (eros, creativity, imaginative,
+  determined, confident, agape) at layer 17; dose–response
   on probe/PANAS/token-dist/SAE; text-route comparison (phrase-graph amorous
   litany). Measurement-only design (no open-ended generation).
 - Outputs: `data/steering/`, snapshot to `results/steering_*.csv`.

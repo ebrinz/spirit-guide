@@ -1,4 +1,4 @@
-"""E8 — Causal steering into six target states, and route discernment.
+"""E8 — Six-state steering: causal injection into six target states, and route discernment.
 
 States: eros, creativity, imaginative, determined, confident, agape.
 
