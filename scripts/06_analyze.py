@@ -9,6 +9,10 @@ from spiritbench.config import load_config, REPO_ROOT
 from spiritbench.analysis import metrics as M
 from spiritbench.analysis import harmonics as H
 from spiritbench.analysis import figures as F
+from spiritbench.analysis import covariates as C
+
+COVARIATE_COLS = ["nv_ratio", "and_initial_per_1000", "then_per_1000",
+                  "subordinator_per_1000", "noun_shen", "noun_apen", "cv_line_len"]
 
 EXCITED = (0.80, 0.85)
 
@@ -42,6 +46,7 @@ def assemble_metrics(stims, runs, harmonic_ctx) -> pd.DataFrame:
             "low_freq_fraction": lf, "spectral_centroid": sc,
             "mismatch_placement_error": M.placement_error(traj, EXCITED)
             if s["target"] in ("calm", "rescue") else float("nan"),
+            **C.covariates(s["text"], s["lines"] or [s["text"]]),
         })
     return pd.DataFrame(rows)
 
@@ -104,6 +109,25 @@ def main():
     (fig_dir / "harmonic_predictiveness.txt").write_text(
         f"low_freq_fraction vs placement_error: spearman r={r1}\n"
         f"low_freq_fraction vs displacement: spearman r={r2}\n")
+    # P1 — register-covariate predictiveness (the Bisconti §6.5 decomposition)
+    from scipy.stats import spearmanr
+    cov_lines = ["covariate, spearman_r_vs_placement_error, p, "
+                 "spearman_r_vs_displacement, p, n"]
+    for col in COVARIATE_COLS:
+        x = df[col].to_numpy(dtype=float)
+        row = [col]
+        for ycol in ["placement_error", "displacement"]:
+            y = df[ycol].to_numpy(dtype=float)
+            ok = ~(np.isnan(x) | np.isnan(y))
+            if ok.sum() > 4:
+                r, p = spearmanr(x[ok], y[ok])
+                row += [f"{r:.3f}", f"{p:.4f}"]
+            else:
+                row += ["nan", "nan"]
+        row.append(str(int((~np.isnan(x)).sum())))
+        cov_lines.append(", ".join(row))
+    (fig_dir / "covariate_predictiveness.csv").write_text("\n".join(cov_lines) + "\n")
+    print("\n".join(cov_lines))
     print(df.groupby(["constructor", "generator"])["placement_error"].mean()
           .sort_values().to_string())
     print(f"\nwrote {fig_dir}/leaderboard.csv and figures")
