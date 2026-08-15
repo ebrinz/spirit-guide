@@ -11,13 +11,14 @@ _WORD_RE = re.compile(r"[a-z]+")
 
 def load_nrc(path) -> dict:
     nrc = {}
-    for line in open(path, encoding="utf-8"):
-        parts = line.rstrip("\n").split("\t")
-        if len(parts) >= 3:
-            try:
-                nrc[parts[0].lower()] = (float(parts[1]), float(parts[2]))
-            except ValueError:
-                continue  # header row
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            parts = line.rstrip("\n").split("\t")
+            if len(parts) >= 3:
+                try:
+                    nrc[parts[0].lower()] = (float(parts[1]), float(parts[2]))
+                except ValueError:
+                    continue  # header row
     return nrc
 
 
@@ -93,8 +94,9 @@ def build_phrase_artifact(lines, glove, nrc, k, out_dir, name="phrase_graph"):
 def load_glove(path, vocab: set[str]) -> dict:
     """Load only vectors for words in vocab (memory-friendly)."""
     glove = {}
-    for line in open(path, encoding="utf-8"):
-        w, _, rest = line.partition(" ")
-        if w in vocab:
-            glove[w] = np.fromiter(map(float, rest.split()), dtype=np.float32)
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            w, _, rest = line.partition(" ")
+            if w in vocab:
+                glove[w] = np.fromiter(map(float, rest.split()), dtype=np.float32)
     return glove
