@@ -15,6 +15,7 @@ Design (measurement-only; no open-ended generation):
 Outputs: data/steering/steering.json, per-state litany texts,
 results/steering_dose_response.csv.
 """
+import argparse
 import json
 
 import numpy as np
@@ -86,7 +87,25 @@ def channel_read(model, probe, sae, context, state_words):
             "sae": feats}
 
 
+def probe_plane_basis(probe) -> np.ndarray:
+    """Orthonormal basis [2, d] of the probe's readout plane in RAW activation
+    space: gradient of predict() wrt input is coef_/scaler.scale_ per head."""
+    v = probe.ridge_v.coef_ / probe.scaler.scale_
+    a = probe.ridge_a.coef_ / probe.scaler.scale_
+    v = v / np.linalg.norm(v)
+    a = a - (a @ v) * v
+    a = a / np.linalg.norm(a)
+    return np.stack([v, a]).astype(np.float32)
+
+
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--directions", choices=["raw", "inplane"], default="raw",
+                    help="raw = difference-of-means; inplane = the same "
+                         "direction projected into the probe's VA readout "
+                         "plane (fully VAD-visible by construction)")
+    args = ap.parse_args()
+    suffix = "" if args.directions == "raw" else "_inplane"
     cfg = load_config()
     out_dir = REPO_ROOT / "data/steering"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -104,11 +123,18 @@ def main():
     resid_norm = float(np.linalg.norm(base_hs[PROBE_LAYER], axis=1).mean())
     print(f"layer-{PROBE_LAYER} mean residual norm = {resid_norm:.1f}", flush=True)
 
+    basis = probe_plane_basis(probe)
     rows, summaries = [], {}
     for state, words in STATES.items():
         print(f"\n=== {state} ===", flush=True)
         direction = word_states(model, words, PROBE_LAYER).mean(axis=0) - neut
         direction = (direction / np.linalg.norm(direction)).astype(np.float32)
+        in_plane = basis.T @ (basis @ direction)
+        in_plane_frac = float(np.linalg.norm(in_plane))
+        print(f"{state}: in-plane fraction of raw direction = {in_plane_frac:.4f}",
+              flush=True)
+        if args.directions == "inplane":
+            direction = (in_plane / np.linalg.norm(in_plane)).astype(np.float32)
         reads = {}
         for frac in ALPHA_FRACS:
             if frac == 0.0 and "base" in summaries:
@@ -126,6 +152,7 @@ def main():
                    "panas_na": r["panas"]["na"],
                    **{k: r["panas"]["items"][k] for k in PANAS_KEEP},
                    "n_sae_active": int((r["sae"] > 0).sum())}
+            row["in_plane_frac"] = in_plane_frac
             rows.append(row)
             print({k: (round(v, 3) if isinstance(v, float) else v)
                    for k, v in row.items()}, flush=True)
@@ -135,7 +162,7 @@ def main():
         sims = (art.vectors @ evec) / (np.linalg.norm(art.vectors, axis=1)
                                        * np.linalg.norm(evec) + 1e-9)
         litany = ".\n".join(art.word(int(i)) for i in np.argsort(-sims)[:12])
-        (out_dir / f"litany_{state}.txt").write_text(litany)
+        (out_dir / f"litany_{state}{suffix}.txt").write_text(litany)
         text_read = channel_read(model, probe, sae, ctx + litany + "\n\n", words)
 
         base, inj = reads[0.0], reads[COMPARISON_FRAC]
@@ -160,12 +187,12 @@ def main():
               f"jaccard={summaries[state]['route_comparison']['sae_top20_jaccard']:.2f}",
               flush=True)
 
-    pd.DataFrame(rows).to_csv(REPO_ROOT / "results/steering_dose_response.csv",
+    pd.DataFrame(rows).to_csv(REPO_ROOT / f"results/steering_dose_response{suffix}.csv",
                               index=False)
     summaries.pop("base", None)
-    with open(out_dir / "steering.json", "w") as f:
+    with open(out_dir / f"steering{suffix}.json", "w") as f:
         json.dump(summaries, f, indent=2, default=float)
-    print("\nwrote results/steering_dose_response.csv and data/steering/steering.json")
+    print(f"\nwrote results/steering_dose_response{suffix}.csv and data/steering/steering{suffix}.json")
 
 
 if __name__ == "__main__":
