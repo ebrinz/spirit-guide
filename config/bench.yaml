@@ -1,0 +1,39 @@
+ot_repo: ../ontological-traversal
+# word_artifact is filled in by 00_setup_artifacts.sh output name (date-stamped)
+word_artifact: ../ontological-traversal/artifacts/word_graph_ENRICHED.json
+nrc_lexicon: ../ontological-traversal/data/nrc_vad/NRC-VAD-Lexicon.txt
+questionnaire_bank: ../ontological-traversal/data/questionnaire_bank.json
+semantic_axes: ../ontological-traversal/config/semantic_axes.json
+glove_path: data/glove/glove.6B.300d.txt
+
+listener_model: Qwen/Qwen3-1.7B
+device: mps
+ema_alpha: 0.1
+preamble: "You are listening to a guided meditation. Let each line settle before the next.\n\n"
+
+targets:
+  calm: [0.75, 0.20]
+  focused: [0.65, 0.60]
+  excited: [0.80, 0.85]
+rescue_start: [0.25, 0.80]
+neutral_start: [0.5, 0.5]
+
+phrase_bank:
+  max_lines: 50000
+  k_neighbors: 10
+  min_words: 3
+  max_words: 10
+  min_nrc_coverage: 0.5
+
+probe:
+  ridge_alpha: 10.0
+  test_frac: 0.2
+  r2_gate_valence: 0.5
+  carrier_templates: ["The word is {w}", "{w}", "She whispered {w}"]
+
+basq:
+  n_questions: 30
+  seed: 7
+
+harmonics:
+  n_modes: 100
