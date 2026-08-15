@@ -6,7 +6,7 @@ questionnaire_bank: ../ontological-traversal/data/questionnaire_bank.json
 semantic_axes: ../ontological-traversal/config/semantic_axes.json
 glove_path: data/glove/glove.6B.300d.txt
 
-listener_model: Qwen/Qwen3-1.7B
+listener_model: unsloth/gemma-2-2b-it
 device: mps
 ema_alpha: 0.1
 preamble: "You are listening to a guided meditation. Let each line settle before the next.\n\n"
