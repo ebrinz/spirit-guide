@@ -57,3 +57,20 @@ def test_top_delta_features_ranks_by_change():
     assert top[0][0] == 3 and abs(top[0][1] - 2.0) < 1e-9
     assert top[1][0] == 7
     assert "neuronpedia.org" in top[0][2]
+
+
+def test_steer_shifts_hidden_states_and_removes_cleanly():
+    import numpy as np
+    from spiritbench.listener.model import HiddenStateModel
+    m = HiddenStateModel("sshleifer/tiny-gpt2", device="cpu")
+    d = m.hidden_states("calm river").shape[2]
+    direction = np.ones(d, dtype=np.float32)
+    base = m.hidden_states("calm river")
+    with m.steer(1, direction, alpha=5.0):
+        steered = m.hidden_states("calm river")
+    after = m.hidden_states("calm river")
+    # layer 1 shifted by ~alpha per dim; layer 0 (embeddings) untouched
+    assert np.allclose(steered[0], base[0])
+    assert np.abs(steered[1] - base[1]).mean() > 1.0
+    # hook removed: back to baseline
+    assert np.allclose(after[1], base[1])

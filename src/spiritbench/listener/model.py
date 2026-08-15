@@ -1,3 +1,5 @@
+from contextlib import contextmanager
+
 import numpy as np
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -53,6 +55,32 @@ class HiddenStateModel:
         hs = self.hidden_states(prefix)
         spans = [(s, min(e, hs.shape[1])) for s, e in spans]
         return hs, spans
+
+    @contextmanager
+    def steer(self, hs_layer: int, direction: np.ndarray, alpha: float):
+        """Add alpha * direction to the residual stream that hidden_states()
+        reports at index `hs_layer` (i.e. the OUTPUT of decoder block
+        hs_layer-1), for every forward pass inside the context."""
+        if hs_layer < 1:
+            raise ValueError("hs_layer must be >= 1 (0 is the embedding layer)")
+        try:                                   # llama/gemma/qwen family
+            blocks = self.model.model.layers
+        except AttributeError:                 # gpt2 family
+            blocks = self.model.transformer.h
+        block = blocks[hs_layer - 1]
+        vec = torch.tensor(direction, dtype=self.model.dtype,
+                           device=self.device) * alpha
+
+        def hook(_mod, _inp, out):
+            if isinstance(out, tuple):
+                return (out[0] + vec,) + out[1:]
+            return out + vec
+
+        handle = block.register_forward_hook(hook)
+        try:
+            yield
+        finally:
+            handle.remove()
 
     @torch.no_grad()
     def option_logprobs(self, prompt: str, options: list[str]) -> list[float]:

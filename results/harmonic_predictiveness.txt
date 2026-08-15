@@ -1,0 +1,5 @@
+low_freq_fraction vs placement_error: spearman r=0.12421929402766169
+low_freq_fraction vs displacement: spearman r=0.2842354888947659
+path_dirichlet vs placement_error: spearman r=-0.140 p=0.3480
+path_dirichlet vs displacement: spearman r=-0.498 p=0.0004
+shuffled dirichlet higher than source in 6/6 pairs

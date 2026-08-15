@@ -1,0 +1,8 @@
+covariate, spearman_r_vs_placement_error, p, spearman_r_vs_displacement, p, n
+nv_ratio, -0.105, 0.3026, 0.184, 0.0701, 98
+and_initial_per_1000, -0.359, 0.0003, -0.250, 0.0131, 98
+then_per_1000, -0.086, 0.3980, -0.007, 0.9439, 98
+subordinator_per_1000, -0.154, 0.1306, -0.167, 0.1007, 98
+noun_shen, -0.243, 0.0160, -0.068, 0.5044, 98
+noun_apen, -0.256, 0.0665, 0.229, 0.1032, 52
+cv_line_len, -0.224, 0.0271, -0.211, 0.0378, 97
