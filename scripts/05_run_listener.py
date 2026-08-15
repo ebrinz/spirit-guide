@@ -1,8 +1,5 @@
 """Run every stimulus through the listener; write one JSON per stimulus (resumable)."""
 import json
-from pathlib import Path
-
-import numpy as np
 
 from spiritbench.config import load_config, REPO_ROOT
 from spiritbench.listener.model import HiddenStateModel
@@ -50,8 +47,12 @@ def main():
                                cfg["ema_alpha"], bank, cfg["basq"])
             if (stim.get("generator") == "psg" and stim.get("target") == "calm"
                     and stim.get("params", {}).get("length") == "medium"):
-                rec["noframe"] = run_stimulus(model, probe, stim, "", cfg["ema_alpha"],
-                                              bank, cfg["basq"])
+                try:
+                    rec["noframe"] = run_stimulus(model, probe, stim, "", cfg["ema_alpha"],
+                                                  bank, cfg["basq"])
+                except Exception as e:
+                    rec["noframe"] = {"error": repr(e)}
+                    print(f"NOFRAME FAILED {stim['id']}: {e!r}")
         except Exception as e:
             rec = {"stimulus_id": stim["id"], "error": repr(e)}
             print(f"FAILED {stim['id']}: {e!r}")
