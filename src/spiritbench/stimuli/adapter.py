@@ -118,6 +118,18 @@ def valley_shape(art: Art, target_va, n_lines, seed, mask=None) -> list[int]:
     return ids[:n_lines]
 
 
+def apply_mask_to_path(art: Art, ids, mask) -> list[int]:
+    mask_indices = np.where(mask)[0]
+    out = []
+    for i in ids:
+        if mask[i]:
+            out.append(i)
+        else:
+            d = np.linalg.norm(art.vectors[mask_indices] - art.vectors[i], axis=1)
+            out.append(int(mask_indices[np.argmin(d)]))
+    return out
+
+
 def stimulus_record(art: Art, node_ids, constructor, generator, target_name,
                     target_va, params) -> dict:
     lines = [art.word(i) for i in node_ids]
