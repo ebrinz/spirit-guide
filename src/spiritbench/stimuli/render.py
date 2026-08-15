@@ -25,7 +25,8 @@ def make_prompt_batch(stims, out_path):
 
 
 def ingest_renders(prompts_path, responses_path, stims_by_id, out_path):
-    responses = [json.loads(l) for l in open(responses_path)]
+    with open(responses_path) as f:
+        responses = [json.loads(l) for l in f]
     n = 0
     with open(out_path, "w") as f:
         for r in responses:

@@ -1,7 +1,6 @@
 """Emit render prompts (mode=prompts); ingest Claude's responses (mode=ingest)."""
 import json
 import sys
-from pathlib import Path
 
 from spiritbench.config import REPO_ROOT
 from spiritbench.stimuli.render import make_prompt_batch, ingest_renders
@@ -11,7 +10,8 @@ def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "prompts"
     rdir = REPO_ROOT / "data/renders"
     rdir.mkdir(parents=True, exist_ok=True)
-    stims = [json.loads(l) for l in open(REPO_ROOT / "data/stimuli/stimuli.jsonl")]
+    with open(REPO_ROOT / "data/stimuli/stimuli.jsonl") as f:
+        stims = [json.loads(l) for l in f]
     if mode == "prompts":
         n = make_prompt_batch(stims, rdir / "prompts.jsonl")
         print(f"wrote {n} prompts to {rdir / 'prompts.jsonl'}")
