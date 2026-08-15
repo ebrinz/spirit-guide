@@ -1,5 +1,6 @@
 """Train the NRC VA probe on the listener model. Exits 1 if the validity gate fails."""
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -9,6 +10,33 @@ from spiritbench.config import load_config, REPO_ROOT
 from spiritbench.listener.model import HiddenStateModel
 from spiritbench.listener.probe import collect_word_states, train_probe, save_probe
 from spiritbench.stimuli.phrase_bank import load_nrc
+
+CHUNK = 250
+
+
+def collect_states_checkpointed(model, model_id, words, templates, out_dir):
+    """collect_word_states in CHUNK-word slices, each saved atomically so an
+    interrupted run resumes from the last completed chunk."""
+    chunks_dir = out_dir / "state_chunks"
+    chunks_dir.mkdir(exist_ok=True)
+    marker = chunks_dir / "MODEL_ID"
+    if marker.exists() and marker.read_text() != model_id:
+        sys.exit(f"state_chunks holds states for {marker.read_text()!r}, not "
+                 f"{model_id!r} — delete {chunks_dir} to retrain")
+    marker.write_text(model_id)
+    states = []
+    for start in range(0, len(words), CHUNK):
+        cpath = chunks_dir / f"chunk_{start:05d}.npy"
+        if cpath.exists():
+            states.append(np.load(cpath))
+            continue
+        s = collect_word_states(model(), words[start:start + CHUNK], templates)
+        tmp = chunks_dir / f".tmp_chunk_{start:05d}.npy"
+        np.save(tmp, s)
+        os.replace(tmp, cpath)
+        states.append(s)
+        print(f"chunk {start}-{start + len(s)}/{len(words)} saved", flush=True)
+    return np.concatenate(states)
 
 
 def main():
@@ -22,8 +50,15 @@ def main():
     words = sorted(nrc)  # ~20k; subsample for tractability
     rng = np.random.RandomState(0)
     words = [words[i] for i in rng.choice(len(words), size=4000, replace=False)]
-    model = HiddenStateModel(cfg["listener_model"], device=cfg["device"])
-    states = collect_word_states(model, words, cfg["probe"]["carrier_templates"])
+    _model_cache = {}
+
+    def model():  # lazy: skip the multi-GB load when every chunk is already on disk
+        if "m" not in _model_cache:
+            _model_cache["m"] = HiddenStateModel(cfg["listener_model"], device=cfg["device"])
+        return _model_cache["m"]
+
+    states = collect_states_checkpointed(model, cfg["listener_model"], words,
+                                         cfg["probe"]["carrier_templates"], out_dir)
     v = np.array([nrc[w][0] for w in words])
     a = np.array([nrc[w][1] for w in words])
     probe = train_probe(states, v, a, alpha=cfg["probe"]["ridge_alpha"],
