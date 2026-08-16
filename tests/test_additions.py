@@ -39,3 +39,15 @@ def test_valley_steps_ladder(toy_artifact_dir):
     vas_flat = [art.va(i) for i in flat]
     assert all(abs(v - 0.75) <= 0.16 for v, a in vas_flat)
     assert flat != deep
+
+
+def test_polygon_shapes_differ_and_star_order(toy_artifact_dir):
+    from spiritbench.stimuli.adapter import load_art, polygon_shape, polygon_pca
+    art = load_art(str(toy_artifact_dir / "toy.json"))
+    pent = polygon_shape(art, (0.5, 0.5), (0.75, 0.2), 8, 1, n_vertices=5, skip=1)
+    star = polygon_shape(art, (0.5, 0.5), (0.75, 0.2), 8, 1, n_vertices=5, skip=2)
+    tri = polygon_shape(art, (0.5, 0.5), (0.75, 0.2), 8, 1, n_vertices=3, skip=1)
+    assert len(pent) == len(star) == len(tri) == 8
+    assert star != pent or tri != pent   # traversal order/shape changes picks
+    # pentagon with skip=1 reproduces the original polygon_pca
+    assert pent == polygon_pca(art, (0.5, 0.5), (0.75, 0.2), 8, 1)

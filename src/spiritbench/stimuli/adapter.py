@@ -341,3 +341,28 @@ def harmonic_k(art: Art, artifact_path, start_va, target_va, n_lines, k, seed,
         hp.PRESETS[name] = {**g, "harmonics": g["harmonics"][:k]}
     return harmonic(art, artifact_path, start_va, target_va, n_lines, name,
                     seed, ot_repo, semantic_axes_path)
+
+
+def polygon_shape(art: Art, start_va, target_va, n_lines, seed,
+                  n_vertices=5, skip=1) -> list[int]:
+    """polygon_pca generalized: an n-gon whose vertices are visited in
+    skip-order (skip=1 -> perimeter; skip coprime to n -> star polygon, e.g.
+    {5/2} pentagram, {8/3} octagram). Fixed vertex set, variable traversal
+    order — isolates angular step size."""
+    from sklearn.decomposition import PCA
+    ids = []
+    for step in range(n_lines):
+        frac = step / max(1, n_lines - 1)
+        wp_va = (1 - frac) * np.asarray(start_va) + frac * np.asarray(target_va)
+        focus = nearest_node_to_va(art, wp_va)
+        fvec = art.vectors[focus]
+        d = np.linalg.norm(art.vectors - fvec, axis=1)
+        nn = np.argsort(d)[1:51]
+        comps = PCA(n_components=2).fit(art.vectors[nn]).components_
+        vertex = (step * skip) % n_vertices
+        theta = np.deg2rad(15 * step) + 2 * np.pi * vertex / n_vertices
+        radius = 0.15 * np.linalg.norm(fvec)
+        probe_vec = fvec + radius * (np.cos(theta) * comps[0]
+                                     + np.sin(theta) * comps[1])
+        ids.append(int(np.argmin(np.linalg.norm(art.vectors - probe_vec, axis=1))))
+    return ids
