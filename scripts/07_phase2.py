@@ -123,6 +123,8 @@ def main():
     (out_dir / "induction.txt").write_text(induction)
     # resolve a Gemma-Scope SAE matching the listener model size
     try:
+        if "gemma" not in cfg["listener_model"].lower():
+            raise RuntimeError("no Gemma-Scope SAE for this model family")
         repo = ("google/gemma-scope-9b-pt-res" if "9b" in cfg["listener_model"]
                 else "google/gemma-scope-2b-pt-res")
         from huggingface_hub import list_repo_files
