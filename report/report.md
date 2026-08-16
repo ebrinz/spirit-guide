@@ -124,8 +124,8 @@ compositionally processed.
 
 **Complexity variants (§13).** Two parameterized ladders mature the family:
 `harmonic-k` truncates the golden preset to its first k components
-(k ∈ {1,2,3,4,6}), and `valley-s` varies the number of interpolation bands
-(s ∈ {0,2,4,6}; s = 0 is a pure target-band litany).
+(k in {1,2,3,4,6}), and `valley-s` varies the number of interpolation bands
+(s in {0,2,4,6}; s = 0 is a pure target-band litany).
 
 ### 2.3 Generators — renderings of a path into text
 
@@ -542,7 +542,7 @@ ornamentation. (Orbit width is the identified knob that would make richness
 a live dial.)
 
 **Valley resolution (`valley-s`, s = 0…6 interpolation bands): monotone
-cost.** Placement worsens with depth (0.365 at s ∈ {0, 2} → 0.411 at s = 6;
+cost.** Placement worsens with depth (0.365 at s in {0, 2} → 0.411 at s = 6;
 ρ = +0.39 with placement error) — every added excursion through
 intermediate affective bands drags the endpoint off-target, and the pure
 target-band litany (s = 0) ties for best.
