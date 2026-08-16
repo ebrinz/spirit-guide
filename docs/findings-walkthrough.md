@@ -250,6 +250,107 @@ pentagram — on the oldest contemplative technology there is.
 
 ---
 
+---
+
+## Interlude — three constructions, three signatures
+
+Reading a construction *with its data* teaches the whole method in a glance.
+Each line below is prefixed with its human-rated valence (0 = darkest,
+1 = brightest); targets are the NRC centroids of each state's vocabulary.
+No model, no taste — pure geometry over the phrase graph.
+
+### Valley → imaginative (target V 0.77, A 0.54) — the staged arc
+
+> `0.75` yea and in quiet sleep
+> `0.75` quiet as a moonbeam
+> `0.74` i pine for rest
+> `0.76` her eyes blue heavens were serene with soul
+> `0.75` wherein i dwell serene
+> `0.74` a time of peaceful prayer
+> `0.76` the quiet countryside
+> `0.77` autumn leaves autumn leaves
+> `0.62` like hyacinth flowers beneath the snow sleeping
+> `0.63` the pleasant wood together and sat down
+> `0.64` his face is like the tan
+> `0.66` above the nation s council hall
+> `0.68` round the green bosom d earth sea swept
+> `0.69` to do the guests high honor likewise the table sought
+> `0.70` be swift as the thought of the wanderer dreaming
+> `0.72` lighting of city and port
+> `0.74` youth s glad dream in its heart of gloom
+> `0.75` his wife and tender children to sustain
+> `0.77` awake to greet prepare to sing
+> `0.77` a gallant train to meet this loving pair
+> `0.77` the glorious stars crown every night
+> `0.76` from some approaching wonder and behold
+> `0.76` with store of gold and silver and raiment rich beside
+> `0.76` my spirits buoyant hopeful free
+
+*Ground in calm, ascend band by band into wonder; the scores warm as the poem
+climbs, and it ends by naming its own target state.*
+
+### Triangle → eros (target V 0.69, A 0.76) — the mantra shape
+
+> `0.50` the courier aquiline so swiftly gone
+> `0.73` sweet sweet and clear
+> `0.58` would she be captured she must fly
+> `0.64` to do his will to seek his face
+> `0.84` win his dear brother with his prayer
+> `0.80` oh happy maid too happy boy
+> `0.55` since sixty years ago
+> `0.59` they with one shout proclaim their law my will
+> `0.79` though dear his ambition and precious his dream
+> `0.49` the rose is dead the summer fled
+> `0.66` less remarkable as an orator a theater director a journalistic
+> `0.79` thou art o god
+> `0.88` of boundless love and tenderness
+> `0.57` the spirit of self sacrifice
+> `0.65` let s proclaim good canary s name
+> `0.51` see the wild herd nobly ranging
+> `0.33` the wheeling kite s wild solitary cry
+> `0.65` that great rogue alcibiades
+> `0.41` the day the two in battle died
+> `0.66` my bosom thrills with youthful passion shaken
+> `0.66` the angel s cell would lightly tread and breathe
+> `0.68` to common sense they now appeal
+> `0.68` der hero has bound
+> `0.76` to find him swift fly
+
+*Three zones — sweetness, pursuit, passion — orbited rather than traversed:
+the scores cycle instead of climbing. Revisiting, not traveling.*
+
+### Harmonic (golden) → confident (target V 0.78, A 0.47) — the sweep that fixates
+
+> `0.67` can it be so
+> `0.67` can it so be
+> `0.73` it will have been
+> `0.68` will he be uncompassionate
+> `0.47` the way we all must go
+> `0.58` enjoyd would be
+> `0.48` i have lost
+> `0.65` i take my way
+> `0.75` have i taken do i take
+> `0.65` all i should have to do would be
+> `0.58` the ways that we have gone
+> `0.60` if they will go
+> `0.70` will you will you
+> `0.94` gold gold gold
+> `0.76` like gold red gold
+> `0.94` cruz gold gold
+> `0.82` then you have gold have real gold
+> `0.81` some high gold embassage
+> `0.75` though days be blue or gold
+> `0.75` they bring some silver others gold
+> `0.91` bright vlashin in gold
+> `0.67` laden with silver enow and gold
+> `0.66` graspeth the gold string
+> `0.78` gold or silver every day
+
+*Doubt → resolve → treasure. The sweep hunting "confident" discovers that in
+nineteenth-century verse, assurance lives next to gold — and falls into a
+spontaneous mantra ("gold gold gold"), the repetition mechanism arriving
+uninvited.*
+
 ## The one-breath version
 
 > Language models inherit a shared, measurable geometry of feeling from
