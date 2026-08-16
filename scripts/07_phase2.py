@@ -96,13 +96,17 @@ def measure(model, probe, sae, context: str) -> dict:
     anchor_text = context + ANCHOR
     hs = model.hidden_states(anchor_text)
     probe_va = probe.predict(hs[probe.layer][-1:])[0]
-    sae_feats = S.encode(hs[S.SAE_LAYER][-1].astype(np.float32), sae)
-    nz = np.nonzero(sae_feats)[0]
+    if sae is not None:
+        sae_feats = S.encode(hs[S.SAE_LAYER][-1].astype(np.float32), sae)
+        nz = np.nonzero(sae_feats)[0]
+        sae_active = {int(i): float(sae_feats[i]) for i in nz}
+    else:
+        sae_active = {}
     return {
         "probe_va": [float(probe_va[0]), float(probe_va[1])],
         "panas": administer_panas(model, context),
         "tokendist": valence_shift(model, context),
-        "sae_active": {int(i): float(sae_feats[i]) for i in nz},
+        "sae_active": sae_active,
     }
 
 
@@ -117,9 +121,19 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
     induction = build_induction(cfg) if args.induction == "psg" else PROSE_INDUCTION
     (out_dir / "induction.txt").write_text(induction)
-    sae_path = hf_hub_download("google/gemma-scope-2b-pt-res",
-                               "layer_20/width_16k/average_l0_71/params.npz")
-    sae = S.load_sae(sae_path)
+    # resolve a Gemma-Scope SAE matching the listener model size
+    try:
+        repo = ("google/gemma-scope-9b-pt-res" if "9b" in cfg["listener_model"]
+                else "google/gemma-scope-2b-pt-res")
+        from huggingface_hub import list_repo_files
+        cands = sorted(f for f in list_repo_files(repo)
+                       if f.startswith("layer_20/width_16k/average_l0_")
+                       and f.endswith("params.npz"))
+        sae = S.load_sae(hf_hub_download(repo, cands[len(cands) // 2]))
+        print(f"SAE: {repo}/{cands[len(cands) // 2]}", flush=True)
+    except Exception as e:
+        sae = None
+        print(f"SAE unavailable ({e!r}) — sae channel skipped", flush=True)
     conditions = select_conditions()
     print(f"{len(conditions)} conditions; induction = {len(induction.split(chr(10)))} lines")
     model = HiddenStateModel(cfg["listener_model"], device=cfg["device"])
