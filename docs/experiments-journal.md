@@ -163,3 +163,21 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   ~ displacement rho=-0.10; triangle best (0.397) at highest dirichlet.
 - Post-hoc: repetition (few revisited zones) as deeper active ingredient.
   `results/polygon_shapes_llama1b_r12.csv`.
+
+## E18 — Random-direction navigation by selection (2026-08-16, Llama)
+- 3 random unit directions at probe layer vs valence control; litanies of
+  top/bottom/random-projecting phrases. Separation: random dirs ~0.0 sigma
+  (−0.05/−0.15/−0.16); valence +0.99. Open-loop selection steers only
+  language-carved directions — individual-phrase projections wash out in
+  composition on arbitrary coordinates.
+
+## E19 — Random-direction navigation by feedback search (2026-08-16, Llama)
+- Greedy closed-loop: 8 steps × 40 candidates, keep whatever moves the
+  measured anchor-state projection toward the target (random-2, same
+  normalization as E18). Unrelated single words: +0.63 sigma; arbitrary
+  phrases: +1.14 sigma (> valence control's selection separation).
+- The E18 boundary is a METHOD limit: text reaches nameless coordinates when
+  navigated by measurement-in-the-loop. Navigation trilogy: open-loop content
+  = carved directions only; closed-loop feedback = arbitrary directions;
+  injection = all directions but behaviorally inert. Caveats: n=1 direction/
+  seed, greedy optimizes the readout itself. `data/logs/e19_search.log`.
