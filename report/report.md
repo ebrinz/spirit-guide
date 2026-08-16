@@ -322,9 +322,14 @@ empirically. Corrected findings:
    determined 0.69, confident 0.55, creativity 0.50, versus imaginative 0.07,
    agape 0.07, eros 0.01. Agentive states steer; receptive/relational states
    resist.
-3. **The lexicon reads desire as distress:** the eros direction moves the
-   probe to (V 0.01, A 0.81) — NRC rates lust-register vocabulary as
-   negative/high-arousal, and the probe faithfully reports that inheritance.
+3. **The lexicon reads desire as tension:** with a polysemous lust-register
+   set (ache, burn, hunger) the eros direction drives the probe to (V 0.01,
+   A 0.81); replacing it with single-connotation desire vocabulary (lust,
+   amorous, tryst, ...) recovers valence to 0.38 — still below baseline
+   0.59 — at unchanged arousal 0.82. Roughly half the "distress" reading was
+   pain/fire/food contamination; the residual is real: NRC codes even
+   unambiguous desire as high-arousal and valence-ambivalent, never simply
+   positive. Eros stays behaviorally unsteerable under both vocabularies.
 4. **Probing ≠ causation:** injecting along the probe's own readout gradient
    saturates the probe far outside its trained range (V −0.96 to +1.94)
    while downstream behavior barely moves; the raw, mostly out-of-plane

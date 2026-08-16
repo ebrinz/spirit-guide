@@ -83,3 +83,11 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   channel dissociation.
 - Text-vs-injection routes: cos ≤ 0.25, jaccard ~0.1 everywhere.
 - `results/steering_dose_response{,_inplane}.csv`, `data/steering/steering{,_inplane}.json`.
+
+## E8d — Eros term disambiguation (2026-08-16)
+- Single-connotation set (lust, desire, passion, sensual, erotic, amorous,
+  carnal, seductive, ardor, voluptuous, caress, tryst) vs old polysemous set:
+  probe V at max dose 0.01 → 0.38 (baseline 0.59), A unchanged 0.82,
+  NA 2.35 → 1.93, token steerability still ~0. ~Half the distress reading was
+  ache/burn/hunger contamination; residual: NRC codes clean desire as
+  high-arousal, valence-ambivalent. `results/steering_dose_response_eros2.csv`.
