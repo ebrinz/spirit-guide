@@ -6,3 +6,4 @@ __pycache__/
 .DS_Store
 data_gemma2b/
 docs/papers/
+data_gemma9b/
