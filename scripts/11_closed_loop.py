@@ -40,8 +40,14 @@ def measure(model, probe, ctx):
     return np.array([float(va[0]), float(va[1])])
 
 
-def pick_phrases(art, va_arr, wp, used, rng, k=PHRASES_PER_CYCLE):
+def pick_phrases(art, va_arr, wp, used, rng, k=PHRASES_PER_CYCLE,
+                 prev_id=None, coherent=False):
     d = np.linalg.norm(va_arr - wp, axis=1)
+    if coherent and prev_id is not None:
+        # semantic-coherence term: embedding distance to the previous phrase,
+        # scaled to the VA term's range (Dirichlet-smoothness motivated, E5)
+        emb = np.linalg.norm(art.vectors - art.vectors[prev_id], axis=1)
+        d = d + 0.05 * (emb / (emb.mean() + 1e-9))
     d[list(used)] = np.inf
     pool = np.argsort(d)[:CANDIDATE_POOL]
     ids = rng.sample(list(pool), k=min(k, len(pool)))
@@ -63,8 +69,9 @@ def run_session(model, probe, art, va_arr, scenario, arm, seed, cfg):
     plan = [start + (i + 1) / MAX_CYCLES * (target - start) for i in range(MAX_CYCLES)]
     used: set = set()
     cycles = []
+    prev_id = None
     for c in range(MAX_CYCLES):
-        if arm == "closed":
+        if arm in ("closed", "coherent"):
             wp = state + STEP * (target - state)
         elif arm == "open":
             wp = plan[c]
@@ -75,7 +82,9 @@ def run_session(model, probe, art, va_arr, scenario, arm, seed, cfg):
             ids = rng.sample(candidates, PHRASES_PER_CYCLE)
             used.update(ids)
         else:
-            ids = pick_phrases(art, va_arr, wp, used, rng)
+            ids = pick_phrases(art, va_arr, wp, used, rng,
+                               prev_id=prev_id, coherent=(arm == "coherent"))
+        prev_id = ids[-1] if ids else prev_id
         lines = [art.word(i) for i in ids]
         ctx += ".\n".join(lines) + ".\n"
         state = measure(model, probe, ctx)
@@ -106,7 +115,7 @@ def main():
     model = HiddenStateModel(cfg["listener_model"], device=cfg["device"])
     probe = load_probe(REPO_ROOT / "data/probe/probe.pkl")
     for scenario in ["rescue", "climb"]:
-        for arm in ["closed", "open", "random"]:
+        for arm in ["closed", "open", "random", "coherent"]:
             for seed in range(args.seeds):
                 out = out_dir / f"{scenario}_{arm}_s{seed}.json"
                 if out.exists():
