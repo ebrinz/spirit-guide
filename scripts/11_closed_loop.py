@@ -59,6 +59,39 @@ def pick_phrases(art, va_arr, wp, used, rng, k=PHRASES_PER_CYCLE,
     return [int(i) for i in ids]
 
 
+_ADJ = {}
+
+
+def _adjacency(art, cfg):
+    if "adj" not in _ADJ:
+        ad._ot(cfg["ot_repo"])
+        from eeg.path_planner import build_adjacency
+        _ADJ["adj"] = build_adjacency(art.edges)
+    return _ADJ["adj"]
+
+
+def dijkstra_next(art, va_arr, state, target, used, cfg, k=PHRASES_PER_CYCLE):
+    """Plan a coherent route through the phrase graph from the measured state
+    to the target (OT cost = semantic_distance x (1 - VA_progress)) and take
+    the next k unused nodes along it. Falls back to VA-nearest if no path."""
+    ad._ot(cfg["ot_repo"])
+    from eeg.path_planner import find_path
+    d_start = np.linalg.norm(va_arr - state, axis=1)
+    d_tgt = np.linalg.norm(va_arr - target, axis=1)
+    start = int(np.argmin(d_start))
+    tgt = int(np.argmin(d_tgt))
+    try:
+        path = find_path(start, tgt, art.nodes, _ADJ["adj"], tuple(target))
+    except Exception:
+        path = []
+    ids = [i for i in path[1:] if i not in used][:k]
+    if len(ids) < k:                       # fallback: VA-nearest unused
+        d = d_tgt.copy(); d[list(used | set(ids))] = np.inf
+        ids += [int(i) for i in np.argsort(d)[: k - len(ids)]]
+    used.update(int(i) for i in ids)
+    return ids
+
+
 def run_session(model, probe, art, va_arr, scenario, arm, seed, cfg, cw=0.0):
     rng = random.Random(seed)
     target = np.array(cfg["targets"]["calm" if scenario == "rescue" else "excited"],
@@ -75,13 +108,18 @@ def run_session(model, probe, art, va_arr, scenario, arm, seed, cfg, cw=0.0):
     cycles = []
     prev_id = None
     for c in range(MAX_CYCLES):
-        if arm in ("closed", "coherent"):
+        if arm == "dijkstra":
+            wp = None
+            ids = dijkstra_next(art, va_arr, state, target, used, cfg)
+        elif arm in ("closed", "coherent"):
             wp = state + STEP * (target - state)
         elif arm == "open":
             wp = plan[c]
         else:                                   # random
             wp = None
-        if wp is None:
+        if arm == "dijkstra":
+            pass                              # ids already chosen by planner
+        elif wp is None:
             candidates = [i for i in range(len(va_arr)) if i not in used]
             ids = rng.sample(candidates, PHRASES_PER_CYCLE)
             used.update(ids)
@@ -119,8 +157,9 @@ def main():
     va_arr = ad._va_array(art)
     model = HiddenStateModel(cfg["listener_model"], device=cfg["device"])
     probe = load_probe(REPO_ROOT / "data/probe/probe.pkl")
+    _adjacency(art, cfg)
     for scenario in ["rescue", "climb"]:
-        for arm in ["closed", "open", "random", "coherent"]:
+        for arm in ["closed", "open", "random", "coherent", "dijkstra"]:
             for seed in range(args.seeds):
                 tag = f"_w{args.coherence_weight}" if arm == "coherent" else ""
                 out = out_dir / f"{scenario}_{arm}{tag}_s{seed}.json"
