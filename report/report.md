@@ -303,3 +303,33 @@ behind" (f2729). Meditations partially restore the positivity feature
 mindfulness" (f13166, Δ−12.1), an ironic register effect. Auto-labels are
 single-explanation heuristics; feature indices and links are provided for
 verification.
+
+## 8. Causal steering (six states) and the limits of the probe
+
+We construct six state directions (eros, creativity, imaginative, determined,
+confident, agape) as difference-of-means over word sets at the probe layer and
+inject them into the residual stream (doses as fractions of the natural
+residual norm), reading all four channels. A targeting artifact — gemma-2
+maps decoder block k to hidden_states[k+2], unlike gpt-2's k+1 — initially
+landed injections one block past the probe's read point; the failed
+manipulation check exposed it, and the hook now calibrates the mapping
+empirically. Corrected findings:
+
+1. **Only 8–19% of each state direction lies in the probe's VA readout
+   plane** (eros 0.19 … agape 0.08): the semantics of these states live
+   overwhelmingly outside the circumplex readout.
+2. **Steerability is trait-selective:** revealed-word mass at max dose —
+   determined 0.69, confident 0.55, creativity 0.50, versus imaginative 0.07,
+   agape 0.07, eros 0.01. Agentive states steer; receptive/relational states
+   resist.
+3. **The lexicon reads desire as distress:** the eros direction moves the
+   probe to (V 0.01, A 0.81) — NRC rates lust-register vocabulary as
+   negative/high-arousal, and the probe faithfully reports that inheritance.
+4. **Probing ≠ causation:** injecting along the probe's own readout gradient
+   saturates the probe far outside its trained range (V −0.96 to +1.94)
+   while downstream behavior barely moves; the raw, mostly out-of-plane
+   directions are what drive behavior. The probe is a correlational readout,
+   not a causal lever — which is precisely why the bench steers with text.
+5. **Text and injection are different roads:** layer-20 delta cosine ≤ 0.25
+   and SAE top-feature overlap ≈ 0.1 across all states; both routes share
+   only a generic emotion-representation feature (f11043).

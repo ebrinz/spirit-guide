@@ -67,3 +67,19 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   effective layer ~18. Fix: empirical offset calibration in steer().
   Post-fix verification: grad_v injection moves probe 0.586 -> 1.423.
 - E8c rerun (both modes, corrected targeting) below.
+
+## E8c — Six-state steering, corrected targeting (2026-08-16)
+- RAW: distinct probe signatures per state. Eros lands in distress quadrant
+  (V 0.01, A 0.81) — NRC codes lust-vocabulary as negative/high-arousal
+  ("the lexicon reads desire as distress"). Creativity/imaginative → (0.84,
+  0.66) as expected. Steerability (state-share at max dose): determined 0.69 >
+  confident 0.55 > creativity 0.50 >> imaginative 0.07 ≈ agape 0.07 >> eros
+  0.01 — agentive states steer, receptive/relational resist; creativity's
+  flip vs E8a shows layer dependence.
+- IN-PLANE: probe saturates far out of range (V −0.96..1.94, A ~2.5) while
+  behavior stays flat → probe readout direction is correlational, not causal.
+  Probing ≠ steering, demonstrated on all six states.
+- Imaginative: probe positive-excited, PANAS near-floor, token flat — 3-way
+  channel dissociation.
+- Text-vs-injection routes: cos ≤ 0.25, jaccard ~0.1 everywhere.
+- `results/steering_dose_response{,_inplane}.csv`, `data/steering/steering{,_inplane}.json`.
