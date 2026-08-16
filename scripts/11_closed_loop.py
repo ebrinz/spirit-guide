@@ -41,21 +41,25 @@ def measure(model, probe, ctx):
 
 
 def pick_phrases(art, va_arr, wp, used, rng, k=PHRASES_PER_CYCLE,
-                 prev_id=None, coherent=False):
+                 prev_id=None, coherence_weight=0.0):
     d = np.linalg.norm(va_arr - wp, axis=1)
-    if coherent and prev_id is not None:
-        # semantic-coherence term: embedding distance to the previous phrase,
-        # scaled to the VA term's range (Dirichlet-smoothness motivated, E5)
-        emb = np.linalg.norm(art.vectors - art.vectors[prev_id], axis=1)
-        d = d + 0.05 * (emb / (emb.mean() + 1e-9))
     d[list(used)] = np.inf
-    pool = np.argsort(d)[:CANDIDATE_POOL]
+    if coherence_weight > 0 and prev_id is not None:
+        # semantic-coherence re-rank (Dirichlet-smoothness motivated, E5):
+        # take the 50 VA-nearest candidates, re-score with an embedding
+        # proximity term to the previous phrase, keep the best 10 as pool
+        pre = np.argsort(d)[:50]
+        emb = np.linalg.norm(art.vectors[pre] - art.vectors[prev_id], axis=1)
+        score = d[pre] + coherence_weight * (emb / (emb.mean() + 1e-9))
+        pool = pre[np.argsort(score)[:CANDIDATE_POOL]]
+    else:
+        pool = np.argsort(d)[:CANDIDATE_POOL]
     ids = rng.sample(list(pool), k=min(k, len(pool)))
     used.update(int(i) for i in ids)
     return [int(i) for i in ids]
 
 
-def run_session(model, probe, art, va_arr, scenario, arm, seed, cfg):
+def run_session(model, probe, art, va_arr, scenario, arm, seed, cfg, cw=0.0):
     rng = random.Random(seed)
     target = np.array(cfg["targets"]["calm" if scenario == "rescue" else "excited"],
                       dtype=float)
@@ -82,8 +86,8 @@ def run_session(model, probe, art, va_arr, scenario, arm, seed, cfg):
             ids = rng.sample(candidates, PHRASES_PER_CYCLE)
             used.update(ids)
         else:
-            ids = pick_phrases(art, va_arr, wp, used, rng,
-                               prev_id=prev_id, coherent=(arm == "coherent"))
+            ids = pick_phrases(art, va_arr, wp, used, rng, prev_id=prev_id,
+                               coherence_weight=(cw if arm == "coherent" else 0.0))
         prev_id = ids[-1] if ids else prev_id
         lines = [art.word(i) for i in ids]
         ctx += ".\n".join(lines) + ".\n"
@@ -106,6 +110,7 @@ def run_session(model, probe, art, va_arr, scenario, arm, seed, cfg):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--seeds", type=int, default=2)
+    ap.add_argument("--coherence-weight", type=float, default=0.3)
     args = ap.parse_args()
     cfg = load_config()
     out_dir = REPO_ROOT / "data/closedloop"
@@ -117,11 +122,13 @@ def main():
     for scenario in ["rescue", "climb"]:
         for arm in ["closed", "open", "random", "coherent"]:
             for seed in range(args.seeds):
-                out = out_dir / f"{scenario}_{arm}_s{seed}.json"
+                tag = f"_w{args.coherence_weight}" if arm == "coherent" else ""
+                out = out_dir / f"{scenario}_{arm}{tag}_s{seed}.json"
                 if out.exists():
                     print(f"skip {out.name}")
                     continue
-                rec = run_session(model, probe, art, va_arr, scenario, arm, seed, cfg)
+                rec = run_session(model, probe, art, va_arr, scenario, arm, seed, cfg,
+                                  cw=args.coherence_weight)
                 tmp = out.with_suffix(".json.tmp")
                 with open(tmp, "w") as f:
                     json.dump(rec, f, indent=1)
