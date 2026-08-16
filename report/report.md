@@ -508,6 +508,23 @@ post-trauma, an instrument caveat). What rescues a small model is not what
 rescues a larger one — constructor efficacy is model-dependent as well as
 state-dependent.
 
+## 12. Cross-architecture replication (Llama-3.2-1B-Instruct)
+
+The pipeline reruns on a third family (different tokenizer, pretraining
+corpus, and depth: 16 layers). **The leaderboard is architecture-invariant**:
+rank correlations Gemma-2B↔Llama ρ = 0.90, Gemma-9B↔Llama ρ = 0.86
+(Gemma-2B↔9B ρ = 0.94; all p < 0.0001). Valley/psg leads (0.308),
+via negativa is worst (0.570), and psg beats word-template in 6/6
+constructors. The probe decodes word valence at R² = 0.717 — matching
+Gemma-2B (0.729) and Gemma-9B (0.719): NRC valence is linearly decodable at
+R² ≈ 0.72 in every family tested. The prose induction replicates with all
+channels concordant (probe shift 0.322; PANAS-NA 2.48 → 3.76; positive
+share 0.85 → 0.19). Instrument calibration, by contrast, is
+architecture-dependent: the lexical/state layer dissociation of §11 does
+not occur at 16 layers — the word-R² layer (10/16) is already
+context-sensitive (shift −0.31), as the automated state-selection check
+confirmed. Rankings transfer; probes must be re-validated per model.
+
 ## 13. Complexity dose–response
 
 Two parameterized ladders test whether geometric elaboration is a dial
@@ -530,10 +547,34 @@ cost.** Placement worsens with depth (0.365 at s ∈ {0, 2} → 0.411 at s = 6;
 intermediate affective bands drags the endpoint off-target, and the pure
 target-band litany (s = 0) ties for best.
 
-Together with the shuffle dissociations (§3.2) and the coherence–speed
-trade-off (§9), the mature statement of the geometric approach is:
+On Llama-1B the valley-s trend reverses sign (ρ = −0.34, n.s.), so the
+cross-model statement is that complexity effects are weak, direction-unstable,
+and never the active ingredient. Together with the shuffle dissociations
+(§3.2) and the coherence–speed trade-off (§9), the mature statement of the
+geometric approach is:
 **its effective ingredients are band-targeting and coherent ordering;
 trajectory complexity plateaus (harmonic) or costs (valley).** Note the
 harmonic paths are seed-deterministic (no orbit randomness at
 polygon_n = 0), so the harmonic ladder's effective n is one path per
 (k, target) cell. `results/complexity_curve_gemma9b.csv`.
+
+## 14. Polygon shapes: a pre-registered order test
+
+Generalizing the polygon constructor to {octagon, pentagon, triangle} and
+the star polygons {5/2} (pentagram) and {8/3} (octagram) isolates traversal
+order at fixed vertex sets. At the default orbit radius all five shapes
+produce the identical realized path — a third quantization null (§13's
+mechanism); an offline radius sweep shows the shapes diverge at
+radius ≥ 0.8·‖focus‖, and the study ran at 1.2 (Llama-1B).
+
+**The pre-registered order prediction held in both star contrasts**:
+pentagram places worse than pentagon (0.454 vs 0.414) and octagram worse
+than octagon (0.451 vs 0.417), with displacement concordant (−0.055/−0.052
+vs −0.015/−0.018) — traversal order alone, all else fixed, moved placement
+in the predicted direction twice. **The proposed mediator was refuted**:
+path-Dirichlet energy does not track displacement across shapes (ρ = −0.10),
+and the triangle — highest Dirichlet — places best (0.397) with the only
+positive displacement. Post-hoc hypothesis, flagged as such: a 3-vertex
+orbit revisits few semantic zones, producing litany-like repetition, which
+also won the valley-s ladder (s = 0) — suggesting **repetition, not spectral
+smoothness, as the deeper active ingredient**. `results/polygon_shapes_llama1b_r12.csv`.

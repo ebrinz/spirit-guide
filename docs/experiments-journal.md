@@ -146,3 +146,20 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   ingredients. `results/complexity_curve_gemma9b.csv`, data/... archived to
   data_gemma9b/complexity.
 - Note: harmonic paths seed-deterministic -> effective n=1 per (k,target).
+
+## E16 — Cross-architecture, Llama-3.2-1B (2026-08-16)
+- Gate layer 10/16 r2v 0.717; state-check: L10 already context-sensitive
+  (shift -0.31) — no lexical/state dissociation at 16 layers.
+- Leaderboard rank corr: 2b↔llama 0.90, 9b↔llama 0.86. valley/psg best,
+  via-negativa worst (0.570), psg>word-template 6/6. Prose induction 0.322,
+  all channels concordant. `results/leaderboard_llama1b.csv`,
+  `leaderboard_cross_model.csv`, `complexity_curve_llama1b.csv`.
+
+## E17 — Polygon shapes pre-registered order test (2026-08-16, Llama)
+- Radius 0.15: all 5 shapes -> identical path (3rd quantization null);
+  offline sweep -> diverge at r>=0.8; ran at 1.2.
+- PREDICTION HELD 2/2: pentagram worse than pentagon (0.454 v 0.414),
+  octagram worse than octagon (0.451 v 0.417). Mediator REFUTED: dirichlet
+  ~ displacement rho=-0.10; triangle best (0.397) at highest dirichlet.
+- Post-hoc: repetition (few revisited zones) as deeper active ingredient.
+  `results/polygon_shapes_llama1b_r12.csv`.
