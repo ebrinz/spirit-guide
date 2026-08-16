@@ -1,3 +1,4 @@
+import os
 from contextlib import contextmanager
 
 import numpy as np
@@ -11,10 +12,14 @@ NO_VARIANTS = ["no", " no", "No", " No"]
 class HiddenStateModel:
     def __init__(self, model_id: str, device: str = "cpu"):
         self.device = device
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id)
+        # SPIRITBENCH_LOCAL_ONLY=1 skips all hub HTTP (no version checks) —
+        # robust to flaky networks when the model is fully cached
+        local = bool(os.environ.get("SPIRITBENCH_LOCAL_ONLY"))
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id,
+                                                       local_files_only=local)
         dtype = torch.float16 if device == "mps" else torch.float32
         self.model = AutoModelForCausalLM.from_pretrained(
-            model_id, dtype=dtype).to(device).eval()
+            model_id, dtype=dtype, local_files_only=local).to(device).eval()
         self.n_layers = self.model.config.num_hidden_layers + 1
         for label, variants in (("yes", YES_VARIANTS), ("no", NO_VARIANTS)):
             if not any(len(self.tokenizer(v, add_special_tokens=False)["input_ids"]) == 1
