@@ -91,3 +91,13 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   NA 2.35 → 1.93, token steerability still ~0. ~Half the distress reading was
   ache/burn/hunger contamination; residual: NRC codes clean desire as
   high-arousal, valence-ambivalent. `results/steering_dose_response_eros2.csv`.
+
+## E9 — Closed-loop spirit guide (2026-08-16)
+- 16 sessions: {rescue, climb} × {closed, open, random, coherent} × 2 seeds,
+  12 cycles of measure→plan→speak→re-measure. `data/closedloop/*.json`.
+- Probe improvement policy-insensitive (+0.04..0.08 all arms; decay dominates).
+- Self-report: rescue feedback arms ONLY show dNA decrease (closed −0.15,
+  coherent −0.10) vs non-feedback increase (open +0.17, random +0.27) — 4/4
+  sign split: adaptivity registers in self-report before the probe.
+- VA-band selection without coherence yields disjointed transcripts (the E5
+  Dirichlet diagnosis); coherence term at 0.05 weight was too weak to test.

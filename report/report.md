@@ -338,3 +338,19 @@ empirically. Corrected findings:
 5. **Text and injection are different roads:** layer-20 delta cosine ≤ 0.25
    and SAE top-feature overlap ≈ 0.1 across all states; both routes share
    only a generic emotion-representation feature (f11043).
+
+## 9. Closed-loop sessions
+
+Sixteen probe-in-the-loop sessions (measure → plan next waypoint from the
+measured state → deliver nearest phrases → re-measure; 12 cycles) compare a
+feedback controller against open-loop and random-phrase arms on the rescue
+(prose induction → calm) and climb (neutral → excited) scenarios. On the
+probe channel, improvement is policy-insensitive (+0.04–0.08 for all arms):
+over 24 phrases, perturbation decay dominates, and the feedback signal —
+already range-compressed by ridge shrinkage — offers no advantage. The
+self-report channel disagrees: in rescue, the only arms with reduced
+negative affect are the two feedback arms (ΔNA −0.15, −0.10 vs +0.17, +0.27
+for open/random; a 4/4 sign split at small n). The adaptive transcripts also
+exhibit the incoherence the path-Dirichlet analysis (§7) predicts to be
+costly — VA-proximal phrase selection without semantic adjacency — marking
+coherence-constrained closed-loop control as the identified next step.
