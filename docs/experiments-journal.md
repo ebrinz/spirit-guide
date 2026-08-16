@@ -55,3 +55,15 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   on probe/PANAS/token-dist/SAE; per-state text-route comparison (phrase-graph
   litanies). Measurement-only design (no open-ended generation).
 - Outputs: `data/steering/`, snapshot to `results/steering_*.csv`.
+
+## E8 CORRECTION (2026-08-16)
+- Bug found: steering hook landed at hs[k+2] on gemma-2 (calibrated k+1 on
+  gpt2) — all E8a/E8b injections were one block DOWNSTREAM of the probe's
+  read point. The "circumplex-blind / probe-flat" observation is RETRACTED
+  as a targeting artifact. Still valid: in-plane fractions (geometry:
+  eros 0.19, creativity 0.14, imaginative 0.14, determined 0.14,
+  confident 0.10, agape 0.08), and all downstream-channel effects
+  (token-mass steerability, PANAS profiles) reinterpreted as injection at
+  effective layer ~18. Fix: empirical offset calibration in steer().
+  Post-fix verification: grad_v injection moves probe 0.586 -> 1.423.
+- E8c rerun (both modes, corrected targeting) below.
