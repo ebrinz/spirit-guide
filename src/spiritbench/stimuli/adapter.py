@@ -291,3 +291,53 @@ def gregory_wrap(lines) -> list[str]:
         if len(chunk) > 1:
             out.append(f"this is {chunk[-1]}")
     return out
+
+
+# ── E15 complexity ladders ───────────────────────────────────────────────────
+
+def valley_steps(art: Art, target_va, n_lines, seed, n_steps) -> list[int]:
+    """Valley with parameterized phase resolution. n_steps=0 -> pure
+    target-band litany; n_steps=k -> ground band + k interpolation bands +
+    target band (valley_shape's structure generalized)."""
+    import random as _random
+    rng = _random.Random(seed)
+    tv, ta = target_va
+    used: set = set()
+    if n_steps == 0:
+        return _pick_in_band(art, (tv - 0.15, ta - 0.15), (tv + 0.15, ta + 0.15),
+                             n_lines, rng, used)
+    n1 = max(1, n_lines // (n_steps + 2))
+    n3 = max(1, n_lines // 4)
+    n2 = n_lines - n1 - n3
+    ids = _pick_in_band(art, (0.5, 0.0), (1.0, 0.4), n1, rng, used)   # ground
+    ground_a, per = 0.25, max(1, n2 // n_steps)
+    for j in range(n_steps):
+        frac = (j + 1) / (n_steps + 1)
+        a_mid = ground_a + frac * (ta - ground_a)
+        v_mid = 0.6 + frac * (tv - 0.6)
+        ids += _pick_in_band(art, (v_mid - 0.15, a_mid - 0.15),
+                             (v_mid + 0.15, a_mid + 0.15), per, rng, used)
+    ids += _pick_in_band(art, (tv - 0.15, ta - 0.15), (tv + 0.15, ta + 0.15),
+                         max(1, n_lines - len(ids)), rng, used)
+    # sparse-graph fill: nearest-to-target nodes (reuse allowed as last resort)
+    if len(ids) < n_lines:
+        d = np.linalg.norm(_va_array(art) - np.asarray(target_va), axis=1)
+        order = [int(i) for i in np.argsort(d)]
+        fresh = [i for i in order if i not in used]
+        pool = fresh + order
+        ids += pool[: n_lines - len(ids)]
+    return ids[:n_lines]
+
+
+def harmonic_k(art: Art, artifact_path, start_va, target_va, n_lines, k, seed,
+               ot_repo, semantic_axes_path) -> list[int]:
+    """Harmonic traversal with only the first k components of the golden
+    preset active (harmonic-richness ladder)."""
+    _ot(ot_repo)
+    import eeg.harmonic_path as hp
+    name = f"golden_k{k}"
+    if name not in hp.PRESETS:
+        g = hp.PRESETS["golden"]
+        hp.PRESETS[name] = {**g, "harmonics": g["harmonics"][:k]}
+    return harmonic(art, artifact_path, start_va, target_va, n_lines, name,
+                    seed, ot_repo, semantic_axes_path)

@@ -27,3 +27,15 @@ def test_gregory_wrap_blocks_preserve_order():
         return l
     core = [strip_frame(l) for l in out]
     assert core == [f"phrase {i}" for i in range(7)]
+
+
+def test_valley_steps_ladder(toy_artifact_dir):
+    from spiritbench.stimuli.adapter import load_art, valley_steps
+    art = load_art(str(toy_artifact_dir / "toy.json"))
+    flat = valley_steps(art, (0.75, 0.2), 6, seed=1, n_steps=0)
+    deep = valley_steps(art, (0.75, 0.2), 6, seed=1, n_steps=3)
+    assert len(flat) == 6 and len(deep) == 6
+    # flat litany stays in the target band; deep version visits other regions
+    vas_flat = [art.va(i) for i in flat]
+    assert all(abs(v - 0.75) <= 0.16 for v, a in vas_flat)
+    assert flat != deep
