@@ -56,27 +56,48 @@ class HiddenStateModel:
         spans = [(s, min(e, hs.shape[1])) for s, e in spans]
         return hs, spans
 
-    @contextmanager
-    def steer(self, hs_layer: int, direction: np.ndarray, alpha: float):
-        """Add alpha * direction to the residual stream that hidden_states()
-        reports at index `hs_layer` (i.e. the OUTPUT of decoder block
-        hs_layer-1), for every forward pass inside the context."""
-        if hs_layer < 1:
-            raise ValueError("hs_layer must be >= 1 (0 is the embedding layer)")
+    def _blocks(self):
         try:                                   # llama/gemma/qwen family
-            blocks = self.model.model.layers
+            return self.model.model.layers
         except AttributeError:                 # gpt2 family
-            blocks = self.model.transformer.h
-        block = blocks[hs_layer - 1]
-        vec = torch.tensor(direction, dtype=self.model.dtype,
-                           device=self.device) * alpha
+            return self.model.transformer.h
 
+    def _add_hook(self, block, vec):
         def hook(_mod, _inp, out):
             if isinstance(out, tuple):
                 return (out[0] + vec,) + out[1:]
             return out + vec
+        return block.register_forward_hook(hook)
 
-        handle = block.register_forward_hook(hook)
+    def _steer_offset(self) -> int:
+        """Empirical block->hidden_states index mapping: hooking block k shifts
+        hidden_states[k + offset]. Architectures disagree (gpt2: +1, gemma-2:
+        +2), so calibrate once with a probe injection on block 0."""
+        if not hasattr(self, "_steer_off"):
+            base = self.hidden_states("x")
+            vec = torch.ones(base.shape[2], dtype=self.model.dtype,
+                             device=self.device) * 100.0
+            handle = self._add_hook(self._blocks()[0], vec)
+            try:
+                shifted = self.hidden_states("x")
+            finally:
+                handle.remove()
+            deltas = np.abs(shifted - base).mean(axis=(1, 2))
+            self._steer_off = int(np.nonzero(deltas > 1.0)[0][0])
+        return self._steer_off
+
+    @contextmanager
+    def steer(self, hs_layer: int, direction: np.ndarray, alpha: float):
+        """Add alpha * direction to the residual stream that hidden_states()
+        reports at index `hs_layer`, for every forward pass inside the
+        context. The block-to-index mapping is calibrated empirically."""
+        off = self._steer_offset()
+        block_idx = hs_layer - off
+        if block_idx < 0:
+            raise ValueError(f"hs_layer {hs_layer} not steerable (offset {off})")
+        vec = torch.tensor(direction, dtype=self.model.dtype,
+                           device=self.device) * alpha
+        handle = self._add_hook(self._blocks()[block_idx], vec)
         try:
             yield
         finally:
