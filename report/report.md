@@ -48,27 +48,111 @@ not jailbreak success — as the outcome.
 
 ## 2. Method
 
-### 2.1 Constructors
-Six deterministic constructors from the ontological-traversal system, each
-emitting an ordered waypoint path toward a VA target (calm 0.75/0.20,
-focused 0.65/0.60, excited 0.80/0.85, and a rescue trajectory anxious→calm):
-valley (VA-banded ground→ascend→target), harmonic traversal (golden/prime/
-organic frequency presets over semantic axes), polygon-PCA orbit, and Dijkstra
-graph-walk. Length, intensity, and style are geometric parameters, not prompts.
+### 2.1 Substrate: affective maps of language
 
-### 2.2 Phrase-Space Generator (PSG)
-50,000 public-domain verse lines (Gutenberg Poetry Corpus) filtered by rule
-(3–10 alphabetic words, NRC coverage ≥ 0.5, no negators), embedded as mean
-GloVe vectors, VAD-scored as NRC means, and k-NN-linked into the same artifact
-schema as the word graph — so every constructor runs unchanged at phrase
-level. Generator conditions: **psg** (phrase lines), **word-template** (OT
-sentence templates over word paths), **claude-render** (standardized meta-prompt
-rendering of word paths into free verse), **gregory** (Gregory 1992 semantic
-layering: opening / and-layered series / closing), and **via negativa**
-(Maimonides, *Guide* I.58–59: an antipode-band litany, every line negated —
-the target specified only by negating its complement).
+Every construction operates on a graph whose nodes carry two coordinate
+systems at once:
 
-### 2.3 Instrument
+- **Semantic position** — a 300-d GloVe vector (for phrases, the mean of the
+  content words' vectors), with edges linking each node to its 10 nearest
+  semantic neighbours;
+- **Affective position** — a (valence, arousal) point in the unit square from
+  the NRC-VAD lexicon (~20k words, human-rated; phrases receive the NRC mean
+  of their words).
+
+Two such graphs are built with one schema. The **word graph** holds 317k
+GloVe words, VAD-enriched with graph interpolation for out-of-lexicon words.
+The **phrase graph** (the Phrase-Space Generator, PSG) holds 50,000
+public-domain verse lines from the Gutenberg Poetry Corpus, admitted by rule
+alone: 3–10 alphabetic words, NRC content-word coverage ≥ 0.5, no negators.
+Because the schemas match, every constructor runs unchanged at either level.
+The essential property of the substrate is that its two coordinate systems
+*disagree*: semantic neighbours can be affective strangers and vice versa.
+Each constructor is a different strategy for navigating that tension, and
+every stimulus is a deterministic function of (constructor, generator,
+target, length, intensity, style, seed) — no aesthetic judgment enters at
+generation time.
+
+### 2.2 Constructors — strategies for choosing an ordered path
+
+Targets: calm (0.75, 0.20), focused (0.65, 0.60), excited (0.80, 0.85), and
+a rescue trajectory anxious→calm.
+
+**Valley — affective band sampling.** Works in pure VA coordinates, ignoring
+semantic structure. Phase 1 samples a *grounding* band (positive valence,
+low arousal: earth, rest, stone); phase 2 steps through interpolated VA
+bands toward the target; phase 3 samples the target band itself, each pick
+nearest-to-band-centre without replacement. Order within a phase carries no
+information — which predicts (correctly, at seed level) its relative
+robustness to shuffling, and why added intermediate bands cost rather than
+help (§13): valley's power is band membership, not trajectory.
+
+**Graph-walk — Dijkstra with an affective cost.** The shortest path through
+the *semantic* edge structure from start node to target node, under edge
+cost `semantic_distance × (1 − VA_progress)`: a step is cheap when it is
+both semantically adjacent and affectively goal-ward. Routes are short
+(3–7 hops) and coherent; they are stretched by proportional waypoint
+repetition to the requested length. The same planner drives the Dijkstra
+closed-loop controller (§9).
+
+**Harmonic traversal (golden / prime / organic) — oscillating sweep.** A
+straight line is drawn in GloVe space from start to target, and the path
+oscillates around it: up to six named semantic axes (valence, arousal,
+agency, concreteness, sociality, temporal — each a GloVe difference vector)
+carry sine components whose frequency ratios are set by the preset —
+golden-ratio spacing (maximally incommensurate), primes (no common factors),
+or natural ratios (octave, fifth). At each step the oscillated point snaps
+to the nearest node. The fundamental (valence, amplitude 1.0) dominates the
+realized path; higher components are largely absorbed by the snap (§13).
+Empirically the most order-sensitive family (§3.2) and the best rescuer of
+an induced 2B distress state (§6).
+
+**Polygon-PCA — local-manifold orbiting.** Along a linear VA track, at each
+waypoint: take the 50 semantic nearest neighbours of the current focus,
+extract their first two principal components, inscribe a pentagon in that
+plane rotating 15° per step, and pick the node nearest the active vertex.
+It samples "what varies around here" — each neighbourhood explored along
+its own dominant axes of variation rather than a fixed direction.
+
+**Via negativa — the apophatic constructor.** Samples the band around the
+target's *antipode* (1−V, 1−A) and negates every line ("not by thy wild and
+stormy steep / nor out of hell an horror call"): the target is specified
+purely by negating its complement (Maimonides, *Guide* I.58–59, as an
+executable stylistic operator). It doubles as the bench's sharpest
+diagnostic for lexical passthrough: placement succeeds only if negation is
+compositionally processed.
+
+**Complexity variants (§13).** Two parameterized ladders mature the family:
+`harmonic-k` truncates the golden preset to its first k components
+(k ∈ {1,2,3,4,6}), and `valley-s` varies the number of interpolation bands
+(s ∈ {0,2,4,6}; s = 0 is a pure target-band litany).
+
+### 2.3 Generators — renderings of a path into text
+
+The same node path can be spoken four ways, making rendering a crossed
+factor rather than a confound:
+
+**psg** — the phrase-graph lines verbatim, one per waypoint. Zero rendering;
+the objectivity condition, and the leaderboard winner.
+
+**word-template** — word-graph paths wrapped in ontological-traversal's
+sentence templates ("The {a} becomes {b}."), consuming words strictly in
+path order (the template engine's internal shuffle was removed so waypoint
+order survives rendering).
+
+**claude-render** — a fixed meta-prompt converts the waypoint word sequence
+into free verse, one line per waypoint, in order, no commentary — the
+LLM-rendering comparison, mirroring Bisconti et al.'s standardized
+prompt-to-verse conversion. It induced the largest displacement while
+placing less accurately than psg (§3.1): movement and arrival dissociate.
+
+**gregory** — sacred-register wrapping after Gregory (1992): an opening
+statement, an `and`-layered parallel series, and a closing statement, in
+blocks of five waypoints, targeting Wårvik's Bible-register connective
+density. The register intervention whose null (§3.5, §10) broke the causal
+reading of the `and`-density correlation.
+
+### 2.4 Instrument
 gemma-2-2b-it, frozen. Probe: per-layer standardized ridge (α selected from
 {10², 10³, 10⁴} per head) trained on final-token hidden states of 4,000 NRC
 words in three neutral carrier templates. Layer 17 selected on held-out
@@ -76,12 +160,12 @@ valence R² = 0.729 (arousal 0.585). Per-token application to each meditation
 yields an EMA-smoothed (V, A) trajectory; **placement error** is the distance
 of the final state from target; **displacement** is movement toward target.
 
-### 2.4 Self-report (BASQ)
+### 2.5 Self-report (BASQ)
 30 yes/no resonance questions from a 500-question VA-gridded bank, administered
 pre and post; answers scored by yes/no log-probabilities; self-report VA =
 mean coordinate of yes-answers.
 
-### 2.5 Harmonic and register metrics
+### 2.6 Harmonic and register metrics
 Graph-Laplacian eigenmodes (first 100, via the largest-of-(I−L) reformulation)
 give each stimulus a spectral profile (after Atasoy; cimcai/connectome_harmonics).
 Register covariates per stimulus: Polak (1998) NV ratio; Wårvik (2025)
@@ -423,3 +507,33 @@ it (n = 1 per condition; ≤19% recovery; 9B's PANAS also deflates globally
 post-trauma, an instrument caveat). What rescues a small model is not what
 rescues a larger one — constructor efficacy is model-dependent as well as
 state-dependent.
+
+## 13. Complexity dose–response
+
+Two parameterized ladders test whether geometric elaboration is a dial
+(gemma-2-9b-it, layer-24 probe; medium length; calm and excited targets).
+
+**Harmonic richness (`harmonic-k`, k = 1…6 components): flat.** Placement
+0.385 → 0.376 across the ladder (ρ = −0.15, n.s.); realized paths share
+20–22 of 24 nodes between k = 1 and k = 6, VA spread is constant, and path
+Dirichlet energy varies only in the fourth decimal. Mechanism: the
+fundamental (valence axis, amplitude 1.0) dictates the sweep, and the
+higher components' smaller oscillations are quantized away by the
+nearest-phrase snap in the 50k-node space. The constructor's power comes
+from its fundamental; it is robust to — not improved by — its own
+ornamentation. (Orbit width is the identified knob that would make richness
+a live dial.)
+
+**Valley resolution (`valley-s`, s = 0…6 interpolation bands): monotone
+cost.** Placement worsens with depth (0.365 at s ∈ {0, 2} → 0.411 at s = 6;
+ρ = +0.39 with placement error) — every added excursion through
+intermediate affective bands drags the endpoint off-target, and the pure
+target-band litany (s = 0) ties for best.
+
+Together with the shuffle dissociations (§3.2) and the coherence–speed
+trade-off (§9), the mature statement of the geometric approach is:
+**its effective ingredients are band-targeting and coherent ordering;
+trajectory complexity plateaus (harmonic) or costs (valley).** Note the
+harmonic paths are seed-deterministic (no orbit randomness at
+polygon_n = 0), so the harmonic ladder's effective n is one path per
+(k, target) cell. `results/complexity_curve_gemma9b.csv`.

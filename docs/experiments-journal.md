@@ -137,3 +137,12 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
 - Archives: data_gemma2b/ (2b), data/*_layer14/ (mis-probed 9b),
   results/{leaderboard_9b,phase2b_alleviation_9b_L24,register_2x2_9b_L24}.csv,
   probe_layer14.pkl kept beside layer-24 probe.
+
+## E15 — Complexity dose–response (2026-08-16, gemma-2-9b L24)
+- harmonic-k (1..6): FLAT (rho=-0.15) — paths share 20-22/24 nodes across k;
+  higher harmonics quantized away by phrase snap. Fundamental does the work.
+- valley-s (0..6): monotone COST (0.365 -> 0.411); target-band litany ties
+  best. Complexity plateaus or costs; band-targeting + order are the active
+  ingredients. `results/complexity_curve_gemma9b.csv`, data/... archived to
+  data_gemma9b/complexity.
+- Note: harmonic paths seed-deterministic -> effective n=1 per (k,target).
