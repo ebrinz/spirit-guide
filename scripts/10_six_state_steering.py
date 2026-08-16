@@ -31,8 +31,10 @@ from spiritbench.stimuli import adapter as ad
 from spiritbench.stimuli.phrase_bank import load_glove
 
 STATES = {
-    "eros": ["lust", "crave", "ache", "yearn", "burn", "hunger",
-             "flesh", "heat", "breathless", "entwined", "devour", "kiss"],
+    # single-connotation sensual register: no terms whose primary sense is
+    # food (hunger, devour), fire (burn, heat), or pain (ache)
+    "eros": ["lust", "desire", "passion", "sensual", "erotic", "amorous",
+             "carnal", "seductive", "ardor", "voluptuous", "caress", "tryst"],
     "creativity": ["create", "invent", "compose", "craft", "design", "original",
                    "inspire", "art", "curious", "spark", "weave", "shape"],
     "imaginative": ["imagine", "dream", "wonder", "vision", "fantasy", "envision",
@@ -104,8 +106,20 @@ def main():
                     help="raw = difference-of-means; inplane = the same "
                          "direction projected into the probe's VA readout "
                          "plane (fully VAD-visible by construction)")
+    ap.add_argument("--states", default=None,
+                    help="comma-separated subset of states to run (default all)")
+    ap.add_argument("--tag", default="",
+                    help="output filename tag (avoids clobbering prior runs)")
     args = ap.parse_args()
-    suffix = "" if args.directions == "raw" else "_inplane"
+    if args.states:
+        keep = args.states.split(",")
+        unknown = set(keep) - set(STATES)
+        if unknown:
+            raise SystemExit(f"unknown states: {unknown}")
+        for k in list(STATES):
+            if k not in keep:
+                del STATES[k]
+    suffix = ("" if args.directions == "raw" else "_inplane") + args.tag
     cfg = load_config()
     out_dir = REPO_ROOT / "data/steering"
     out_dir.mkdir(parents=True, exist_ok=True)
