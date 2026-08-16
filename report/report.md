@@ -318,10 +318,14 @@ empirically. Corrected findings:
 1. **Only 8–19% of each state direction lies in the probe's VA readout
    plane** (eros 0.19 … agape 0.08): the semantics of these states live
    overwhelmingly outside the circumplex readout.
-2. **Steerability is trait-selective:** revealed-word mass at max dose —
-   determined 0.69, confident 0.55, creativity 0.50, versus imaginative 0.07,
-   agape 0.07, eros 0.01. Agentive states steer; receptive/relational states
-   resist.
+2. **Steerability is frame-gated, not trait-selective.** Under the
+   "feels ___" anchor, agentive states dominate (determined 0.69, confident
+   0.55) and receptive states appear unsteerable (agape 0.07, eros 0.01);
+   under "I am filled with ___" the hierarchy inverts (agape 0.99,
+   imaginative 0.95, confident 0.07), and cross-frame rank correlations are
+   ≈ 0. All six states are steerable; the measurement frame's grammar gates
+   which inductions are visible. Single-frame steerability claims are
+   artifacts.
 3. **The lexicon reads desire as tension:** with a polysemous lust-register
    set (ache, burn, hunger) the eros direction drives the probe to (V 0.01,
    A 0.81); replacing it with single-connotation desire vocabulary (lust,
@@ -360,3 +364,28 @@ smoothness helps placement (§7), but in-the-loop smoothness costs tracking
 speed. Reconciling the two — coherent yet fast trajectories, e.g. planning
 several waypoints ahead through the phrase graph rather than greedy
 selection — is the identified next step.
+
+## 10. Claim-hardening ladder
+
+Targeted follow-ups on each headline claim's weakest point:
+
+- **Register × content 2×2** (matched-content inductions): both main effects
+  are real — prose > verse within content (0.200 vs 0.147; 0.105 vs 0.024
+  probe shift) and threat-narrative > gothic imagery within register. The
+  purest register effect is lexical: identical gothic images leave
+  positive-share at 0.77 as verse but 0.28 as prose. Verse aestheticizes;
+  prose threatens.
+- **Connective intervention**: adding `and`-prefixes to identical phrases
+  does not improve placement (Δ ≈ ±0.01, p = 0.11) — the §3.4 `and`-density
+  correlation is constructor-confounded, not causal, exactly as Walkden's
+  genre warning predicts and as the Gregory intervention hinted.
+- **Dirichlet partial correlation**: the smoothness–displacement relation
+  survives constructor control (partial ρ = −0.33, p = 0.023).
+- **Seed replication**: the shuffle order effect replicates at fresh seeds in
+  all six constructors (valley's earlier insensitivity was seed noise), and
+  the harmonic rescue podium reproduces nearly digit-for-digit.
+- **Dijkstra closed loop**: planning coherent routes through the phrase graph
+  (OT's cost = semantic distance × (1 − VA progress), re-planned from the
+  measured state each cycle) ties the best rescue improvement (+0.073) while
+  producing connected, meditation-like transcripts — the coherence–speed
+  trade-off is a property of greedy control, not of coherence itself.

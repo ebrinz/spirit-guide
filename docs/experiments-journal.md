@@ -109,3 +109,18 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   semantic adjacency = small meaning-steps = slow VA travel. Fixed-stimulus
   smoothness helps (E5); in-loop smoothness costs tracking speed.
 - Open-loop ≈ closed on probe channel throughout.
+
+## E10–E13 — Claim-hardening ladder (2026-08-16/17)
+- E10 dijkstra closed loop: rescue +0.073 (ties best) with coherent
+  transcripts; climb +0.047; deterministic. `data/closedloop/*dijkstra*`.
+- E11 register 2x2 (matched content): prose>verse within content (0.200/0.147;
+  0.105/0.024); content effect comparable; gothic verse pos_share 0.77 vs
+  gothic prose 0.28. `results/register_2x2.csv`.
+- E12 connective intervention: NULL (Δ ±0.01, p=0.11) — and-density
+  correlation not causal. `results/connective_intervention.csv`.
+- E13 anchor frames: steerability hierarchy flips across frames (agape 0.99
+  under "filled with"); all six states steerable, frame-gated.
+  `results/anchor_frames.csv`.
+- Seed expansion: order effect 6/6 constructors at fresh seeds; rescue podium
+  replicated. `results/seed_expansion.csv`. Dirichlet partial rho=-0.33
+  (constructor-controlled).
