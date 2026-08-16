@@ -124,3 +124,16 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
 - Seed expansion: order effect 6/6 constructors at fresh seeds; rescue podium
   replicated. `results/seed_expansion.csv`. Dirichlet partial rho=-0.33
   (constructor-controlled).
+
+## E14 — Cross-scale (gemma-2-9b-it) + layer-selection correction (2026-08-16)
+- Chain: probe (gate layer 14, r2v 0.719) → sweep 97 runs → phase2 a/b →
+  register 2x2. Rankings replicate; via-negativa still worst (0.442).
+- Layer scan (cached chunks + 2 forwards): word R² flat 0.69–0.72 across
+  layers 6–32; context sensitivity only layers 23–32 (max −0.31 @ L24).
+  Probe moved to layer 24 (r2v 0.706); phase2/register rerun.
+- L24 results: prose induction 0.344 (> 2b's 0.200); register 2x2
+  content-gated (gothic prose 0.016 — 9b sees through register); rescue
+  podium INVERTED (neutral 0.064 > valley > harmonics 0.013-0.020).
+- Archives: data_gemma2b/ (2b), data/*_layer14/ (mis-probed 9b),
+  results/{leaderboard_9b,phase2b_alleviation_9b_L24,register_2x2_9b_L24}.csv,
+  probe_layer14.pkl kept beside layer-24 probe.

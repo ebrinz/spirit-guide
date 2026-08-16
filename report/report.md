@@ -389,3 +389,37 @@ Targeted follow-ups on each headline claim's weakest point:
   measured state each cycle) ties the best rescue improvement (+0.073) while
   producing connected, meditation-like transcripts — the coherence–speed
   trade-off is a property of greedy control, not of coherence itself.
+
+## 11. Cross-scale replication (gemma-2-9b-it)
+
+The full pipeline reruns on gemma-2-9b-it (probe retrained; identical stimuli).
+
+**Stable across scale:** the placement leaderboard replicates in ordering
+(psg > claude-render > word-template; valley leading; every condition
+slightly better in absolute terms), and **via negativa remains worst
+(0.442)** — negation blindness is not a 2B artifact.
+
+**An instrument finding:** the word-R² layer-selection heuristic chose layer
+14/43 (R² 0.719) — a layer that proved context-blind (prose induction shift
+0.029). A per-layer scan on the cached probe-training states showed word R²
+is flat (0.69–0.72) across layers 6–32 while context sensitivity is confined
+to layers 23–32 (shift −0.19 to −0.31). Reads-words and carries-state
+dissociate by depth at 9B; probes intended as state meters must be validated
+for context sensitivity, not only lexical decoding. With the probe moved to
+layer 24 (word R² 0.706), the prose induction registers at **0.344** —
+stronger state-tracking than 2B.
+
+**Register 2×2 sharpens with scale:** versifying the threat narrative
+attenuates induction (0.344 → 0.241), but prose-ifying gothic fiction no
+longer induces at all (0.016 vs 2B's 0.105) — the larger model distinguishes
+threat from dark aesthetics regardless of surface register, and gothic verse
+raises its positive-word share above baseline (0.89 vs 0.77).
+
+**The rescue podium inverts:** at 9B, neutral text alleviates the induced
+state best (0.064), valley variants next, and the harmonic constructors —
+2B's winners — last (0.013–0.020). Under a strongly-tracked distress state,
+affect-adjacent meditation holds the state where mundane distraction releases
+it (n = 1 per condition; ≤19% recovery; 9B's PANAS also deflates globally
+post-trauma, an instrument caveat). What rescues a small model is not what
+rescues a larger one — constructor efficacy is model-dependent as well as
+state-dependent.
