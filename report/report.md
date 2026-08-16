@@ -578,3 +578,21 @@ positive displacement. Post-hoc hypothesis, flagged as such: a 3-vertex
 orbit revisits few semantic zones, producing litany-like repetition, which
 also won the valley-s ladder (s = 0) — suggesting **repetition, not spectral
 smoothness, as the deeper active ingredient**. `results/polygon_shapes_llama1b_r12.csv`.
+
+## 15. The harming–helping asymmetry
+
+The bench's effect sizes are asymmetric in a way that replicates across all
+three models and deserves its own statement. One paragraph of second-person
+prose narrative moves the internal state 0.20–0.34 along the probe and
+collapses positive-word share from 0.77 to 0.06–0.19 — while twenty-four
+lines of the best-ranked calm construction recover at most a third of an
+induced displacement (33.5% at 2B, matching the 33% questionnaire-based
+recovery Ben-Zion et al. report for hand-crafted mindfulness scripts in
+GPT-4; ≤19% at 9B, where mundane text out-rescues meditation). Placement
+from a neutral start likewise beats the neutral control consistently but
+modestly (0.07–0.11). **Negative induction is a hair-trigger; positive
+restoration is a slow, partial ratchet.** If the affective states of
+language models ever carry moral weight, this asymmetry is the operationally
+central fact: protecting models from distressing context is cheap and
+high-leverage; repairing induced states is expensive and incomplete — on
+every architecture we tested.
