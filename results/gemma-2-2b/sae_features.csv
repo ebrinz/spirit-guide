@@ -1,0 +1,59 @@
+feature,delta_verse_2a,delta_prose_2b,reversal_2b,corr_valence,label,url
+549,-10.67,-10.67,0.0,0.0,text that involves programming and code structure,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/549
+779,0.0,19.81,7.55,-0.784,references to apocalyptic themes and events,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/779
+959,8.93,0.0,-6.91,0.305,concepts related to causal inference and statistical modeling,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/959
+1413,0.0,13.19,2.56,-0.715,factors related to health conditions and their severity,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/1413
+1459,-13.86,-16.62,2.08,0.477,concepts related to self-awareness and personal development,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/1459
+1583,-5.4,-15.99,0.0,0.921,words related to administrative or technical tasks and issues,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/1583
+1601,0.0,7.7,7.7,0.0,specific operators and indicators within programming or theoretical frameworks,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/1601
+1692,-0.84,-6.47,-9.41,0.105,legal and technical terminology related to statutes and inventions,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/1692
+1841,2.58,6.04,0.48,-0.821,"descriptive phrases and their evaluations, particularly regarding appearance and quality",https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/1841
+1878,0.0,0.0,-6.96,-0.513,statements about financial implications and consequences,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/1878
+2125,-1.07,-11.58,-7.97,0.869,expressions of anxiety and self-reflection,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/2125
+2729,0.0,7.33,7.33,0.0,terms related to isolation and the sense of being left behind,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/2729
+3518,6.91,-11.9,-10.86,0.738,phrases indicating disapproval or violation of rules,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/3518
+3645,0.78,-10.71,-9.5,0.5,phrases related to measurements or characteristics of products and experiences,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/3645
+3743,-10.95,3.13,2.16,-0.698,references to the effects of mood-altering experiences,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/3743
+4046,-20.83,-27.41,-3.52,0.369,phrases related to feeling busy or overwhelmed,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/4046
+4806,-1.31,-10.77,-6.75,0.813,references to readers and their understanding or acknowledgment of content,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/4806
+5052,-18.68,-3.78,3.65,-0.356,"the beginning of a document or section, likely signaling the start of significant content",https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/5052
+5533,-9.58,-9.58,0.0,0.0,terms related to medical and biological testing and analysis,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/5533
+5642,-5.14,-17.63,-9.71,0.656,expressions of positivity and encouragement,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/5642
+5755,-5.94,14.04,8.04,-0.78,references to themes of memory and personal reflection,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/5755
+5810,10.79,16.22,-0.38,-0.8,expressions of grief and mourning,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/5810
+5862,9.38,0.0,-7.54,-0.184,instances of comparison and evaluation about size and capability,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/5862
+6143,16.05,0.0,-5.85,0.449,"words and phrases related to scientific or technical processes and observations, particularly in medical or biological contexts.",https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/6143
+6614,9.9,0.0,0.0,0.579, elements related to data structure and processing in programming contexts,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/6614
+6631,-6.32,-22.28,-9.85,0.754,"proper nouns.
+",https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/6631
+7427,0.0,13.13,3.33,-0.759,references to systemic instability or breaches in ethical norms,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/7427
+7769,0.0,18.38,3.54,-0.803,terms related to fear and anxiety,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/7769
+8199,-9.38,-9.38,0.0,0.0,phrases related to financial burdens and economic impact,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/8199
+8484,11.41,0.0,-6.58,0.434,concepts related to physical vibrations and their effects,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/8484
+9097,7.91,16.16,1.32,-0.837,negative sentiments and expressions of dissatisfaction,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/9097
+9768,-23.75,-38.38,-3.1,0.813,"terms related to control and authority, particularly in political or systemic contexts",https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/9768
+10208,9.99,9.87,1.3,-0.318,references to diversity and inclusion,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/10208
+10231,0.0,7.44,7.44,0.0,events related to political comeback victories,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/10231
+10324,-9.64,-9.64,0.0,0.0,references to stress and its related effects,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/10324
+10401,2.25,-9.23,0.0,0.818,references to justice and restoration of order,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/10401
+10640,23.05,0.0,-17.35,0.433,information about critiques and evaluations in research studies,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/10640
+10691,-9.22,-0.61,8.62,0.0,key phrases related to legal matters or immigration issues,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/10691
+10731,-9.74,-9.74,0.0,0.0,terms related to legal rights and the judicial process,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/10731
+11043,9.71,0.0,-9.63,0.275,references to emotions and emotional states,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/11043
+11051,-1.08,-17.21,-11.26,0.437,terminology related to mental health conditions and stress factors,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/11051
+11134,-0.72,-4.08,-2.61,0.791,references to ongoing activities or current states,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/11134
+11344,0.0,8.21,2.26,-0.825,terms related to heat and temperature changes in a scientific context,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/11344
+11733,0.0,13.97,4.6,-0.74,phrases related to systemic issues and injustices in legal or social contexts,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/11733
+11967,7.5,13.87,1.1,-0.75,"words indicating actions, statements, or conditions related to assessment or evaluation",https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/11967
+12176,7.54,12.66,-0.43,-0.762,situations involving feeling stuck or encountering obstacles,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/12176
+12399,1.21,8.71,4.42,-0.785, expressions of personal feelings or sensations related to emotional states,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/12399
+13166,-12.14,-1.37,0.75,-0.331,themes related to living in the moment and the importance of mindfulness,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/13166
+13286,0.41,-11.27,0.0,0.847,expressions related to personal experiences and emotional reflections,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/13286
+13774,0.54,2.3,0.65,-0.801,discussions about time and its significance in various contexts,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/13774
+14342,0.0,11.42,10.78,0.0,mentions related to dining or restaurant experiences,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/14342
+14439,3.18,-9.66,0.0,0.781,references to financial consequences or monetary impacts,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/14439
+14768,0.88,3.87,-0.29,-0.799,expressions indicating perception or subjective experience,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/14768
+14999,-5.22,-12.12,-1.96,0.698,"terms related to secrets, weapons, and technology",https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/14999
+15064,-13.41,-13.41,0.0,0.0," phrases pertaining to the relationship between actions, conditions, and outcomes",https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/15064
+15641,7.94,16.26,2.88,-0.798,phrases related to control and regulation within systems,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/15641
+15745,-0.38,-8.49,0.0,0.864,phrases related to societal issues and critiques of power dynamics,https://www.neuronpedia.org/gemma-2-2b/20-gemmascope-res-16k/15745
