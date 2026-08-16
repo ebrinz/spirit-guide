@@ -12,6 +12,7 @@ dynamics, self-report validity, causal steering, closed-loop guidance, and
 cross-scale replication.
 
 - **Report:** [`report/spirit-bench.pdf`](report/spirit-bench.pdf)
+- **Intuitive walkthrough of all findings:** [`docs/findings-walkthrough.md`](docs/findings-walkthrough.md)
 - **Experiments journal (E1–E14):** [`docs/experiments-journal.md`](docs/experiments-journal.md)
 - **Result snapshots:** [`results/`](results/) (per-model CSVs)
 - **Design spec / plan:** [`docs/superpowers/`](docs/superpowers/)
