@@ -101,3 +101,11 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   sign split: adaptivity registers in self-report before the probe.
 - VA-band selection without coherence yields disjointed transcripts (the E5
   Dirichlet diagnosis); coherence term at 0.05 weight was too weak to test.
+
+## E9c — Expanded seeds + coherence 0.3 (2026-08-16)
+- n=4 seeds/arm (+w0.3 coherent). Self-report split diluted to a trend:
+  rescue dNA feedback +0.03 (4/10 neg) vs non-feedback +0.20 (1/8 neg).
+- Coherence–speed trade-off: coherent_w0.3 worst climber (+0.040±0.006) —
+  semantic adjacency = small meaning-steps = slow VA travel. Fixed-stimulus
+  smoothness helps (E5); in-loop smoothness costs tracking speed.
+- Open-loop ≈ closed on probe channel throughout.

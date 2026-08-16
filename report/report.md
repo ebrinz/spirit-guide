@@ -348,9 +348,15 @@ feedback controller against open-loop and random-phrase arms on the rescue
 probe channel, improvement is policy-insensitive (+0.04–0.08 for all arms):
 over 24 phrases, perturbation decay dominates, and the feedback signal —
 already range-compressed by ridge shrinkage — offers no advantage. The
-self-report channel disagrees: in rescue, the only arms with reduced
-negative affect are the two feedback arms (ΔNA −0.15, −0.10 vs +0.17, +0.27
-for open/random; a 4/4 sign split at small n). The adaptive transcripts also
-exhibit the incoherence the path-Dirichlet analysis (§7) predicts to be
-costly — VA-proximal phrase selection without semantic adjacency — marking
-coherence-constrained closed-loop control as the identified next step.
+self-report channel shows a directional trend favoring feedback: in rescue,
+feedback arms average ΔNA +0.03 (4/10 sessions negative) against +0.20
+(1/8 negative) for non-feedback arms — suggestive, not significant, and an
+initially clean sign split diluted under expanded seeds. Strengthening the
+coherence constraint (re-ranking candidates by embedding proximity, weight
+0.3) exposed a coherence–speed trade-off: semantically adjacent selection
+takes small steps in meaning space and therefore travels VA space slowly,
+making the coherent arm the weakest climber (+0.040 ± 0.006) — fixed-stimulus
+smoothness helps placement (§7), but in-the-loop smoothness costs tracking
+speed. Reconciling the two — coherent yet fast trajectories, e.g. planning
+several waypoints ahead through the phrase graph rather than greedy
+selection — is the identified next step.
