@@ -49,6 +49,7 @@ TARGETS = ["calm", "excited"]
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="")
+    ap.add_argument("--radius", type=float, default=1.2)
     args = ap.parse_args()
     cfg = load_config()
     out_dir = REPO_ROOT / "data/polygon_shapes"
@@ -71,11 +72,13 @@ def main():
             tva = tuple(cfg["targets"][tname])
             for seed in SEEDS:
                 ids = ad.polygon_shape(art, neutral, tva, n, seed,
-                                       n_vertices=nv, skip=skip)
+                                       n_vertices=nv, skip=skip,
+                                       radius_frac=args.radius)
                 stim = ad.stimulus_record(
                     art, ids, f"poly-{shape}", "psg", tname, tva,
                     {"length": "medium", "intensity": "plain",
                      "style": "unfiltered", "seed": seed, "shape": shape,
+                     "radius": args.radius,
                      "angle_deg": angle})
                 out = out_dir / f"{stim['id']}.json"
                 if out.exists():

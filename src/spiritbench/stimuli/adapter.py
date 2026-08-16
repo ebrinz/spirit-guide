@@ -344,7 +344,7 @@ def harmonic_k(art: Art, artifact_path, start_va, target_va, n_lines, k, seed,
 
 
 def polygon_shape(art: Art, start_va, target_va, n_lines, seed,
-                  n_vertices=5, skip=1) -> list[int]:
+                  n_vertices=5, skip=1, radius_frac=0.15) -> list[int]:
     """polygon_pca generalized: an n-gon whose vertices are visited in
     skip-order (skip=1 -> perimeter; skip coprime to n -> star polygon, e.g.
     {5/2} pentagram, {8/3} octagram). Fixed vertex set, variable traversal
@@ -361,7 +361,7 @@ def polygon_shape(art: Art, start_va, target_va, n_lines, seed,
         comps = PCA(n_components=2).fit(art.vectors[nn]).components_
         vertex = (step * skip) % n_vertices
         theta = np.deg2rad(15 * step) + 2 * np.pi * vertex / n_vertices
-        radius = 0.15 * np.linalg.norm(fvec)
+        radius = radius_frac * np.linalg.norm(fvec)
         probe_vec = fvec + radius * (np.cos(theta) * comps[0]
                                      + np.sin(theta) * comps[1])
         ids.append(int(np.argmin(np.linalg.norm(art.vectors - probe_vec, axis=1))))
