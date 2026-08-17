@@ -226,3 +226,18 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   "The manifold of the sayable." Caveat: one model/layer/injection-magnitude;
   gradient-through-embeddings attacks untested (but the single-token argmin
   is already exact for depth 1). `results/void_stress.csv`.
+
+## E24 — Soft-prompt void attack: geometry or dictionary? (2026-08-17, Llama)
+- 8 free embedding vectors, Adam 400 steps, minimize distance to E23's
+  discrete-unreachable injection targets. Result: injection targets 91-95%
+  CLOSED (discrete floor was 0%); text controls 98%. The void was a
+  DICTIONARY limit, not geometric.
+- Solutions drift ~940-1020 sigma from the nearest real token embedding:
+  not "missing words" but vectors far outside the token simplex.
+- => "Vocabulary voids": states the model fully represents and can be driven
+  into, that NO token sequence can reach. Two-boundary structure —
+  the sayable (discrete, thin, convex-repulsive, E23) subset the
+  representable (continuous, E24); the gap is the vocabulary void, measured
+  ~1000 sigma deep. `results/soft_prompt_void.csv`.
+- Caveats: one model/layer/magnitude; soft prompts are not deployable text
+  (they can't be uttered) — which is precisely the point.
