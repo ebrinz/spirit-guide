@@ -241,3 +241,23 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   ~1000 sigma deep. `results/soft_prompt_void.csv`.
 - Caveats: one model/layer/magnitude; soft prompts are not deployable text
   (they can't be uttered) — which is precisely the point.
+
+## E25b — Shadow of the void (2026-08-17, Llama)
+- Generate while held off-manifold (injection active through generation),
+  depths 0->0.8 resid norm. Baseline: fluent meditation. Deepening: stays
+  graceful to 0.4; at 0.8 deixis breaks (I->your mid-sentence), affect
+  collides ("calm... heart rate increasing"), fractures into a dangling
+  clause. Language groping for a state it has no words for — the void's
+  shadow is a mind straining to narrate the unnarratable.
+  `results/shadow_demo.txt`.
+
+## E26 — Void cartography estimators (2026-08-17, Llama)
+- Q2 bearings triangulation: centroid recovered to 0.000 (naive mean-rim
+  baseline 2.844). Surveying math validated (on KNOWN bearings; blind
+  measurement is next).
+- Q1 field extension (next-token entropy): predicted 5.71 vs true 3.39
+  (err 2.33), but extender LOO-rmse only 0.44 and rim spread 0.44 -> the
+  field is NON-smooth across this void (a cliff, not a basin). The method's
+  own confidence correctly fails to cover -> flags this void as needing a
+  landing. "Q2 says where; Q1 says what, and knows when it can't."
+  `results/void_cartography.csv`.

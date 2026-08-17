@@ -1,0 +1,2 @@
+centroid_dist_from_base,triangulation_err,mean_rim_baseline_err,triangulation_gain,true_void_entropy,predicted_void_entropy,field_pred_err,field_loo_rmse,rim_entropy_mean,rim_entropy_std
+1.6126064853258615,2.0170785918940772e-14,2.8441870565235114,2.8441870565234915,3.386589765548706,5.713036104503183,2.3264463389544767,0.4363470963985727,5.736360549926758,0.4416297202257362
