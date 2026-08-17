@@ -181,3 +181,19 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   = carved directions only; closed-loop feedback = arbitrary directions;
   injection = all directions but behaviorally inert. Caveats: n=1 direction/
   seed, greedy optimizes the readout itself. `data/logs/e19_search.log`.
+
+## E20 — Passage-calibrated probe (2026-08-16, Llama)
+- 1200 band-sampled passages (20% incoherent controls), anchor-position
+  states, per-layer ridge. Layer 15, held-out passage R² v=0.919 a=0.916.
+- Range now spans the map: ceiling (0.70,0.22), floor (0.32,0.75).
+- Valley poem reads (0.71,0.19): distance to calm target 0.038 (word probe:
+  0.256). The calibration prediction confirmed — the missing distance was
+  the ruler. `data/passage_probe/probe_passage.pkl`.
+
+## E21 — Feedback-navigation replication (2026-08-16, Llama)
+- 8 fresh random directions; greedy search vs random-context drift control
+  + held-out anchor transfer check. Advantage +0.86±0.19σ, 8/8 positive,
+  p=0.008; transfer +0.43±0.41σ, 7/8 positive, p=0.016. Drift is real
+  (+0.19σ) so E19's raw figure was inflated; the controlled effect stands.
+  Listening reaches nameless coordinates — replicated with controls.
+  `results/e19_replication.csv`.
