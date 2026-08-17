@@ -38,7 +38,11 @@ def main():
     ap.add_argument("--model", required=True)
     ap.add_argument("--probe", required=True)
     ap.add_argument("--tag", required=True)
+    ap.add_argument("--vocab", type=int, default=VOCAB_SAMPLE)
+    ap.add_argument("--steps", type=int, default=STEPS)
     args = ap.parse_args()
+    global VOCAB_SAMPLE, STEPS
+    VOCAB_SAMPLE, STEPS = args.vocab, args.steps
     cfg = load_config()
     art = ad.load_art(str(REPO_ROOT / "data/phrase_bank/phrase_graph.json"))
     model = HiddenStateModel(args.model, device=cfg["device"])
