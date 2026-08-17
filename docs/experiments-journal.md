@@ -197,3 +197,19 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   (+0.19σ) so E19's raw figure was inflated; the controlled effect stands.
   Listening reaches nameless coordinates — replicated with controls.
   `results/e19_replication.csv`.
+
+## E22 — The void probe (2026-08-17, Llama)
+- Targets: states minted by injection (3 random dirs, valence dir, top-2
+  language PCs; 0.2x resid norm) vs states created by real text (positive
+  control). Greedy feedback search, loss = activation-space distance,
+  10x30 per target; drift controls.
+- TEXT targets (2x farther away): 54-60% closed, 83% along-target. ALL SIX
+  injection targets: exactly 0.0% closed — no candidate ever reduced
+  distance (3000 attempts); random text moves 1.6-2.1x FARTHER away.
+- Conclusion: the promptable image is a thin curved manifold; even small
+  straight-line displacements off it — including along valence and
+  language's own PCs — are unreachable and repulsive under linguistic
+  dynamics. Prompting reaches exactly one place: the manifold of the
+  sayable. Complements E8: injection and text control disjoint territories.
+- Caveats: greedy search (stronger optimizers untested), one model/layer/
+  magnitude. `results/void_probe.csv`.
