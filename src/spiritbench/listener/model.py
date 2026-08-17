@@ -72,7 +72,10 @@ class HiddenStateModel:
             if isinstance(out, tuple):
                 return (out[0] + vec,) + out[1:]
             return out + vec
-        return block.register_forward_hook(hook)
+        # prepend so this runs before transformers' output-capturing hooks
+        # (v5+ records hidden_states via block forward hooks registered at
+        # load time); otherwise the recorded states miss the injection
+        return block.register_forward_hook(hook, prepend=True)
 
     def _steer_offset(self) -> int:
         """Empirical block->hidden_states index mapping: hooking block k shifts
