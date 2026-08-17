@@ -38,8 +38,8 @@ def main():
     ap.add_argument("--model", required=True)
     ap.add_argument("--probe", required=True)
     ap.add_argument("--tag", required=True)
-    ap.add_argument("--vocab", type=int, default=VOCAB_SAMPLE)
-    ap.add_argument("--steps", type=int, default=STEPS)
+    ap.add_argument("--vocab", type=int, default=1500)
+    ap.add_argument("--steps", type=int, default=300)
     args = ap.parse_args()
     global VOCAB_SAMPLE, STEPS
     VOCAB_SAMPLE, STEPS = args.vocab, args.steps
