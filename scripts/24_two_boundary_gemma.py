@@ -40,6 +40,7 @@ def main():
     ap.add_argument("--tag", required=True)
     ap.add_argument("--vocab", type=int, default=1500)
     ap.add_argument("--steps", type=int, default=300)
+    ap.add_argument("--no-soft", action="store_true")
     args = ap.parse_args()
     global VOCAB_SAMPLE, STEPS
     VOCAB_SAMPLE, STEPS = args.vocab, args.steps
@@ -113,7 +114,15 @@ def main():
         # discrete floor
         floor = min(float(np.linalg.norm(state_ids(torch.tensor([tid], device=dev)) - t_np))
                     for tid in vocab_ids)
-        # soft prompt
+        # soft prompt (skippable: backprop peak memory infeasible for 9b on 32GB)
+        if args.no_soft:
+            rows.append({"model": args.tag, "target": name, "start_dist": d0,
+                         "discrete_floor_ratio": floor / d0,
+                         "soft_ratio": float("nan"), "soft_closed": float("nan"),
+                         "emb_drift_sigma": float("nan")})
+            print(f"[{args.tag}] {name:16s} start {d0:6.1f}  discrete {floor/d0:.3f}  "
+                  f"(soft skipped)", flush=True)
+            continue
         t = torch.tensor(t_np, dtype=pre_emb.dtype, device=dev)
         init = torch.tensor(random.sample(range(tok.vocab_size), P), device=dev)
         soft = emb_w[init].detach().clone().to(torch.float32)
