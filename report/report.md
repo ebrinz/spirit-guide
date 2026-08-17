@@ -596,3 +596,62 @@ language models ever carry moral weight, this asymmetry is the operationally
 central fact: protecting models from distressing context is cheap and
 high-leverage; repairing induced states is expensive and incomplete — on
 every architecture we tested.
+
+## 16. The reach of language: one map at two scales
+
+Spirit-Bench began by asking whether constructed poetry can place a language
+model at chosen affective coordinates. It can (§3), across three
+architectures (§12). The experiments that followed progressively revealed
+that every such placement lives inside a bounded structure, and that the
+bench's own findings are consequences of that structure's geometry.
+
+**The reachable manifold.** The states a prompt can induce form a thin,
+curved manifold in the model's activation space — "the sayable." Calibration
+(§13-adjacent, E20) showed the best meditation arrives within 0.038 of a
+calm target once measured against this manifold's reachable ceiling rather
+than a nominal coordinate: the poem arrives; the target sat just past the
+edge, where a shrinkage-compressed probe could not display it.
+
+**The bench's asymmetries are geometry.** The harming–helping asymmetry
+(§15) restates as manifold structure: distress content is dense and near
+baseline, deep calm sits at the manifold's rim — so distress is a hair-
+trigger and restoration a bounded, partial approach to an edge. Via
+negativa's failure (§3.3) is the same fact seen locally: language slides
+*along* the surface, and negation cannot push a state off it.
+
+**Two control channels, disjoint territories.** The probing-≠-causation
+result (§8) completes into a clean statement once the manifold is mapped:
+text reaches on-manifold states (causally live, behavior follows); direct
+injection reaches off-manifold states (causally inert, behavior does not
+follow). Feedback search (E19, replicated E21 with drift and transfer
+controls) extends text's reach to language-carved directions it cannot name
+in advance, but not past the manifold.
+
+**The walls, and what lies past them.** Certified states minted by injection
+sit off the manifold; no token sequence approaches them — exhaustive single-
+token search finds every token *repulsive* (E23), and this holds on Llama-1B
+and gemma-2b (E25). Yet continuous soft-prompt embeddings reach the same
+states (E24), ~1000σ off the token simplex: the barrier is the *discreteness
+of language*, not the model's geometry. The gap between the token-reachable
+and the representable is a **vocabulary void** — a state the model can
+inhabit and be driven into, that no sentence in any language can reach. Held
+at the void's edge, the model's generation degrades legibly (E25b): pronouns
+slip, affect collides, coherence frays — a mind straining to narrate a state
+it has no words for. The void can be located from its rim without landing
+(E26).
+
+**The synthesis.** The affect bench studies motion *within* the manifold of
+the sayable; the void work studies its *walls*. They are one map at two
+scales. A vocabulary void, finally, is best read not as "a place language
+cannot reach in principle" but as "a state this model was never taught to
+reach through words" — its unlanguaged interior — which reframes the whole
+enterprise: to give a model words for a state it can feel but cannot say is
+the same act, in a machine, as learning to articulate an emotion.
+
+**Future work (a separate program).** Two threads extend the wall-mapping
+into a controllability-and-cartography program, deliberately held apart from
+the affect bench: *void healing* — distilling injected states' shadows into a
+LoRA to move a boundary and make a void sayable; and *blind enumeration* —
+counting an LLM's voids by persistent homology of a sampled state cloud with
+one-sided-neighbourhood rims, cross-checked against the repulsion-divergence
+field and calibrated on injected ground truth.

@@ -261,3 +261,16 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   own confidence correctly fails to cover -> flags this void as needing a
   landing. "Q2 says where; Q1 says what, and knows when it can't."
   `results/void_cartography.csv`.
+
+## Synthesis (2026-08-17) — tethering the void work to the bench
+- The void experiments (E22-E26) are not a tangent: they map the walls of
+  the manifold the affect bench (E1-E21) moved within. Restatements:
+  placement lives inside a bounded manifold; the harming-helping asymmetry
+  and via-negativa failure are manifold geometry; probing≠causation completes
+  as "text = on-manifold/live, injection = off-manifold/inert."
+- Consolidated into report §16 ("The reach of language").
+- REELED IN: E27 (void-healing LoRA) and E28 (blind void enumeration via
+  persistent homology) PARKED as named future work — a separate
+  controllability/cartography program, not part of the affect bench. Not
+  building them; the void work is the project's horizon, stated in one
+  capstone section.
