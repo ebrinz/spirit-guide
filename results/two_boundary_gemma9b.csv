@@ -1,0 +1,6 @@
+model,target,start_dist,discrete_floor_ratio,soft_ratio,soft_closed,emb_drift_sigma
+gemma9b,inject-rand0,55.52165959952389,1.027422807894291,,,
+gemma9b,inject-rand1,55.636611509739105,1.017617924017526,,,
+gemma9b,inject-valence,56.35215958937983,1.0226545288623996,,,
+gemma9b,inject-pc1,59.3571208385276,1.0027771096138323,,,
+gemma9b,text0,111.90946792328509,0.8546143315772995,,,

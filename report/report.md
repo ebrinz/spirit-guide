@@ -629,9 +629,12 @@ in advance, but not past the manifold.
 
 **The walls, and what lies past them.** Certified states minted by injection
 sit off the manifold; no token sequence approaches them — exhaustive single-
-token search finds every token *repulsive* (E23), and this holds on Llama-1B
-and gemma-2b (E25). Yet continuous soft-prompt embeddings reach the same
-states (E24), ~1000σ off the token simplex: the barrier is the *discreteness
+token search finds every token *repulsive* (E23), and this repulsion floor
+(best single token ≥ 1.0×) replicates on all three architectures — Llama-1B,
+gemma-2b, gemma-9b (E25). Yet continuous soft-prompt embeddings reach the same
+states (E24; ~1000σ off the token simplex; confirmed on Llama-1B and
+gemma-2b, with gemma-9b's soft-prompt backprop memory-infeasible on the
+test hardware): the barrier is the *discreteness
 of language*, not the model's geometry. The gap between the token-reachable
 and the representable is a **vocabulary void** — a state the model can
 inhabit and be driven into, that no sentence in any language can reach. Held
@@ -654,4 +657,9 @@ the affect bench: *void healing* — distilling injected states' shadows into a
 LoRA to move a boundary and make a void sayable; and *blind enumeration* —
 counting an LLM's voids by persistent homology of a sampled state cloud with
 one-sided-neighbourhood rims, cross-checked against the repulsion-divergence
-field and calibrated on injected ground truth.
+field and calibrated on injected ground truth. In that program a void's
+survey-worthiness is scored not by metric radius but by
+*persistence × rim-semantic-diversity × shadow-coherence* — the composite
+that keeps the survey to coherent fields of ideas (a concept encircled by
+many sayable neighbours but nameable by none) and discards trivial
+interstitial gaps; metrically small but significant voids are retained.

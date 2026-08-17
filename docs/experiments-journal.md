@@ -274,3 +274,14 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   controllability/cartography program, not part of the affect bench. Not
   building them; the void work is the project's horizon, stated in one
   capstone section.
+
+## E25 (9b, forward-only) — repulsion floor on the third architecture (2026-08-17)
+- gemma-9b OOM-killed on full+lean soft-prompt (42-layer backprop peak vs
+  32GB). Recovered forward-only (--no-soft): discrete floor 1.00-1.03 on all
+  injection targets (repulsive), text control 0.855. Repulsion floor now
+  replicates Llama-1B + gemma-2b + gemma-9b. Soft-prompt breakthrough stays
+  at 2 archs (2b+Llama); 9b-soft memory-infeasible, noted honestly.
+- Void significance (folded into §16 future work): worth-surveying score =
+  persistence × rim-diversity × shadow-coherence; discard by low significance,
+  NOT small radius. "A field of ideas" = a semantically diverse rim encircling
+  one unsayable center. The apophatic voids — known by their neighbours.
