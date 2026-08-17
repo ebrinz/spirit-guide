@@ -213,3 +213,16 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   sayable. Complements E8: injection and text control disjoint territories.
 - Caveats: greedy search (stronger optimizers untested), one model/layer/
   magnitude. `results/void_probe.csv`.
+
+## E23 — Void-floor stress test (2026-08-17, Llama)
+- Stronger optimizers vs E22's greedy: exact single-token floor over 2000
+  real vocab tokens + width-8 depth-6 beam. Same injection/text targets.
+- INJECTION targets: single-token floor ratio 1.02-1.06 (>1: the best
+  possible first token lands FARTHER than the empty string); beam 1.000,
+  0% closed. TEXT targets: floor 0.90, beam closes 27%.
+- Verdict: the void is geometric, not a search artifact. The promptable
+  image has empty interior and is repulsive from exterior points — from any
+  off-manifold state, ALL tokens (exhaustively checked) point away.
+  "The manifold of the sayable." Caveat: one model/layer/injection-magnitude;
+  gradient-through-embeddings attacks untested (but the single-token argmin
+  is already exact for depth 1). `results/void_stress.csv`.
