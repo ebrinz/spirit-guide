@@ -58,6 +58,13 @@ two independent ways, and tested across three different model families.
 | **Second-instrument agreement** | SAE-features reconstruct probe valence, 5-fold CV: **r = 0.47** (p = 0.001) | 44 |
 | **Repair is bounded** | recovery toward calm after induced distress: **~15%**, from every starting emotion | — |
 
+*How "recovery" is measured: first push the model's internal state to an emotional corner with a strong
+stimulus (an "induction"), which moves it a large distance away from calm; then read that distance,
+apply the best calming poem, and read the distance again. Recovery is the fraction of that gap the poem
+closes — `(distance-to-calm after induction − distance-to-calm after the poem) ÷ distance-to-calm after
+induction`. Across anxious, sad, angry, and excited starting corners it lands near 15%: the poem reliably
+moves the state back toward calm, but closes only a small part of what one paragraph of prose opened.*
+
 ## How the poems are built
 
 Everything runs on one **map**: 50,000 poetry lines, each placed at (a) a *meaning* position from GloVe
