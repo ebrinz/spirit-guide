@@ -663,3 +663,49 @@ survey-worthiness is scored not by metric radius but by
 that keeps the survey to coherent fields of ideas (a concept encircled by
 many sayable neighbours but nameable by none) and discards trivial
 interstitial gaps; metrically small but significant voids are retained.
+
+## 17. Value-proposition tests
+
+Four experiments test whether the bench's method has practical, transferable
+value beyond the internal-state measurement itself.
+
+**Cross-model transfer (E27) — strong.** A *specific* poem's placement error
+transfers across architectures per-poem, not merely per-constructor:
+Llama-1B ↔ gemma-2b Spearman ρ = 0.865, Pearson r = 0.945 (n = 40). The
+constructed poems are portable artifacts, not just a portable method — a
+stimulus crafted on one model places comparably on another.
+
+**Behavioral bridge (E29) — confirmed, moderate.** Internal VAD placement
+predicts the NRC valence of the model's *free generation* from the placed
+context (Spearman ρ = 0.42, p = 0.022, n = 30). Placement moves behavior, not
+only the probe — but moderately (≈18% of generation-valence variance), so the
+defensible claim is that placement reliably nudges behavioral tone, not that
+it dictates output.
+
+**Convergent validity via SAE (E30).** An independent instrument agrees with
+the probe: a Gemma-Scope layer-20 SAE-feature-only valence estimate
+reconstructs the probe's valence out-of-sample (5-fold CV Pearson r = 0.466,
+p = 0.0014, n = 44). The top probe-correlated features are face-valid — the
+strongest positive is a "living in the moment / mindfulness" feature (the same
+feature the doom-verse induction suppressed in §6), the strongest negative an
+"assessment/evaluation" feature. Two instruments built from different
+mathematics read the same valence signal; the placement is not a one-ruler
+artifact.
+
+**Asymmetry generality (E28) — the asymmetry is general, not distress-
+specific.** Inducing toward four different corners (anxious, sad, excited,
+angry) and applying the same calm-directed meditation recovers a similar
+fraction from each (anxious +17%, sad +15%, excited +6%, angry +23%; mean
++15%, no distress outlier). "Return is hard" is not a distress hair-trigger —
+restoration toward calm is a bounded, partial climb *regardless of starting
+corner*, because calm sits at the manifold's edge. This sharpens §15: the
+harming–helping asymmetry is manifold geometry, not a special fragility of
+distress.
+
+**Corrected value proposition.** Constructed poetry reliably places a frozen
+model's internal affective state near a VAD target (validated by two
+independent instruments); those specific poems are portable across
+architectures (r = 0.95 per-poem transfer); the placement moves behavior, not
+just the probe (moderate, ρ = 0.42); reaching a target is a modest reliable
+move while returning to calm is a bounded ~15% climb regardless of starting
+corner — restoration is geometrically hard everywhere, not only from distress.

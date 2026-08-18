@@ -285,3 +285,19 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
   persistence × rim-diversity × shadow-coherence; discard by low significance,
   NOT small radius. "A field of ideas" = a semantically diverse rim encircling
   one unsayable center. The apophatic voids — known by their neighbours.
+
+## E27-E31 — Value-proposition tests (2026-08-17, Llama + gemma-2b)
+- E27 cross-model transfer: per-poem placement llama<->gemma2b spearman 0.865,
+  pearson 0.945 (n=40). Poems are portable artifacts. `results/transfer_*.csv`.
+- E29 behavioral bridge: probe placement -> free-generation NRC valence
+  spearman 0.42 p=0.022 (n=30). Placement moves behavior, moderately.
+  `results/behavioral_bridge.csv`.
+- E30 SAE corroboration (gemma-2b): SAE-only valence estimate vs probe 5-fold
+  CV r=0.466 p=0.0014 (n=44); top +feat f13166 "mindfulness", top -feat
+  f10470 "assessment". Convergent validity. `results/sae_corroboration.csv`.
+- E28 asymmetry generality: recovery-toward-calm 15-23% across anxious/sad/
+  excited/angry corners, NO distress outlier. "Return is hard" is GENERAL
+  (manifold geometry), not distress-specific. `results/asymmetry_generality.csv`.
+- E31 six-state behavioral eval: place in 6 states, one projective prompt,
+  score the answer. `results/six_state_eval.csv`.
+- Report §17 written with corrected value proposition.
