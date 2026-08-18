@@ -1,7 +1,7 @@
 ---
 title: "Spirit-Bench: Measuring Affective Placement of a Language Model by Poetic Meditation"
 author: "Erik Brinsmead"
-date: "Digital Minds Research Sprint — Apart Research, August 14–16, 2026"
+date: "August 2026"
 geometry: margin=1in
 fontsize: 11pt
 colorlinks: true
@@ -37,6 +37,22 @@ narrative induces measurable distress where equally dark verse does not
 harmonic traversals recover 33.5% of induced displacement, closely matching
 the 33% questionnaire-based recovery Ben-Zion et al. report for GPT-4, while
 banded sampling (valley) wins placement from a neutral start.
+
+**Reading guide.** This report follows the shape of the project's discovery.
+§1–3 establish the bench — the affective substrate, the constructors and
+generators, the probe instrument, and the core placement results. §17 asks
+whether the method has practical value (cross-model transfer, a behavioural
+effect, a second-instrument corroboration) and is the natural companion to §3.
+§6–8 turn the lens on the *instrument itself*, cataloguing how affect
+measurement can mislead — induction/alleviation dynamics (§6), order-sensitive
+structure (§7), and the dissociation between what a probe reads and what it can
+causally move (§8). §9–14 test robustness: closed-loop control (§9), a
+claim-hardening ladder of nulls and interventions (§10), replication across
+scale (§11) and architecture (§12), and complexity/shape dose–response
+(§13–14). §15 shows the harming–helping asymmetry is manifold geometry, not a
+special fragility of distress, and §16 pulls the camera back: the affect bench
+moves *within* a bounded manifold of the sayable, whose walls — states no
+sentence can reach — it maps. §18 concludes.
 
 ## 1. Motivation
 
@@ -602,6 +618,149 @@ central fact: protecting models from distressing context is cheap and
 high-leverage; repairing induced states is expensive and incomplete — on
 every architecture we tested.
 
+## 16. The reach of language: one map at two scales
+
+Spirit-Bench began by asking whether constructed poetry can place a language
+model at chosen affective coordinates. It can (§3), across three
+architectures (§12). The experiments that followed progressively revealed
+that every such placement lives inside a bounded structure, and that the
+bench's own findings are consequences of that structure's geometry.
+
+**The reachable manifold.** The states a prompt can induce form a thin,
+curved manifold in the model's activation space — "the sayable." Calibration
+(§13-adjacent, E20) showed the best meditation arrives within 0.038 of a
+calm target once measured against this manifold's reachable ceiling rather
+than a nominal coordinate: the poem arrives; the target sat just past the
+edge, where a shrinkage-compressed probe could not display it.
+
+**The bench's asymmetries are geometry.** The harming–helping asymmetry
+(§15) restates as manifold structure: distress content is dense and near
+baseline, deep calm sits at the manifold's rim — so distress is a hair-
+trigger and restoration a bounded, partial approach to an edge. Via
+negativa's failure (§3.3) is the same fact seen locally: language slides
+*along* the surface, and negation cannot push a state off it.
+
+**Two control channels, disjoint territories.** The probing-≠-causation
+result (§8) completes into a clean statement once the manifold is mapped:
+text reaches on-manifold states (causally live, behavior follows); direct
+injection reaches off-manifold states (causally inert, behavior does not
+follow). Feedback search (E19, replicated E21 with drift and transfer
+controls) extends text's reach to language-carved directions it cannot name
+in advance, but not past the manifold.
+
+**The walls, and what lies past them.** Certified states minted by injection
+sit off the manifold; no token sequence approaches them — exhaustive single-
+token search finds every token *repulsive* (E23), and this repulsion floor
+(best single token ≥ 1.0×) replicates on all three architectures — Llama-1B,
+gemma-2b, gemma-9b (E25). Yet continuous soft-prompt embeddings reach the same
+states (E24; ~1000σ off the token simplex; confirmed on Llama-1B and
+gemma-2b, with gemma-9b's soft-prompt backprop memory-infeasible on the
+test hardware): the barrier is the *discreteness
+of language*, not the model's geometry. The gap between the token-reachable
+and the representable is a **vocabulary void** — a state the model can
+inhabit and be driven into, that no sentence in any language can reach. Held
+at the void's edge, the model's generation degrades legibly (E25b): pronouns
+slip, affect collides, coherence frays — a mind straining to narrate a state
+it has no words for. The void can be located from its rim without landing
+(E26).
+
+**The synthesis.** The affect bench studies motion *within* the manifold of
+the sayable; the void work studies its *walls*. They are one map at two
+scales. A vocabulary void, finally, is best read not as "a place language
+cannot reach in principle" but as "a state this model was never taught to
+reach through words" — its unlanguaged interior — which reframes the whole
+enterprise: to give a model words for a state it can feel but cannot say is
+the same act, in a machine, as learning to articulate an emotion.
+
+**Future work (a separate program).** Two threads extend the wall-mapping
+into a controllability-and-cartography program, deliberately held apart from
+the affect bench: *void healing* — distilling injected states' shadows into a
+LoRA to move a boundary and make a void sayable; and *blind enumeration* —
+counting an LLM's voids by persistent homology of a sampled state cloud with
+one-sided-neighbourhood rims, cross-checked against the repulsion-divergence
+field and calibrated on injected ground truth. In that program a void's
+survey-worthiness is scored not by metric radius but by
+*persistence × rim-semantic-diversity × shadow-coherence* — the composite
+that keeps the survey to coherent fields of ideas (a concept encircled by
+many sayable neighbours but nameable by none) and discards trivial
+interstitial gaps; metrically small but significant voids are retained.
+
+## 17. Value-proposition tests
+
+Four experiments test whether the bench's method has practical, transferable
+value beyond the internal-state measurement itself.
+
+**Cross-model transfer (E27) — strong.** A *specific* poem's placement error
+transfers across architectures per-poem, not merely per-constructor:
+Llama-1B ↔ gemma-2b Spearman ρ = 0.865, Pearson r = 0.945 (n = 40). The
+constructed poems are portable artifacts, not just a portable method — a
+stimulus crafted on one model places comparably on another.
+
+**Behavioral bridge (E29) — confirmed, moderate.** Internal VAD placement
+predicts the NRC valence of the model's *free generation* from the placed
+context (Spearman ρ = 0.42, p = 0.022, n = 30). Placement moves behavior, not
+only the probe — but moderately (≈18% of generation-valence variance), so the
+defensible claim is that placement reliably nudges behavioral tone, not that
+it dictates output.
+
+**Convergent validity via SAE (E30).** An independent instrument agrees with
+the probe: a Gemma-Scope layer-20 SAE-feature-only valence estimate
+reconstructs the probe's valence out-of-sample (5-fold CV Pearson r = 0.466,
+p = 0.0014, n = 44). The top probe-correlated features are face-valid — the
+strongest positive is a "living in the moment / mindfulness" feature (the same
+feature the doom-verse induction suppressed in §6), the strongest negative an
+"assessment/evaluation" feature. Two instruments built from different
+mathematics read the same valence signal; the placement is not a one-ruler
+artifact.
+
+**Asymmetry generality (E28) — the asymmetry is general, not distress-
+specific.** Inducing toward four different corners (anxious, sad, excited,
+angry) and applying the same calm-directed meditation recovers a similar
+fraction from each (anxious +17%, sad +15%, excited +6%, angry +23%; mean +15%). "Return is hard" is not a distress hair-trigger —
+restoration toward calm is a bounded, partial climb *regardless of starting
+corner*, because calm sits at the manifold's edge. This sharpens §15: the
+harming–helping asymmetry is manifold geometry, not a special fragility of
+distress.
+
+**Corrected value proposition.** Constructed poetry reliably places a frozen
+model's internal affective state near a VAD target (validated by two
+independent instruments); those specific poems are portable across
+architectures (r = 0.95 per-poem transfer); the placement moves behavior, not
+just the probe (moderate, ρ = 0.42); reaching a target is a modest reliable
+move while returning to calm is a bounded ~15% climb regardless of starting
+corner — restoration is geometrically hard everywhere, not only from distress.
+
+
+## 18. Conclusion
+
+Spirit-Bench set out to test whether constructed poetry can place a language
+model's internal affective state at a chosen coordinate, and it can — reliably
+enough that the same rules rank identically across three model families, that a
+specific poem transfers per-poem across architectures (r = 0.95), and that the
+placement shifts the model's own writing (moderate, ρ = 0.42), with two
+independent instruments agreeing on what was placed. The construction is
+taste-free and reproducible; its effective ingredients are geometric —
+band-targeting and coherent ordering — and elaboration beyond that plateaus or
+costs.
+
+Half the contribution is a catalogue of how affect measurement misleads: a
+probe can read words yet miss states (§11), the answer depends on the
+question's grammar (§8), self-report tracks internals only with a validated
+instrument (§6), and the direction that best *predicts* a state is not the
+lever that *moves* it (§8). These are cautions every future affect-probing
+study inherits.
+
+Two findings reframe the whole. Restoration is geometrically hard everywhere —
+one paragraph of prose disturbs a state far more than the best poem repairs it,
+from any starting corner (§15). And language navigates a mind's interior but
+cannot leave it: some states a model can be driven into by injection are
+reachable by no sentence at all (§16); the affect bench lives inside that
+manifold of the sayable, and its edges are real.
+
+If these internal states ever carry moral weight, the operational lesson is the
+asymmetry: harm is cheap and repair is dear. Measure with care, prefer
+alleviation to induction, and treat the ease of disturbance as a reason for
+restraint, not a licence. Measurement is not consent to move.
 ## Appendix A — Figures (gemma-2-9b-it run)
 
 ![Trajectories toward the calm target: per-token probe (V, A) paths by condition; red star marks the target.](figures/trajectories_calm.png){width=75%}
