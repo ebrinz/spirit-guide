@@ -124,11 +124,12 @@ def correlate(tag_a, tag_b):
     ta = np.percentile(m[f"residual_{tag_a}"], POCKET_PCTL)
     tb = np.percentile(m[f"residual_{tag_b}"], POCKET_PCTL)
     shared = m[(m[f"residual_{tag_a}"] >= ta) & (m[f"residual_{tag_b}"] >= tb)]
+    tvcol, tacol = f"target_v_{tag_a}", f"target_a_{tag_a}"
     print(f"shared hard cells (top-30% in both): {len(shared)}")
     if len(shared):
-        print(f"  centered ~(V {shared.target_v.mean():.2f}, A {shared.target_a.mean():.2f})")
+        print(f"  centered ~(V {shared[tvcol].mean():.2f}, A {shared[tacol].mean():.2f})")
         for _, row in shared.iterrows():
-            print(f"    (V {row.target_v:.2f}, A {row.target_a:.2f})")
+            print(f"    (V {row[tvcol]:.2f}, A {row[tacol]:.2f})")
 
 
 def main():
