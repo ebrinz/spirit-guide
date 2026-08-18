@@ -6,6 +6,38 @@ memory of the sandbox — keep it filled in (see `lab/CLAUDE.md`).
 
 ---
 
+## 2026-08-18 · Closing the high-arousal pocket (`exp_close_arousal_pocket.py`)
+
+**Question.** Can a different construction reach the high-arousal pocket valley
+can't — or is the pocket a corpus/model limit rather than a valley flaw?
+
+**Method.** Five constructors (valley, band-litany [sample the target band
+directly, no calming ascent], triangle, harmonic-golden, graph-walk) aimed at
+the six high-arousal pocket cells (A 0.75–0.80). Compare placement residual and
+placed arousal.
+
+**Result.** All five stall at the same ceiling. Target arousal 0.75–0.80; every
+constructor lands the model at ~0.43–0.47. Band-litany does marginally best
+(resid 0.350 vs valley 0.383; placed-A 0.469 vs 0.432) — the reframe (target the
+pocket directly, do not build to calm) helps a little — but nobody crosses ~0.47.
+
+**Conclusion.** The high-arousal pocket is **not a valley limitation** — no
+construction reaches it. The wall is either (a) probe shrinkage (the arousal
+ridge cannot output 0.75, an instrument artifact, same as the valence ceiling in
+E20) or (b) a genuine model baseline-arousal attractor (~0.43) that text nudges
+but cannot escape.
+
+**Opened up.**
+1. Re-run pocket mapping with the **passage-calibrated probe** (E20 style) — if
+   the ceiling is shrinkage, the pocket should shrink. Tells us instrument vs.
+   model.
+2. Steer on the unused **dominance (D)** NRC axis — if the V/A plane truly can't
+   reach high arousal, a third axis may reach states the plane can't.
+
+Files: `lab/results/close_arousal_pocket.csv`.
+
+---
+
 ## 2026-08-18 · Cross-model void pockets (`exp_void_pockets.py`)
 
 **Question.** Do small Llama and small Gemma share the same *un-reachable
