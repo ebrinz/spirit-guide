@@ -6,6 +6,39 @@ memory of the sandbox — keep it filled in (see `lab/CLAUDE.md`).
 
 ---
 
+## 2026-08-18 · SAE-labelled pocket rims (`exp_sae_pocket_rims.py`, Gemma-2b)
+
+**Question.** What concepts distinguish the reachable rim from the un-reachable
+high-arousal pocket? (VAD probe = where; SAE features = what.)
+
+**Method.** Place Gemma-2b at each grid cell, read probe VAD (pocket vs rim) AND
+layer-20 SAE features. Contrast mean feature activation, rim minus pocket. Label
+top features via Neuronpedia.
+
+**Result — the pocket is not empty, it is the WRONG high-arousal content.**
+Pocket interior is strongly active in: anxiety/self-reflection (f2125), mental-
+health/stress (f11051), overwhelm (f4046), stress-effects (f10324), control/
+authority (f9768), justice/order (f10401). The rim carries mindfulness (f13166
+"living in the moment"), support/agreement (f14333), grief (f5810), guidance
+(f7750). Deltas large and labels coherent — a genuine semantic structure, not a
+probe artifact.
+
+**Interpretation.** The model CAN represent high arousal, but represents it as
+DISTRESS. High-arousal + neutral/positive-valence ("calm intensity", serene
+excitement, awe) barely exists in its geometry — high energy collapses to
+anxiety. The pocket is the missing "peaceful arousal" region. Corrects the
+prior entry: not (only) probe shrinkage — an interpretable hole in the emotional
+ontology.
+
+**Opened up.** Phase-3 gap-closing now has a precise target: not generic high-
+arousal content but high-arousal-POSITIVE (awe, ecstasy, exhilaration, rapture,
+thrill-without-fear). Test whether awe/ecstasy vocabulary closes the pocket where
+generic band-sampling (prev entry) did not.
+
+Files: `lab/results/sae_pocket_{cells,rim_features}.csv`.
+
+---
+
 ## 2026-08-18 · Closing the high-arousal pocket (`exp_close_arousal_pocket.py`)
 
 **Question.** Can a different construction reach the high-arousal pocket valley
