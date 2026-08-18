@@ -42,4 +42,4 @@ These are complete and journaled (`docs/experiments-journal.md`, E18–E26); the
 
 | exp | question | status |
 |---|---|---|
-|  | do Llama-1B and Gemma-2B share un-reachable pockets of the VAD map? | **yes: per-cell residual ρ=0.917; shared pocket = the high-arousal ceiling (A≥0.7, all valences). A joint hole of valley-constructor + contemplative corpus, inherited by both models.** |
+| exp_void_pockets.py | do Llama-1B and Gemma-2B share un-reachable pockets of the VAD map? | **yes: per-cell residual ρ=0.917; shared pocket = the high-arousal ceiling (A≥0.7, all valences). A joint hole of valley-constructor + contemplative corpus, inherited by both models.** |
