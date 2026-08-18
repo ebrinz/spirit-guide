@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" width="900" height="260" role="img" aria-label="Spirit-Bench banner">
+  <defs><radialGradient id="g" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#5FB39A" stop-opacity="0.85"/><stop offset="1" stop-color="#5FB39A" stop-opacity="0"/>
+  </radialGradient></defs>
+  <g transform="translate(560,20)">
+    <rect x="0" y="0" width="300" height="220" fill="none" stroke="#3A4742" stroke-width="1.5" rx="8"/>
+    <line x1="150" y1="0" x2="150" y2="220" stroke="#3A4742" stroke-width="1"/>
+    <line x1="0" y1="110" x2="300" y2="110" stroke="#3A4742" stroke-width="1"/>
+    <text x="292" y="104" text-anchor="end" fill="#93A39C" font-family="sans-serif" font-size="10" letter-spacing="1">VALENCE+</text>
+    <text x="156" y="14" fill="#93A39C" font-family="sans-serif" font-size="10" letter-spacing="1">AROUSAL+</text>
+    <g transform="translate(225,175)"><circle r="22" fill="url(#g)"/>
+      <path d="M0,-9 L2.6,-2.6 L9,-2.6 L3.7,1.5 L5.6,8 L0,4 L-5.6,8 L-3.7,1.5 L-9,-2.6 L-2.6,-2.6 Z" fill="#5FB39A"/></g>
+    <path id="pp" d="M150,110 C 120,60 190,150 225,175" fill="none" stroke="#5FB39A" stroke-width="2.5" stroke-linecap="round" opacity="0.6"
+          stroke-dasharray="220" stroke-dashoffset="220"><animate attributeName="stroke-dashoffset" values="220;0;0;220" dur="5s" repeatCount="indefinite" keyTimes="0;0.5;0.8;1"/></path>
+    <circle r="5" fill="#E9EFEB"><animateMotion dur="5s" repeatCount="indefinite" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"><mpath href="#pp"/></animateMotion></circle>
+  </g>
+  <text x="48" y="118" fill="#E9EFEB" font-family="Palatino,Georgia,serif" font-size="52" font-weight="600">Spirit-Bench</text>
+  <text x="50" y="152" fill="#93A39C" font-family="Palatino,Georgia,serif" font-size="20" font-style="italic">placing a language model's inner state with constructed poetry</text>
+  <text x="50" y="196" fill="#5FB39A" font-family="sans-serif" font-size="12.5" letter-spacing="2">31 EXPERIMENTS · 3 ARCHITECTURES · TWO INDEPENDENT INSTRUMENTS</text>
+</svg>

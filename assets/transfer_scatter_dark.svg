@@ -1,10 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" width="560" height="420" font-family="sans-serif">
-<rect width="560" height="420" fill="#0F1513" rx="10"/>
-<line x1="64" y1="356" x2="540" y2="20" stroke="#26332D" stroke-width="1.5" stroke-dasharray="5 5"/>
-<text x="280" y="402" text-anchor="middle" fill="#8FA39A" font-size="13">placement error on Llama-1B</text>
-<text x="20" y="210" text-anchor="middle" fill="#8FA39A" font-size="13" transform="rotate(-90 20 210)">placement error on Gemma-2B</text>
-<text x="72" y="34" fill="#5FB39A" font-size="15" font-weight="700">same poem, different model &#8212; r = 0.94</text>
-<text x="72" y="52" fill="#5A6E66" font-size="11.5">each dot is one poem; near the dashed line = places the same on both models</text>
+<line x1="64" y1="356" x2="540" y2="20" stroke="#3A4742" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="280" y="402" text-anchor="middle" fill="#93A39C" font-size="13">placement error on Llama-1B</text>
+<text x="20" y="210" text-anchor="middle" fill="#93A39C" font-size="13" transform="rotate(-90 20 210)">placement error on Gemma-2B</text>
+<text x="72" y="34" fill="#5FB39A" font-size="15" font-weight="700">same poem, different model — r = 0.94</text>
+<text x="72" y="52" fill="#93A39C" font-size="11.5">each dot is one poem; near the dashed line = places the same on both models</text>
 <circle cx="312.1" cy="209.3" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
 <circle cx="231.2" cy="277.2" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
 <circle cx="519.6" cy="89.9" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>

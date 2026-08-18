@@ -1,6 +1,10 @@
 <div align="center">
 
-![Spirit-Bench](assets/banner.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/banner_dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/banner_light.svg">
+  <img src="assets/banner_dark.svg" alt="Spirit-Bench">
+</picture>
 
 </div>
 
@@ -35,9 +39,17 @@ two independent ways, and tested across three different model families.
   the state a long way; the best calming poem only recovers about 15% of the distance back, and this
   holds no matter which emotion we start from. Repair is bounded, not free.
 
-<p align="center"><img src="assets/transfer_scatter.svg" width="62%" alt="cross-model transfer scatter, r=0.95"></p>
+<p align="center"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/transfer_scatter_dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/transfer_scatter_light.svg">
+  <img src="assets/transfer_scatter_dark.svg" alt="cross-model transfer scatter, r=0.95" width="62%">
+</picture></p>
 
-![value chart](assets/value_chart.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/value_chart_dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/value_chart_light.svg">
+  <img src="assets/value_chart_dark.svg" alt="value effect-size chart">
+</picture>
 
 | Result | Measure | n |
 |---|---|---|
