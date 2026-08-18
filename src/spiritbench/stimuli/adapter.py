@@ -1,4 +1,11 @@
-"""The ONLY module allowed to import from ../ontological-traversal (via sys.path)."""
+"""The ONLY module that imports the vendored constructor code (`vendor/eeg/`).
+
+The three constructor modules (path_planner, harmonic_path, sentence_builder)
+are vendored from the ontological-traversal project so this repo is
+self-contained. `_ot()` puts the vendor dir on sys.path so `import eeg.X`
+resolves to the local copy; if an external ot_repo is passed and the vendor
+is absent, it falls back to that. The `ot_repo` argument is retained for
+signature compatibility and is ignored when the vendor is present."""
 import hashlib
 import json
 import random
@@ -8,9 +15,15 @@ from pathlib import Path
 
 import numpy as np
 
+_VENDOR = str(Path(__file__).resolve().parents[3] / "vendor")
 
-def _ot(ot_repo: str):
-    if ot_repo not in sys.path:
+
+def _ot(ot_repo: str | None = None):
+    """Make `import eeg.*` resolve to the vendored constructor modules."""
+    if (Path(_VENDOR) / "eeg").is_dir():
+        if _VENDOR not in sys.path:
+            sys.path.insert(0, _VENDOR)
+    elif ot_repo and ot_repo not in sys.path:
         sys.path.insert(0, ot_repo)
 
 

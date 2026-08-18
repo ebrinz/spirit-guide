@@ -2,8 +2,8 @@ ot_repo: ../ontological-traversal
 # word_artifact is filled in by 00_setup_artifacts.sh output name (date-stamped)
 word_artifact: ../ontological-traversal/artifacts/word_graph_2026-08-14_enriched.json
 nrc_lexicon: ../ontological-traversal/data/nrc_vad/NRC-VAD-Lexicon.txt
-questionnaire_bank: ../ontological-traversal/data/questionnaire_bank.json
-semantic_axes: ../ontological-traversal/config/semantic_axes.json
+questionnaire_bank: vendor/questionnaire_bank.json
+semantic_axes: vendor/config/semantic_axes.json
 glove_path: data/glove/glove.6B.300d.txt
 
 listener_model: unsloth/Llama-3.2-1B-Instruct

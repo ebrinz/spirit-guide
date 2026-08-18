@@ -1,0 +1,14 @@
+{
+  "valence":      {"pos": ["good", "joy", "love", "peace"],    "neg": ["bad", "hate", "fear", "pain"]},
+  "arousal":      {"pos": ["excited", "vivid", "intense"],      "neg": ["calm", "still", "quiet"]},
+  "agency":       {"pos": ["control", "strong", "power"],       "neg": ["weak", "passive", "helpless"]},
+  "concreteness": {"pos": ["rock", "hand", "water", "fire"],    "neg": ["idea", "concept", "abstract"]},
+  "sociality":    {"pos": ["friend", "together", "share"],      "neg": ["alone", "isolated", "apart"]},
+  "temporal":     {"pos": ["future", "soon", "coming"],         "neg": ["past", "gone", "memory"]},
+  "scale":        {"pos": ["vast", "immense", "infinite"],      "neg": ["tiny", "small", "minute"]},
+  "temperature":  {"pos": ["warm", "hot", "burning"],           "neg": ["cold", "cool", "frozen"]},
+  "motion":       {"pos": ["rush", "flow", "surge", "run"],     "neg": ["still", "fixed", "pause"]},
+  "clarity":      {"pos": ["clear", "sharp", "vivid"],          "neg": ["hazy", "blur", "foggy"]},
+  "weight":       {"pos": ["heavy", "dense", "solid"],          "neg": ["light", "airy", "float"]},
+  "complexity":   {"pos": ["intricate", "layered", "rich"],     "neg": ["simple", "plain", "bare"]}
+}

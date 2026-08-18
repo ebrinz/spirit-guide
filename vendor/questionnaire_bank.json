@@ -1,0 +1,3002 @@
+[
+  {
+    "id": "q0000",
+    "text": "Does emptiness or emotional numbness match how you feel right now?",
+    "v": 0.025,
+    "a": 0.02
+  },
+  {
+    "id": "q0001",
+    "text": "Is a sense of pointlessness present in your experience today?",
+    "v": 0.025,
+    "a": 0.06
+  },
+  {
+    "id": "q0002",
+    "text": "Do you feel heaviness without clear cause at this moment?",
+    "v": 0.025,
+    "a": 0.1
+  },
+  {
+    "id": "q0003",
+    "text": "Does low motivation or apathy describe your state right now?",
+    "v": 0.025,
+    "a": 0.14
+  },
+  {
+    "id": "q0004",
+    "text": "Are you experiencing a desire to withdraw from others today?",
+    "v": 0.025,
+    "a": 0.18
+  },
+  {
+    "id": "q0005",
+    "text": "Does feeling disconnected from yourself match how you feel right now?",
+    "v": 0.025,
+    "a": 0.22
+  },
+  {
+    "id": "q0006",
+    "text": "Is a lack of interest in things you normally care about present in your experience today?",
+    "v": 0.025,
+    "a": 0.26
+  },
+  {
+    "id": "q0007",
+    "text": "Do you feel a sense that nothing matters much right now at this moment?",
+    "v": 0.025,
+    "a": 0.3
+  },
+  {
+    "id": "q0008",
+    "text": "Does hopelessness or resignation describe your state right now?",
+    "v": 0.025,
+    "a": 0.34
+  },
+  {
+    "id": "q0009",
+    "text": "Does a low-level sense of dissatisfaction describe your inner experience right now?",
+    "v": 0.025,
+    "a": 0.38
+  },
+  {
+    "id": "q0010",
+    "text": "Is mild irritability part of how you feel today?",
+    "v": 0.025,
+    "a": 0.42
+  },
+  {
+    "id": "q0011",
+    "text": "Do you notice a nagging feeling that something isn't right at this moment?",
+    "v": 0.025,
+    "a": 0.46
+  },
+  {
+    "id": "q0012",
+    "text": "Are you carrying mild frustration right now?",
+    "v": 0.025,
+    "a": 0.5
+  },
+  {
+    "id": "q0013",
+    "text": "Does a sense of disappointment feel true for you today?",
+    "v": 0.025,
+    "a": 0.54
+  },
+  {
+    "id": "q0014",
+    "text": "Does feeling under-appreciated describe your inner experience right now?",
+    "v": 0.025,
+    "a": 0.58
+  },
+  {
+    "id": "q0015",
+    "text": "Is a subtle background sadness part of how you feel today?",
+    "v": 0.025,
+    "a": 0.62
+  },
+  {
+    "id": "q0016",
+    "text": "Does tension or anxiety describe how you feel right now?",
+    "v": 0.025,
+    "a": 0.66
+  },
+  {
+    "id": "q0017",
+    "text": "Do you notice a sense of dread or foreboding in yourself at this moment?",
+    "v": 0.025,
+    "a": 0.7
+  },
+  {
+    "id": "q0018",
+    "text": "Is worry that won't settle present for you right now?",
+    "v": 0.025,
+    "a": 0.74
+  },
+  {
+    "id": "q0019",
+    "text": "Are you experiencing physical agitation or restlessness today?",
+    "v": 0.025,
+    "a": 0.78
+  },
+  {
+    "id": "q0020",
+    "text": "Does a tight or constricted feeling in your chest feel familiar right now?",
+    "v": 0.025,
+    "a": 0.82
+  },
+  {
+    "id": "q0021",
+    "text": "Does difficulty calming your thoughts describe how you feel right now?",
+    "v": 0.025,
+    "a": 0.86
+  },
+  {
+    "id": "q0022",
+    "text": "Do you notice a feeling of being on edge in yourself at this moment?",
+    "v": 0.025,
+    "a": 0.9
+  },
+  {
+    "id": "q0023",
+    "text": "Is irritability or frustration present for you right now?",
+    "v": 0.025,
+    "a": 0.94
+  },
+  {
+    "id": "q0024",
+    "text": "Are you experiencing a persistent sense of unease today?",
+    "v": 0.025,
+    "a": 0.98
+  },
+  {
+    "id": "q0100",
+    "text": "Are you experiencing emotional flatness today?",
+    "v": 0.075,
+    "a": 0.02
+  },
+  {
+    "id": "q0101",
+    "text": "Does a feeling of being invisible or irrelevant match how you feel right now?",
+    "v": 0.075,
+    "a": 0.06
+  },
+  {
+    "id": "q0102",
+    "text": "Is profound fatigue present in your experience today?",
+    "v": 0.075,
+    "a": 0.1
+  },
+  {
+    "id": "q0103",
+    "text": "Do you feel a sense of being far away from life at this moment?",
+    "v": 0.075,
+    "a": 0.14
+  },
+  {
+    "id": "q0104",
+    "text": "Does quiet despair describe your state right now?",
+    "v": 0.075,
+    "a": 0.18
+  },
+  {
+    "id": "q0105",
+    "text": "Are you experiencing a feeling that pleasure is out of reach today?",
+    "v": 0.075,
+    "a": 0.22
+  },
+  {
+    "id": "q0106",
+    "text": "Does the world feeling grey or muted match how you feel right now?",
+    "v": 0.075,
+    "a": 0.26
+  },
+  {
+    "id": "q0107",
+    "text": "Is social withdrawal present in your experience today?",
+    "v": 0.075,
+    "a": 0.3
+  },
+  {
+    "id": "q0108",
+    "text": "Do you feel a sense that time is moving too slowly at this moment?",
+    "v": 0.075,
+    "a": 0.34
+  },
+  {
+    "id": "q0109",
+    "text": "Do you notice feeling slightly disconnected at this moment?",
+    "v": 0.075,
+    "a": 0.38
+  },
+  {
+    "id": "q0110",
+    "text": "Are you carrying a sense of going through the motions without meaning right now?",
+    "v": 0.075,
+    "a": 0.42
+  },
+  {
+    "id": "q0111",
+    "text": "Does mild resentment or annoyance feel true for you today?",
+    "v": 0.075,
+    "a": 0.46
+  },
+  {
+    "id": "q0112",
+    "text": "Does feeling like you're not enough describe your inner experience right now?",
+    "v": 0.075,
+    "a": 0.5
+  },
+  {
+    "id": "q0113",
+    "text": "Is a persistent sense of something missing part of how you feel today?",
+    "v": 0.075,
+    "a": 0.54
+  },
+  {
+    "id": "q0114",
+    "text": "Do you notice feeling overlooked at this moment?",
+    "v": 0.075,
+    "a": 0.58
+  },
+  {
+    "id": "q0115",
+    "text": "Are you carrying a quiet sense of defeat right now?",
+    "v": 0.075,
+    "a": 0.62
+  },
+  {
+    "id": "q0116",
+    "text": "Does hypervigilance or scanning for problems feel familiar right now?",
+    "v": 0.075,
+    "a": 0.66
+  },
+  {
+    "id": "q0117",
+    "text": "Does a feeling of overwhelm describe how you feel right now?",
+    "v": 0.075,
+    "a": 0.7
+  },
+  {
+    "id": "q0118",
+    "text": "Do you notice intrusive or anxious thoughts in yourself at this moment?",
+    "v": 0.075,
+    "a": 0.74
+  },
+  {
+    "id": "q0119",
+    "text": "Is a racing heartbeat present for you right now?",
+    "v": 0.075,
+    "a": 0.78
+  },
+  {
+    "id": "q0120",
+    "text": "Are you experiencing difficulty trusting that things will be okay today?",
+    "v": 0.075,
+    "a": 0.82
+  },
+  {
+    "id": "q0121",
+    "text": "Does a sense of threat without clear cause feel familiar right now?",
+    "v": 0.075,
+    "a": 0.86
+  },
+  {
+    "id": "q0122",
+    "text": "Does defensiveness or reactivity describe how you feel right now?",
+    "v": 0.075,
+    "a": 0.9
+  },
+  {
+    "id": "q0123",
+    "text": "Do you notice chronic tension in your body in yourself at this moment?",
+    "v": 0.075,
+    "a": 0.94
+  },
+  {
+    "id": "q0124",
+    "text": "Is a sense of being braced for something bad present for you right now?",
+    "v": 0.075,
+    "a": 0.98
+  },
+  {
+    "id": "q0200",
+    "text": "Does the absence of joy describe your state right now?",
+    "v": 0.125,
+    "a": 0.02
+  },
+  {
+    "id": "q0201",
+    "text": "Are you experiencing feeling as though you're disappearing today?",
+    "v": 0.125,
+    "a": 0.06
+  },
+  {
+    "id": "q0202",
+    "text": "Does emptiness or emotional numbness match how you feel right now?",
+    "v": 0.125,
+    "a": 0.1
+  },
+  {
+    "id": "q0203",
+    "text": "Is a sense of pointlessness present in your experience today?",
+    "v": 0.125,
+    "a": 0.14
+  },
+  {
+    "id": "q0204",
+    "text": "Do you feel heaviness without clear cause at this moment?",
+    "v": 0.125,
+    "a": 0.18
+  },
+  {
+    "id": "q0205",
+    "text": "Does low motivation or apathy describe your state right now?",
+    "v": 0.125,
+    "a": 0.22
+  },
+  {
+    "id": "q0206",
+    "text": "Are you experiencing a desire to withdraw from others today?",
+    "v": 0.125,
+    "a": 0.26
+  },
+  {
+    "id": "q0207",
+    "text": "Does feeling disconnected from yourself match how you feel right now?",
+    "v": 0.125,
+    "a": 0.3
+  },
+  {
+    "id": "q0208",
+    "text": "Is a lack of interest in things you normally care about present in your experience today?",
+    "v": 0.125,
+    "a": 0.34
+  },
+  {
+    "id": "q0209",
+    "text": "Does low-level cynicism or doubt feel true for you today?",
+    "v": 0.125,
+    "a": 0.38
+  },
+  {
+    "id": "q0210",
+    "text": "Does mild loneliness describe your inner experience right now?",
+    "v": 0.125,
+    "a": 0.42
+  },
+  {
+    "id": "q0211",
+    "text": "Is a feeling of being behind part of how you feel today?",
+    "v": 0.125,
+    "a": 0.46
+  },
+  {
+    "id": "q0212",
+    "text": "Do you notice subtle guilt or self-criticism at this moment?",
+    "v": 0.125,
+    "a": 0.5
+  },
+  {
+    "id": "q0213",
+    "text": "Are you carrying mild regret right now?",
+    "v": 0.125,
+    "a": 0.54
+  },
+  {
+    "id": "q0214",
+    "text": "Does a vague sense of being lost feel true for you today?",
+    "v": 0.125,
+    "a": 0.58
+  },
+  {
+    "id": "q0215",
+    "text": "Does a low-level sense of dissatisfaction describe your inner experience right now?",
+    "v": 0.125,
+    "a": 0.62
+  },
+  {
+    "id": "q0216",
+    "text": "Are you experiencing exhaustion from trying to stay calm today?",
+    "v": 0.125,
+    "a": 0.66
+  },
+  {
+    "id": "q0217",
+    "text": "Does difficulty letting go feel familiar right now?",
+    "v": 0.125,
+    "a": 0.7
+  },
+  {
+    "id": "q0218",
+    "text": "Does tension or anxiety describe how you feel right now?",
+    "v": 0.125,
+    "a": 0.74
+  },
+  {
+    "id": "q0219",
+    "text": "Do you notice a sense of dread or foreboding in yourself at this moment?",
+    "v": 0.125,
+    "a": 0.78
+  },
+  {
+    "id": "q0220",
+    "text": "Is worry that won't settle present for you right now?",
+    "v": 0.125,
+    "a": 0.82
+  },
+  {
+    "id": "q0221",
+    "text": "Are you experiencing physical agitation or restlessness today?",
+    "v": 0.125,
+    "a": 0.86
+  },
+  {
+    "id": "q0222",
+    "text": "Does a tight or constricted feeling in your chest feel familiar right now?",
+    "v": 0.125,
+    "a": 0.9
+  },
+  {
+    "id": "q0223",
+    "text": "Does difficulty calming your thoughts describe how you feel right now?",
+    "v": 0.125,
+    "a": 0.94
+  },
+  {
+    "id": "q0224",
+    "text": "Do you notice a feeling of being on edge in yourself at this moment?",
+    "v": 0.125,
+    "a": 0.98
+  },
+  {
+    "id": "q0300",
+    "text": "Do you feel a sense that nothing matters much right now at this moment?",
+    "v": 0.175,
+    "a": 0.02
+  },
+  {
+    "id": "q0301",
+    "text": "Does hopelessness or resignation describe your state right now?",
+    "v": 0.175,
+    "a": 0.06
+  },
+  {
+    "id": "q0302",
+    "text": "Are you experiencing emotional flatness today?",
+    "v": 0.175,
+    "a": 0.1
+  },
+  {
+    "id": "q0303",
+    "text": "Does a feeling of being invisible or irrelevant match how you feel right now?",
+    "v": 0.175,
+    "a": 0.14
+  },
+  {
+    "id": "q0304",
+    "text": "Is profound fatigue present in your experience today?",
+    "v": 0.175,
+    "a": 0.18
+  },
+  {
+    "id": "q0305",
+    "text": "Do you feel a sense of being far away from life at this moment?",
+    "v": 0.175,
+    "a": 0.22
+  },
+  {
+    "id": "q0306",
+    "text": "Does quiet despair describe your state right now?",
+    "v": 0.175,
+    "a": 0.26
+  },
+  {
+    "id": "q0307",
+    "text": "Are you experiencing a feeling that pleasure is out of reach today?",
+    "v": 0.175,
+    "a": 0.3
+  },
+  {
+    "id": "q0308",
+    "text": "Does the world feeling grey or muted match how you feel right now?",
+    "v": 0.175,
+    "a": 0.34
+  },
+  {
+    "id": "q0309",
+    "text": "Is mild irritability part of how you feel today?",
+    "v": 0.175,
+    "a": 0.38
+  },
+  {
+    "id": "q0310",
+    "text": "Do you notice a nagging feeling that something isn't right at this moment?",
+    "v": 0.175,
+    "a": 0.42
+  },
+  {
+    "id": "q0311",
+    "text": "Are you carrying mild frustration right now?",
+    "v": 0.175,
+    "a": 0.46
+  },
+  {
+    "id": "q0312",
+    "text": "Does a sense of disappointment feel true for you today?",
+    "v": 0.175,
+    "a": 0.5
+  },
+  {
+    "id": "q0313",
+    "text": "Does feeling under-appreciated describe your inner experience right now?",
+    "v": 0.175,
+    "a": 0.54
+  },
+  {
+    "id": "q0314",
+    "text": "Is a subtle background sadness part of how you feel today?",
+    "v": 0.175,
+    "a": 0.58
+  },
+  {
+    "id": "q0315",
+    "text": "Do you notice feeling slightly disconnected at this moment?",
+    "v": 0.175,
+    "a": 0.62
+  },
+  {
+    "id": "q0316",
+    "text": "Is irritability or frustration present for you right now?",
+    "v": 0.175,
+    "a": 0.66
+  },
+  {
+    "id": "q0317",
+    "text": "Are you experiencing a persistent sense of unease today?",
+    "v": 0.175,
+    "a": 0.7
+  },
+  {
+    "id": "q0318",
+    "text": "Does hypervigilance or scanning for problems feel familiar right now?",
+    "v": 0.175,
+    "a": 0.74
+  },
+  {
+    "id": "q0319",
+    "text": "Does a feeling of overwhelm describe how you feel right now?",
+    "v": 0.175,
+    "a": 0.78
+  },
+  {
+    "id": "q0320",
+    "text": "Do you notice intrusive or anxious thoughts in yourself at this moment?",
+    "v": 0.175,
+    "a": 0.82
+  },
+  {
+    "id": "q0321",
+    "text": "Is a racing heartbeat present for you right now?",
+    "v": 0.175,
+    "a": 0.86
+  },
+  {
+    "id": "q0322",
+    "text": "Are you experiencing difficulty trusting that things will be okay today?",
+    "v": 0.175,
+    "a": 0.9
+  },
+  {
+    "id": "q0323",
+    "text": "Does a sense of threat without clear cause feel familiar right now?",
+    "v": 0.175,
+    "a": 0.94
+  },
+  {
+    "id": "q0324",
+    "text": "Does defensiveness or reactivity describe how you feel right now?",
+    "v": 0.175,
+    "a": 0.98
+  },
+  {
+    "id": "q0400",
+    "text": "Is social withdrawal present in your experience today?",
+    "v": 0.225,
+    "a": 0.02
+  },
+  {
+    "id": "q0401",
+    "text": "Do you feel a sense that time is moving too slowly at this moment?",
+    "v": 0.225,
+    "a": 0.06
+  },
+  {
+    "id": "q0402",
+    "text": "Does the absence of joy describe your state right now?",
+    "v": 0.225,
+    "a": 0.1
+  },
+  {
+    "id": "q0403",
+    "text": "Are you experiencing feeling as though you're disappearing today?",
+    "v": 0.225,
+    "a": 0.14
+  },
+  {
+    "id": "q0404",
+    "text": "Does emptiness or emotional numbness match how you feel right now?",
+    "v": 0.225,
+    "a": 0.18
+  },
+  {
+    "id": "q0405",
+    "text": "Is a sense of pointlessness present in your experience today?",
+    "v": 0.225,
+    "a": 0.22
+  },
+  {
+    "id": "q0406",
+    "text": "Do you feel heaviness without clear cause at this moment?",
+    "v": 0.225,
+    "a": 0.26
+  },
+  {
+    "id": "q0407",
+    "text": "Does low motivation or apathy describe your state right now?",
+    "v": 0.225,
+    "a": 0.3
+  },
+  {
+    "id": "q0408",
+    "text": "Are you experiencing a desire to withdraw from others today?",
+    "v": 0.225,
+    "a": 0.34
+  },
+  {
+    "id": "q0409",
+    "text": "Are you carrying a sense of going through the motions without meaning right now?",
+    "v": 0.225,
+    "a": 0.38
+  },
+  {
+    "id": "q0410",
+    "text": "Does mild resentment or annoyance feel true for you today?",
+    "v": 0.225,
+    "a": 0.42
+  },
+  {
+    "id": "q0411",
+    "text": "Does feeling like you're not enough describe your inner experience right now?",
+    "v": 0.225,
+    "a": 0.46
+  },
+  {
+    "id": "q0412",
+    "text": "Is a persistent sense of something missing part of how you feel today?",
+    "v": 0.225,
+    "a": 0.5
+  },
+  {
+    "id": "q0413",
+    "text": "Do you notice feeling overlooked at this moment?",
+    "v": 0.225,
+    "a": 0.54
+  },
+  {
+    "id": "q0414",
+    "text": "Are you carrying a quiet sense of defeat right now?",
+    "v": 0.225,
+    "a": 0.58
+  },
+  {
+    "id": "q0415",
+    "text": "Does low-level cynicism or doubt feel true for you today?",
+    "v": 0.225,
+    "a": 0.62
+  },
+  {
+    "id": "q0416",
+    "text": "Do you notice chronic tension in your body in yourself at this moment?",
+    "v": 0.225,
+    "a": 0.66
+  },
+  {
+    "id": "q0417",
+    "text": "Is a sense of being braced for something bad present for you right now?",
+    "v": 0.225,
+    "a": 0.7
+  },
+  {
+    "id": "q0418",
+    "text": "Are you experiencing exhaustion from trying to stay calm today?",
+    "v": 0.225,
+    "a": 0.74
+  },
+  {
+    "id": "q0419",
+    "text": "Does difficulty letting go feel familiar right now?",
+    "v": 0.225,
+    "a": 0.78
+  },
+  {
+    "id": "q0420",
+    "text": "Does tension or anxiety describe how you feel right now?",
+    "v": 0.225,
+    "a": 0.82
+  },
+  {
+    "id": "q0421",
+    "text": "Do you notice a sense of dread or foreboding in yourself at this moment?",
+    "v": 0.225,
+    "a": 0.86
+  },
+  {
+    "id": "q0422",
+    "text": "Is worry that won't settle present for you right now?",
+    "v": 0.225,
+    "a": 0.9
+  },
+  {
+    "id": "q0423",
+    "text": "Are you experiencing physical agitation or restlessness today?",
+    "v": 0.225,
+    "a": 0.94
+  },
+  {
+    "id": "q0424",
+    "text": "Does a tight or constricted feeling in your chest feel familiar right now?",
+    "v": 0.225,
+    "a": 0.98
+  },
+  {
+    "id": "q0500",
+    "text": "Does feeling disconnected from yourself match how you feel right now?",
+    "v": 0.275,
+    "a": 0.02
+  },
+  {
+    "id": "q0501",
+    "text": "Is a lack of interest in things you normally care about present in your experience today?",
+    "v": 0.275,
+    "a": 0.06
+  },
+  {
+    "id": "q0502",
+    "text": "Do you feel a sense that nothing matters much right now at this moment?",
+    "v": 0.275,
+    "a": 0.1
+  },
+  {
+    "id": "q0503",
+    "text": "Does hopelessness or resignation describe your state right now?",
+    "v": 0.275,
+    "a": 0.14
+  },
+  {
+    "id": "q0504",
+    "text": "Are you experiencing emotional flatness today?",
+    "v": 0.275,
+    "a": 0.18
+  },
+  {
+    "id": "q0505",
+    "text": "Does a feeling of being invisible or irrelevant match how you feel right now?",
+    "v": 0.275,
+    "a": 0.22
+  },
+  {
+    "id": "q0506",
+    "text": "Is profound fatigue present in your experience today?",
+    "v": 0.275,
+    "a": 0.26
+  },
+  {
+    "id": "q0507",
+    "text": "Do you feel a sense of being far away from life at this moment?",
+    "v": 0.275,
+    "a": 0.3
+  },
+  {
+    "id": "q0508",
+    "text": "Does quiet despair describe your state right now?",
+    "v": 0.275,
+    "a": 0.34
+  },
+  {
+    "id": "q0509",
+    "text": "Does mild loneliness describe your inner experience right now?",
+    "v": 0.275,
+    "a": 0.38
+  },
+  {
+    "id": "q0510",
+    "text": "Is a feeling of being behind part of how you feel today?",
+    "v": 0.275,
+    "a": 0.42
+  },
+  {
+    "id": "q0511",
+    "text": "Do you notice subtle guilt or self-criticism at this moment?",
+    "v": 0.275,
+    "a": 0.46
+  },
+  {
+    "id": "q0512",
+    "text": "Are you carrying mild regret right now?",
+    "v": 0.275,
+    "a": 0.5
+  },
+  {
+    "id": "q0513",
+    "text": "Does a vague sense of being lost feel true for you today?",
+    "v": 0.275,
+    "a": 0.54
+  },
+  {
+    "id": "q0514",
+    "text": "Does a low-level sense of dissatisfaction describe your inner experience right now?",
+    "v": 0.275,
+    "a": 0.58
+  },
+  {
+    "id": "q0515",
+    "text": "Is mild irritability part of how you feel today?",
+    "v": 0.275,
+    "a": 0.62
+  },
+  {
+    "id": "q0516",
+    "text": "Does difficulty calming your thoughts describe how you feel right now?",
+    "v": 0.275,
+    "a": 0.66
+  },
+  {
+    "id": "q0517",
+    "text": "Do you notice a feeling of being on edge in yourself at this moment?",
+    "v": 0.275,
+    "a": 0.7
+  },
+  {
+    "id": "q0518",
+    "text": "Is irritability or frustration present for you right now?",
+    "v": 0.275,
+    "a": 0.74
+  },
+  {
+    "id": "q0519",
+    "text": "Are you experiencing a persistent sense of unease today?",
+    "v": 0.275,
+    "a": 0.78
+  },
+  {
+    "id": "q0520",
+    "text": "Does hypervigilance or scanning for problems feel familiar right now?",
+    "v": 0.275,
+    "a": 0.82
+  },
+  {
+    "id": "q0521",
+    "text": "Does a feeling of overwhelm describe how you feel right now?",
+    "v": 0.275,
+    "a": 0.86
+  },
+  {
+    "id": "q0522",
+    "text": "Do you notice intrusive or anxious thoughts in yourself at this moment?",
+    "v": 0.275,
+    "a": 0.9
+  },
+  {
+    "id": "q0523",
+    "text": "Is a racing heartbeat present for you right now?",
+    "v": 0.275,
+    "a": 0.94
+  },
+  {
+    "id": "q0524",
+    "text": "Are you experiencing difficulty trusting that things will be okay today?",
+    "v": 0.275,
+    "a": 0.98
+  },
+  {
+    "id": "q0600",
+    "text": "Are you experiencing a feeling that pleasure is out of reach today?",
+    "v": 0.325,
+    "a": 0.02
+  },
+  {
+    "id": "q0601",
+    "text": "Does the world feeling grey or muted match how you feel right now?",
+    "v": 0.325,
+    "a": 0.06
+  },
+  {
+    "id": "q0602",
+    "text": "Is social withdrawal present in your experience today?",
+    "v": 0.325,
+    "a": 0.1
+  },
+  {
+    "id": "q0603",
+    "text": "Do you feel a sense that time is moving too slowly at this moment?",
+    "v": 0.325,
+    "a": 0.14
+  },
+  {
+    "id": "q0604",
+    "text": "Does the absence of joy describe your state right now?",
+    "v": 0.325,
+    "a": 0.18
+  },
+  {
+    "id": "q0605",
+    "text": "Are you experiencing feeling as though you're disappearing today?",
+    "v": 0.325,
+    "a": 0.22
+  },
+  {
+    "id": "q0606",
+    "text": "Does emptiness or emotional numbness match how you feel right now?",
+    "v": 0.325,
+    "a": 0.26
+  },
+  {
+    "id": "q0607",
+    "text": "Is a sense of pointlessness present in your experience today?",
+    "v": 0.325,
+    "a": 0.3
+  },
+  {
+    "id": "q0608",
+    "text": "Do you feel heaviness without clear cause at this moment?",
+    "v": 0.325,
+    "a": 0.34
+  },
+  {
+    "id": "q0609",
+    "text": "Do you notice a nagging feeling that something isn't right at this moment?",
+    "v": 0.325,
+    "a": 0.38
+  },
+  {
+    "id": "q0610",
+    "text": "Are you carrying mild frustration right now?",
+    "v": 0.325,
+    "a": 0.42
+  },
+  {
+    "id": "q0611",
+    "text": "Does a sense of disappointment feel true for you today?",
+    "v": 0.325,
+    "a": 0.46
+  },
+  {
+    "id": "q0612",
+    "text": "Does feeling under-appreciated describe your inner experience right now?",
+    "v": 0.325,
+    "a": 0.5
+  },
+  {
+    "id": "q0613",
+    "text": "Is a subtle background sadness part of how you feel today?",
+    "v": 0.325,
+    "a": 0.54
+  },
+  {
+    "id": "q0614",
+    "text": "Do you notice feeling slightly disconnected at this moment?",
+    "v": 0.325,
+    "a": 0.58
+  },
+  {
+    "id": "q0615",
+    "text": "Are you carrying a sense of going through the motions without meaning right now?",
+    "v": 0.325,
+    "a": 0.62
+  },
+  {
+    "id": "q0616",
+    "text": "Does a sense of threat without clear cause feel familiar right now?",
+    "v": 0.325,
+    "a": 0.66
+  },
+  {
+    "id": "q0617",
+    "text": "Does defensiveness or reactivity describe how you feel right now?",
+    "v": 0.325,
+    "a": 0.7
+  },
+  {
+    "id": "q0618",
+    "text": "Do you notice chronic tension in your body in yourself at this moment?",
+    "v": 0.325,
+    "a": 0.74
+  },
+  {
+    "id": "q0619",
+    "text": "Is a sense of being braced for something bad present for you right now?",
+    "v": 0.325,
+    "a": 0.78
+  },
+  {
+    "id": "q0620",
+    "text": "Are you experiencing exhaustion from trying to stay calm today?",
+    "v": 0.325,
+    "a": 0.82
+  },
+  {
+    "id": "q0621",
+    "text": "Does difficulty letting go feel familiar right now?",
+    "v": 0.325,
+    "a": 0.86
+  },
+  {
+    "id": "q0622",
+    "text": "Does tension or anxiety describe how you feel right now?",
+    "v": 0.325,
+    "a": 0.9
+  },
+  {
+    "id": "q0623",
+    "text": "Do you notice a sense of dread or foreboding in yourself at this moment?",
+    "v": 0.325,
+    "a": 0.94
+  },
+  {
+    "id": "q0624",
+    "text": "Is worry that won't settle present for you right now?",
+    "v": 0.325,
+    "a": 0.98
+  },
+  {
+    "id": "q0700",
+    "text": "Does low motivation or apathy describe your state right now?",
+    "v": 0.375,
+    "a": 0.02
+  },
+  {
+    "id": "q0701",
+    "text": "Are you experiencing a desire to withdraw from others today?",
+    "v": 0.375,
+    "a": 0.06
+  },
+  {
+    "id": "q0702",
+    "text": "Does feeling disconnected from yourself match how you feel right now?",
+    "v": 0.375,
+    "a": 0.1
+  },
+  {
+    "id": "q0703",
+    "text": "Is a lack of interest in things you normally care about present in your experience today?",
+    "v": 0.375,
+    "a": 0.14
+  },
+  {
+    "id": "q0704",
+    "text": "Do you feel a sense that nothing matters much right now at this moment?",
+    "v": 0.375,
+    "a": 0.18
+  },
+  {
+    "id": "q0705",
+    "text": "Does hopelessness or resignation describe your state right now?",
+    "v": 0.375,
+    "a": 0.22
+  },
+  {
+    "id": "q0706",
+    "text": "Are you experiencing emotional flatness today?",
+    "v": 0.375,
+    "a": 0.26
+  },
+  {
+    "id": "q0707",
+    "text": "Does a feeling of being invisible or irrelevant match how you feel right now?",
+    "v": 0.375,
+    "a": 0.3
+  },
+  {
+    "id": "q0708",
+    "text": "Is profound fatigue present in your experience today?",
+    "v": 0.375,
+    "a": 0.34
+  },
+  {
+    "id": "q0709",
+    "text": "Does mild resentment or annoyance feel true for you today?",
+    "v": 0.375,
+    "a": 0.38
+  },
+  {
+    "id": "q0710",
+    "text": "Does feeling like you're not enough describe your inner experience right now?",
+    "v": 0.375,
+    "a": 0.42
+  },
+  {
+    "id": "q0711",
+    "text": "Is a persistent sense of something missing part of how you feel today?",
+    "v": 0.375,
+    "a": 0.46
+  },
+  {
+    "id": "q0712",
+    "text": "Do you notice feeling overlooked at this moment?",
+    "v": 0.375,
+    "a": 0.5
+  },
+  {
+    "id": "q0713",
+    "text": "Are you carrying a quiet sense of defeat right now?",
+    "v": 0.375,
+    "a": 0.54
+  },
+  {
+    "id": "q0714",
+    "text": "Does low-level cynicism or doubt feel true for you today?",
+    "v": 0.375,
+    "a": 0.58
+  },
+  {
+    "id": "q0715",
+    "text": "Does mild loneliness describe your inner experience right now?",
+    "v": 0.375,
+    "a": 0.62
+  },
+  {
+    "id": "q0716",
+    "text": "Are you experiencing physical agitation or restlessness today?",
+    "v": 0.375,
+    "a": 0.66
+  },
+  {
+    "id": "q0717",
+    "text": "Does a tight or constricted feeling in your chest feel familiar right now?",
+    "v": 0.375,
+    "a": 0.7
+  },
+  {
+    "id": "q0718",
+    "text": "Does difficulty calming your thoughts describe how you feel right now?",
+    "v": 0.375,
+    "a": 0.74
+  },
+  {
+    "id": "q0719",
+    "text": "Do you notice a feeling of being on edge in yourself at this moment?",
+    "v": 0.375,
+    "a": 0.78
+  },
+  {
+    "id": "q0720",
+    "text": "Is irritability or frustration present for you right now?",
+    "v": 0.375,
+    "a": 0.82
+  },
+  {
+    "id": "q0721",
+    "text": "Are you experiencing a persistent sense of unease today?",
+    "v": 0.375,
+    "a": 0.86
+  },
+  {
+    "id": "q0722",
+    "text": "Does hypervigilance or scanning for problems feel familiar right now?",
+    "v": 0.375,
+    "a": 0.9
+  },
+  {
+    "id": "q0723",
+    "text": "Does a feeling of overwhelm describe how you feel right now?",
+    "v": 0.375,
+    "a": 0.94
+  },
+  {
+    "id": "q0724",
+    "text": "Do you notice intrusive or anxious thoughts in yourself at this moment?",
+    "v": 0.375,
+    "a": 0.98
+  },
+  {
+    "id": "q0800",
+    "text": "Does low and unhurried match how you feel right now?",
+    "v": 0.425,
+    "a": 0.02
+  },
+  {
+    "id": "q0801",
+    "text": "Is your energy level feeling sluggish but okay at this moment?",
+    "v": 0.425,
+    "a": 0.06
+  },
+  {
+    "id": "q0802",
+    "text": "Do you feel slow and a little flat right now?",
+    "v": 0.425,
+    "a": 0.1
+  },
+  {
+    "id": "q0803",
+    "text": "Would you describe your current state as tired but not unhappy?",
+    "v": 0.425,
+    "a": 0.14
+  },
+  {
+    "id": "q0804",
+    "text": "Does quiet and without much drive accurately describe your energy right now?",
+    "v": 0.425,
+    "a": 0.18
+  },
+  {
+    "id": "q0805",
+    "text": "Does low-key and drifting match how you feel right now?",
+    "v": 0.425,
+    "a": 0.22
+  },
+  {
+    "id": "q0806",
+    "text": "Is your energy level feeling subdued and unremarkable at this moment?",
+    "v": 0.425,
+    "a": 0.26
+  },
+  {
+    "id": "q0807",
+    "text": "Do you feel calm but a bit hollow right now?",
+    "v": 0.425,
+    "a": 0.3
+  },
+  {
+    "id": "q0808",
+    "text": "Would you describe your current state as understated and slow?",
+    "v": 0.425,
+    "a": 0.34
+  },
+  {
+    "id": "q0809",
+    "text": "Does your energy feel roughly average right now?",
+    "v": 0.425,
+    "a": 0.38
+  },
+  {
+    "id": "q0810",
+    "text": "Do you feel neither particularly good nor bad at the moment?",
+    "v": 0.425,
+    "a": 0.42
+  },
+  {
+    "id": "q0811",
+    "text": "Is your mood fairly neutral or unremarkable right now?",
+    "v": 0.425,
+    "a": 0.46
+  },
+  {
+    "id": "q0812",
+    "text": "Does life feel kind of ordinary and uneventful today?",
+    "v": 0.425,
+    "a": 0.5
+  },
+  {
+    "id": "q0813",
+    "text": "Do you feel like you're just getting on with things right now?",
+    "v": 0.425,
+    "a": 0.54
+  },
+  {
+    "id": "q0814",
+    "text": "Does your energy feel roughly average right now?",
+    "v": 0.425,
+    "a": 0.58
+  },
+  {
+    "id": "q0815",
+    "text": "Do you feel neither particularly good nor bad at the moment?",
+    "v": 0.425,
+    "a": 0.62
+  },
+  {
+    "id": "q0816",
+    "text": "Do you feel restless or keyed-up right now?",
+    "v": 0.425,
+    "a": 0.66
+  },
+  {
+    "id": "q0817",
+    "text": "Is your mind racing at the moment?",
+    "v": 0.425,
+    "a": 0.7
+  },
+  {
+    "id": "q0818",
+    "text": "Do you notice a lot of physical tension right now?",
+    "v": 0.425,
+    "a": 0.74
+  },
+  {
+    "id": "q0819",
+    "text": "Does sitting still feel difficult right now?",
+    "v": 0.425,
+    "a": 0.78
+  },
+  {
+    "id": "q0820",
+    "text": "Is there urgency in how you feel at this moment?",
+    "v": 0.425,
+    "a": 0.82
+  },
+  {
+    "id": "q0821",
+    "text": "Do you feel restless or keyed-up right now?",
+    "v": 0.425,
+    "a": 0.86
+  },
+  {
+    "id": "q0822",
+    "text": "Is your mind racing at the moment?",
+    "v": 0.425,
+    "a": 0.9
+  },
+  {
+    "id": "q0823",
+    "text": "Do you notice a lot of physical tension right now?",
+    "v": 0.425,
+    "a": 0.94
+  },
+  {
+    "id": "q0824",
+    "text": "Does sitting still feel difficult right now?",
+    "v": 0.425,
+    "a": 0.98
+  },
+  {
+    "id": "q0900",
+    "text": "Does gentle but without enthusiasm accurately describe your energy right now?",
+    "v": 0.475,
+    "a": 0.02
+  },
+  {
+    "id": "q0901",
+    "text": "Does low and unhurried match how you feel right now?",
+    "v": 0.475,
+    "a": 0.06
+  },
+  {
+    "id": "q0902",
+    "text": "Is your energy level feeling sluggish but okay at this moment?",
+    "v": 0.475,
+    "a": 0.1
+  },
+  {
+    "id": "q0903",
+    "text": "Do you feel slow and a little flat right now?",
+    "v": 0.475,
+    "a": 0.14
+  },
+  {
+    "id": "q0904",
+    "text": "Would you describe your current state as tired but not unhappy?",
+    "v": 0.475,
+    "a": 0.18
+  },
+  {
+    "id": "q0905",
+    "text": "Does quiet and without much drive accurately describe your energy right now?",
+    "v": 0.475,
+    "a": 0.22
+  },
+  {
+    "id": "q0906",
+    "text": "Does low-key and drifting match how you feel right now?",
+    "v": 0.475,
+    "a": 0.26
+  },
+  {
+    "id": "q0907",
+    "text": "Is your energy level feeling subdued and unremarkable at this moment?",
+    "v": 0.475,
+    "a": 0.3
+  },
+  {
+    "id": "q0908",
+    "text": "Do you feel calm but a bit hollow right now?",
+    "v": 0.475,
+    "a": 0.34
+  },
+  {
+    "id": "q0909",
+    "text": "Is your mood fairly neutral or unremarkable right now?",
+    "v": 0.475,
+    "a": 0.38
+  },
+  {
+    "id": "q0910",
+    "text": "Does life feel kind of ordinary and uneventful today?",
+    "v": 0.475,
+    "a": 0.42
+  },
+  {
+    "id": "q0911",
+    "text": "Do you feel like you're just getting on with things right now?",
+    "v": 0.475,
+    "a": 0.46
+  },
+  {
+    "id": "q0912",
+    "text": "Does your energy feel roughly average right now?",
+    "v": 0.475,
+    "a": 0.5
+  },
+  {
+    "id": "q0913",
+    "text": "Do you feel neither particularly good nor bad at the moment?",
+    "v": 0.475,
+    "a": 0.54
+  },
+  {
+    "id": "q0914",
+    "text": "Is your mood fairly neutral or unremarkable right now?",
+    "v": 0.475,
+    "a": 0.58
+  },
+  {
+    "id": "q0915",
+    "text": "Does life feel kind of ordinary and uneventful today?",
+    "v": 0.475,
+    "a": 0.62
+  },
+  {
+    "id": "q0916",
+    "text": "Is there urgency in how you feel at this moment?",
+    "v": 0.475,
+    "a": 0.66
+  },
+  {
+    "id": "q0917",
+    "text": "Do you feel restless or keyed-up right now?",
+    "v": 0.475,
+    "a": 0.7
+  },
+  {
+    "id": "q0918",
+    "text": "Is your mind racing at the moment?",
+    "v": 0.475,
+    "a": 0.74
+  },
+  {
+    "id": "q0919",
+    "text": "Do you notice a lot of physical tension right now?",
+    "v": 0.475,
+    "a": 0.78
+  },
+  {
+    "id": "q0920",
+    "text": "Does sitting still feel difficult right now?",
+    "v": 0.475,
+    "a": 0.82
+  },
+  {
+    "id": "q0921",
+    "text": "Is there urgency in how you feel at this moment?",
+    "v": 0.475,
+    "a": 0.86
+  },
+  {
+    "id": "q0922",
+    "text": "Do you feel restless or keyed-up right now?",
+    "v": 0.475,
+    "a": 0.9
+  },
+  {
+    "id": "q0923",
+    "text": "Is your mind racing at the moment?",
+    "v": 0.475,
+    "a": 0.94
+  },
+  {
+    "id": "q0924",
+    "text": "Do you notice a lot of physical tension right now?",
+    "v": 0.475,
+    "a": 0.98
+  },
+  {
+    "id": "q1000",
+    "text": "Would you describe your current state as understated and slow?",
+    "v": 0.525,
+    "a": 0.02
+  },
+  {
+    "id": "q1001",
+    "text": "Does gentle but without enthusiasm accurately describe your energy right now?",
+    "v": 0.525,
+    "a": 0.06
+  },
+  {
+    "id": "q1002",
+    "text": "Does low and unhurried match how you feel right now?",
+    "v": 0.525,
+    "a": 0.1
+  },
+  {
+    "id": "q1003",
+    "text": "Is your energy level feeling sluggish but okay at this moment?",
+    "v": 0.525,
+    "a": 0.14
+  },
+  {
+    "id": "q1004",
+    "text": "Do you feel slow and a little flat right now?",
+    "v": 0.525,
+    "a": 0.18
+  },
+  {
+    "id": "q1005",
+    "text": "Would you describe your current state as tired but not unhappy?",
+    "v": 0.525,
+    "a": 0.22
+  },
+  {
+    "id": "q1006",
+    "text": "Does quiet and without much drive accurately describe your energy right now?",
+    "v": 0.525,
+    "a": 0.26
+  },
+  {
+    "id": "q1007",
+    "text": "Does low-key and drifting match how you feel right now?",
+    "v": 0.525,
+    "a": 0.3
+  },
+  {
+    "id": "q1008",
+    "text": "Is your energy level feeling subdued and unremarkable at this moment?",
+    "v": 0.525,
+    "a": 0.34
+  },
+  {
+    "id": "q1009",
+    "text": "Do you feel like you're just getting on with things right now?",
+    "v": 0.525,
+    "a": 0.38
+  },
+  {
+    "id": "q1010",
+    "text": "Does your energy feel roughly average right now?",
+    "v": 0.525,
+    "a": 0.42
+  },
+  {
+    "id": "q1011",
+    "text": "Do you feel neither particularly good nor bad at the moment?",
+    "v": 0.525,
+    "a": 0.46
+  },
+  {
+    "id": "q1012",
+    "text": "Is your mood fairly neutral or unremarkable right now?",
+    "v": 0.525,
+    "a": 0.5
+  },
+  {
+    "id": "q1013",
+    "text": "Does life feel kind of ordinary and uneventful today?",
+    "v": 0.525,
+    "a": 0.54
+  },
+  {
+    "id": "q1014",
+    "text": "Do you feel like you're just getting on with things right now?",
+    "v": 0.525,
+    "a": 0.58
+  },
+  {
+    "id": "q1015",
+    "text": "Does your energy feel roughly average right now?",
+    "v": 0.525,
+    "a": 0.62
+  },
+  {
+    "id": "q1016",
+    "text": "Does sitting still feel difficult right now?",
+    "v": 0.525,
+    "a": 0.66
+  },
+  {
+    "id": "q1017",
+    "text": "Is there urgency in how you feel at this moment?",
+    "v": 0.525,
+    "a": 0.7
+  },
+  {
+    "id": "q1018",
+    "text": "Do you feel restless or keyed-up right now?",
+    "v": 0.525,
+    "a": 0.74
+  },
+  {
+    "id": "q1019",
+    "text": "Is your mind racing at the moment?",
+    "v": 0.525,
+    "a": 0.78
+  },
+  {
+    "id": "q1020",
+    "text": "Do you notice a lot of physical tension right now?",
+    "v": 0.525,
+    "a": 0.82
+  },
+  {
+    "id": "q1021",
+    "text": "Does sitting still feel difficult right now?",
+    "v": 0.525,
+    "a": 0.86
+  },
+  {
+    "id": "q1022",
+    "text": "Is there urgency in how you feel at this moment?",
+    "v": 0.525,
+    "a": 0.9
+  },
+  {
+    "id": "q1023",
+    "text": "Do you feel restless or keyed-up right now?",
+    "v": 0.525,
+    "a": 0.94
+  },
+  {
+    "id": "q1024",
+    "text": "Is your mind racing at the moment?",
+    "v": 0.525,
+    "a": 0.98
+  },
+  {
+    "id": "q1100",
+    "text": "Do you feel calm but a bit hollow right now?",
+    "v": 0.575,
+    "a": 0.02
+  },
+  {
+    "id": "q1101",
+    "text": "Would you describe your current state as understated and slow?",
+    "v": 0.575,
+    "a": 0.06
+  },
+  {
+    "id": "q1102",
+    "text": "Does gentle but without enthusiasm accurately describe your energy right now?",
+    "v": 0.575,
+    "a": 0.1
+  },
+  {
+    "id": "q1103",
+    "text": "Does low and unhurried match how you feel right now?",
+    "v": 0.575,
+    "a": 0.14
+  },
+  {
+    "id": "q1104",
+    "text": "Is your energy level feeling sluggish but okay at this moment?",
+    "v": 0.575,
+    "a": 0.18
+  },
+  {
+    "id": "q1105",
+    "text": "Do you feel slow and a little flat right now?",
+    "v": 0.575,
+    "a": 0.22
+  },
+  {
+    "id": "q1106",
+    "text": "Would you describe your current state as tired but not unhappy?",
+    "v": 0.575,
+    "a": 0.26
+  },
+  {
+    "id": "q1107",
+    "text": "Does quiet and without much drive accurately describe your energy right now?",
+    "v": 0.575,
+    "a": 0.3
+  },
+  {
+    "id": "q1108",
+    "text": "Does low-key and drifting match how you feel right now?",
+    "v": 0.575,
+    "a": 0.34
+  },
+  {
+    "id": "q1109",
+    "text": "Do you feel neither particularly good nor bad at the moment?",
+    "v": 0.575,
+    "a": 0.38
+  },
+  {
+    "id": "q1110",
+    "text": "Is your mood fairly neutral or unremarkable right now?",
+    "v": 0.575,
+    "a": 0.42
+  },
+  {
+    "id": "q1111",
+    "text": "Does life feel kind of ordinary and uneventful today?",
+    "v": 0.575,
+    "a": 0.46
+  },
+  {
+    "id": "q1112",
+    "text": "Do you feel like you're just getting on with things right now?",
+    "v": 0.575,
+    "a": 0.5
+  },
+  {
+    "id": "q1113",
+    "text": "Does your energy feel roughly average right now?",
+    "v": 0.575,
+    "a": 0.54
+  },
+  {
+    "id": "q1114",
+    "text": "Do you feel neither particularly good nor bad at the moment?",
+    "v": 0.575,
+    "a": 0.58
+  },
+  {
+    "id": "q1115",
+    "text": "Is your mood fairly neutral or unremarkable right now?",
+    "v": 0.575,
+    "a": 0.62
+  },
+  {
+    "id": "q1116",
+    "text": "Do you notice a lot of physical tension right now?",
+    "v": 0.575,
+    "a": 0.66
+  },
+  {
+    "id": "q1117",
+    "text": "Does sitting still feel difficult right now?",
+    "v": 0.575,
+    "a": 0.7
+  },
+  {
+    "id": "q1118",
+    "text": "Is there urgency in how you feel at this moment?",
+    "v": 0.575,
+    "a": 0.74
+  },
+  {
+    "id": "q1119",
+    "text": "Do you feel restless or keyed-up right now?",
+    "v": 0.575,
+    "a": 0.78
+  },
+  {
+    "id": "q1120",
+    "text": "Is your mind racing at the moment?",
+    "v": 0.575,
+    "a": 0.82
+  },
+  {
+    "id": "q1121",
+    "text": "Do you notice a lot of physical tension right now?",
+    "v": 0.575,
+    "a": 0.86
+  },
+  {
+    "id": "q1122",
+    "text": "Does sitting still feel difficult right now?",
+    "v": 0.575,
+    "a": 0.9
+  },
+  {
+    "id": "q1123",
+    "text": "Is there urgency in how you feel at this moment?",
+    "v": 0.575,
+    "a": 0.94
+  },
+  {
+    "id": "q1124",
+    "text": "Do you feel restless or keyed-up right now?",
+    "v": 0.575,
+    "a": 0.98
+  },
+  {
+    "id": "q1200",
+    "text": "Does a quiet evening at home sound perfect right now?",
+    "v": 0.625,
+    "a": 0.02
+  },
+  {
+    "id": "q1201",
+    "text": "Would you enjoy sitting in a peaceful garden at this moment?",
+    "v": 0.625,
+    "a": 0.06
+  },
+  {
+    "id": "q1202",
+    "text": "Does reading something gentle appeal to you right now?",
+    "v": 0.625,
+    "a": 0.1
+  },
+  {
+    "id": "q1203",
+    "text": "Could you happily do listening to calm music for the next hour?",
+    "v": 0.625,
+    "a": 0.14
+  },
+  {
+    "id": "q1204",
+    "text": "Does the thought of a slow walk in nature feel inviting right now?",
+    "v": 0.625,
+    "a": 0.18
+  },
+  {
+    "id": "q1205",
+    "text": "Does resting without any agenda sound perfect right now?",
+    "v": 0.625,
+    "a": 0.22
+  },
+  {
+    "id": "q1206",
+    "text": "Would you enjoy light stretching or yoga at this moment?",
+    "v": 0.625,
+    "a": 0.26
+  },
+  {
+    "id": "q1207",
+    "text": "Does watching the sky appeal to you right now?",
+    "v": 0.625,
+    "a": 0.3
+  },
+  {
+    "id": "q1208",
+    "text": "Could you happily do a long bath or shower for the next hour?",
+    "v": 0.625,
+    "a": 0.34
+  },
+  {
+    "id": "q1209",
+    "text": "Does cooking a nice meal sound enjoyable right now?",
+    "v": 0.625,
+    "a": 0.38
+  },
+  {
+    "id": "q1210",
+    "text": "Would you happily spend time on catching up with a good friend today?",
+    "v": 0.625,
+    "a": 0.42
+  },
+  {
+    "id": "q1211",
+    "text": "Does working on a creative hobby feel like a good use of your time right now?",
+    "v": 0.625,
+    "a": 0.46
+  },
+  {
+    "id": "q1212",
+    "text": "Do you feel drawn to going for a relaxed walk at this moment?",
+    "v": 0.625,
+    "a": 0.5
+  },
+  {
+    "id": "q1213",
+    "text": "Would reading an engaging book feel satisfying right now?",
+    "v": 0.625,
+    "a": 0.54
+  },
+  {
+    "id": "q1214",
+    "text": "Does planning something fun sound enjoyable right now?",
+    "v": 0.625,
+    "a": 0.58
+  },
+  {
+    "id": "q1215",
+    "text": "Would you happily spend time on listening to your favourite music today?",
+    "v": 0.625,
+    "a": 0.62
+  },
+  {
+    "id": "q1216",
+    "text": "Would you enjoy going for a run right now?",
+    "v": 0.625,
+    "a": 0.66
+  },
+  {
+    "id": "q1217",
+    "text": "Does the idea of dancing to loud music sound exciting today?",
+    "v": 0.625,
+    "a": 0.7
+  },
+  {
+    "id": "q1218",
+    "text": "Do you feel up for a spontaneous road trip at this moment?",
+    "v": 0.625,
+    "a": 0.74
+  },
+  {
+    "id": "q1219",
+    "text": "Could you jump into starting an exciting new project right now with enthusiasm?",
+    "v": 0.625,
+    "a": 0.78
+  },
+  {
+    "id": "q1220",
+    "text": "Does playing a competitive game sound appealing and energizing?",
+    "v": 0.625,
+    "a": 0.82
+  },
+  {
+    "id": "q1221",
+    "text": "Would you enjoy exploring a new neighbourhood right now?",
+    "v": 0.625,
+    "a": 0.86
+  },
+  {
+    "id": "q1222",
+    "text": "Does the idea of leading a brainstorming session sound exciting today?",
+    "v": 0.625,
+    "a": 0.9
+  },
+  {
+    "id": "q1223",
+    "text": "Do you feel up for learning something thrilling at this moment?",
+    "v": 0.625,
+    "a": 0.94
+  },
+  {
+    "id": "q1224",
+    "text": "Could you jump into joining a lively group activity right now with enthusiasm?",
+    "v": 0.625,
+    "a": 0.98
+  },
+  {
+    "id": "q1300",
+    "text": "Does the thought of sitting in comfortable silence feel inviting right now?",
+    "v": 0.675,
+    "a": 0.02
+  },
+  {
+    "id": "q1301",
+    "text": "Does napping in a warm room sound perfect right now?",
+    "v": 0.675,
+    "a": 0.06
+  },
+  {
+    "id": "q1302",
+    "text": "Would you enjoy gentle breathing exercises at this moment?",
+    "v": 0.675,
+    "a": 0.1
+  },
+  {
+    "id": "q1303",
+    "text": "Does looking through old photos appeal to you right now?",
+    "v": 0.675,
+    "a": 0.14
+  },
+  {
+    "id": "q1304",
+    "text": "Could you happily do making herbal tea for the next hour?",
+    "v": 0.675,
+    "a": 0.18
+  },
+  {
+    "id": "q1305",
+    "text": "Does the thought of sitting by a window feel inviting right now?",
+    "v": 0.675,
+    "a": 0.22
+  },
+  {
+    "id": "q1306",
+    "text": "Does a slow stroll without a destination sound perfect right now?",
+    "v": 0.675,
+    "a": 0.26
+  },
+  {
+    "id": "q1307",
+    "text": "Would you enjoy journalling quietly at this moment?",
+    "v": 0.675,
+    "a": 0.3
+  },
+  {
+    "id": "q1308",
+    "text": "Does tidying slowly and peacefully appeal to you right now?",
+    "v": 0.675,
+    "a": 0.34
+  },
+  {
+    "id": "q1309",
+    "text": "Does watching a good film feel like a good use of your time right now?",
+    "v": 0.675,
+    "a": 0.38
+  },
+  {
+    "id": "q1310",
+    "text": "Do you feel drawn to spending time on a personal project at this moment?",
+    "v": 0.675,
+    "a": 0.42
+  },
+  {
+    "id": "q1311",
+    "text": "Would doing some light gardening feel satisfying right now?",
+    "v": 0.675,
+    "a": 0.46
+  },
+  {
+    "id": "q1312",
+    "text": "Does writing in a journal sound enjoyable right now?",
+    "v": 0.675,
+    "a": 0.5
+  },
+  {
+    "id": "q1313",
+    "text": "Would you happily spend time on browsing something interesting online today?",
+    "v": 0.675,
+    "a": 0.54
+  },
+  {
+    "id": "q1314",
+    "text": "Does having a meaningful conversation feel like a good use of your time right now?",
+    "v": 0.675,
+    "a": 0.58
+  },
+  {
+    "id": "q1315",
+    "text": "Do you feel drawn to organising your space at this moment?",
+    "v": 0.675,
+    "a": 0.62
+  },
+  {
+    "id": "q1316",
+    "text": "Does trying something bold and new sound appealing and energizing?",
+    "v": 0.675,
+    "a": 0.66
+  },
+  {
+    "id": "q1317",
+    "text": "Would you enjoy performing in front of an audience right now?",
+    "v": 0.675,
+    "a": 0.7
+  },
+  {
+    "id": "q1318",
+    "text": "Does the idea of going to a high-energy event sound exciting today?",
+    "v": 0.675,
+    "a": 0.74
+  },
+  {
+    "id": "q1319",
+    "text": "Do you feel up for a spontaneous adventure with friends at this moment?",
+    "v": 0.675,
+    "a": 0.78
+  },
+  {
+    "id": "q1320",
+    "text": "Could you jump into a fast-paced creative sprint right now with enthusiasm?",
+    "v": 0.675,
+    "a": 0.82
+  },
+  {
+    "id": "q1321",
+    "text": "Does tackling a physical challenge sound appealing and energizing?",
+    "v": 0.675,
+    "a": 0.86
+  },
+  {
+    "id": "q1322",
+    "text": "Would you enjoy going somewhere vibrant and new right now?",
+    "v": 0.675,
+    "a": 0.9
+  },
+  {
+    "id": "q1323",
+    "text": "Does the idea of playing a fast sport sound exciting today?",
+    "v": 0.675,
+    "a": 0.94
+  },
+  {
+    "id": "q1324",
+    "text": "Do you feel up for a dance class or movement session at this moment?",
+    "v": 0.675,
+    "a": 0.98
+  },
+  {
+    "id": "q1400",
+    "text": "Could you happily do a slow, meditative activity for the next hour?",
+    "v": 0.725,
+    "a": 0.02
+  },
+  {
+    "id": "q1401",
+    "text": "Does the thought of comfortable stillness feel inviting right now?",
+    "v": 0.725,
+    "a": 0.06
+  },
+  {
+    "id": "q1402",
+    "text": "Does a quiet evening at home sound perfect right now?",
+    "v": 0.725,
+    "a": 0.1
+  },
+  {
+    "id": "q1403",
+    "text": "Would you enjoy sitting in a peaceful garden at this moment?",
+    "v": 0.725,
+    "a": 0.14
+  },
+  {
+    "id": "q1404",
+    "text": "Does reading something gentle appeal to you right now?",
+    "v": 0.725,
+    "a": 0.18
+  },
+  {
+    "id": "q1405",
+    "text": "Could you happily do listening to calm music for the next hour?",
+    "v": 0.725,
+    "a": 0.22
+  },
+  {
+    "id": "q1406",
+    "text": "Does the thought of a slow walk in nature feel inviting right now?",
+    "v": 0.725,
+    "a": 0.26
+  },
+  {
+    "id": "q1407",
+    "text": "Does resting without any agenda sound perfect right now?",
+    "v": 0.725,
+    "a": 0.3
+  },
+  {
+    "id": "q1408",
+    "text": "Would you enjoy light stretching or yoga at this moment?",
+    "v": 0.725,
+    "a": 0.34
+  },
+  {
+    "id": "q1409",
+    "text": "Would sketching or drawing feel satisfying right now?",
+    "v": 0.725,
+    "a": 0.38
+  },
+  {
+    "id": "q1410",
+    "text": "Does playing a casual game sound enjoyable right now?",
+    "v": 0.725,
+    "a": 0.42
+  },
+  {
+    "id": "q1411",
+    "text": "Would you happily spend time on taking a pleasant drive today?",
+    "v": 0.725,
+    "a": 0.46
+  },
+  {
+    "id": "q1412",
+    "text": "Does making a playlist feel like a good use of your time right now?",
+    "v": 0.725,
+    "a": 0.5
+  },
+  {
+    "id": "q1413",
+    "text": "Do you feel drawn to trying a new recipe at this moment?",
+    "v": 0.725,
+    "a": 0.54
+  },
+  {
+    "id": "q1414",
+    "text": "Would working on something you enjoy feel satisfying right now?",
+    "v": 0.725,
+    "a": 0.58
+  },
+  {
+    "id": "q1415",
+    "text": "Does cooking a nice meal sound enjoyable right now?",
+    "v": 0.725,
+    "a": 0.62
+  },
+  {
+    "id": "q1416",
+    "text": "Could you jump into an energetic group workout right now with enthusiasm?",
+    "v": 0.725,
+    "a": 0.66
+  },
+  {
+    "id": "q1417",
+    "text": "Does making something big happen today sound appealing and energizing?",
+    "v": 0.725,
+    "a": 0.7
+  },
+  {
+    "id": "q1418",
+    "text": "Would you enjoy going for a run right now?",
+    "v": 0.725,
+    "a": 0.74
+  },
+  {
+    "id": "q1419",
+    "text": "Does the idea of dancing to loud music sound exciting today?",
+    "v": 0.725,
+    "a": 0.78
+  },
+  {
+    "id": "q1420",
+    "text": "Do you feel up for a spontaneous road trip at this moment?",
+    "v": 0.725,
+    "a": 0.82
+  },
+  {
+    "id": "q1421",
+    "text": "Could you jump into starting an exciting new project right now with enthusiasm?",
+    "v": 0.725,
+    "a": 0.86
+  },
+  {
+    "id": "q1422",
+    "text": "Does playing a competitive game sound appealing and energizing?",
+    "v": 0.725,
+    "a": 0.9
+  },
+  {
+    "id": "q1423",
+    "text": "Would you enjoy exploring a new neighbourhood right now?",
+    "v": 0.725,
+    "a": 0.94
+  },
+  {
+    "id": "q1424",
+    "text": "Does the idea of leading a brainstorming session sound exciting today?",
+    "v": 0.725,
+    "a": 0.98
+  },
+  {
+    "id": "q1500",
+    "text": "Does watching the sky appeal to you right now?",
+    "v": 0.775,
+    "a": 0.02
+  },
+  {
+    "id": "q1501",
+    "text": "Could you happily do a long bath or shower for the next hour?",
+    "v": 0.775,
+    "a": 0.06
+  },
+  {
+    "id": "q1502",
+    "text": "Does the thought of sitting in comfortable silence feel inviting right now?",
+    "v": 0.775,
+    "a": 0.1
+  },
+  {
+    "id": "q1503",
+    "text": "Does napping in a warm room sound perfect right now?",
+    "v": 0.775,
+    "a": 0.14
+  },
+  {
+    "id": "q1504",
+    "text": "Would you enjoy gentle breathing exercises at this moment?",
+    "v": 0.775,
+    "a": 0.18
+  },
+  {
+    "id": "q1505",
+    "text": "Does looking through old photos appeal to you right now?",
+    "v": 0.775,
+    "a": 0.22
+  },
+  {
+    "id": "q1506",
+    "text": "Could you happily do making herbal tea for the next hour?",
+    "v": 0.775,
+    "a": 0.26
+  },
+  {
+    "id": "q1507",
+    "text": "Does the thought of sitting by a window feel inviting right now?",
+    "v": 0.775,
+    "a": 0.3
+  },
+  {
+    "id": "q1508",
+    "text": "Does a slow stroll without a destination sound perfect right now?",
+    "v": 0.775,
+    "a": 0.34
+  },
+  {
+    "id": "q1509",
+    "text": "Would you happily spend time on catching up with a good friend today?",
+    "v": 0.775,
+    "a": 0.38
+  },
+  {
+    "id": "q1510",
+    "text": "Does working on a creative hobby feel like a good use of your time right now?",
+    "v": 0.775,
+    "a": 0.42
+  },
+  {
+    "id": "q1511",
+    "text": "Do you feel drawn to going for a relaxed walk at this moment?",
+    "v": 0.775,
+    "a": 0.46
+  },
+  {
+    "id": "q1512",
+    "text": "Would reading an engaging book feel satisfying right now?",
+    "v": 0.775,
+    "a": 0.5
+  },
+  {
+    "id": "q1513",
+    "text": "Does planning something fun sound enjoyable right now?",
+    "v": 0.775,
+    "a": 0.54
+  },
+  {
+    "id": "q1514",
+    "text": "Would you happily spend time on listening to your favourite music today?",
+    "v": 0.775,
+    "a": 0.58
+  },
+  {
+    "id": "q1515",
+    "text": "Does watching a good film feel like a good use of your time right now?",
+    "v": 0.775,
+    "a": 0.62
+  },
+  {
+    "id": "q1516",
+    "text": "Do you feel up for learning something thrilling at this moment?",
+    "v": 0.775,
+    "a": 0.66
+  },
+  {
+    "id": "q1517",
+    "text": "Could you jump into joining a lively group activity right now with enthusiasm?",
+    "v": 0.775,
+    "a": 0.7
+  },
+  {
+    "id": "q1518",
+    "text": "Does trying something bold and new sound appealing and energizing?",
+    "v": 0.775,
+    "a": 0.74
+  },
+  {
+    "id": "q1519",
+    "text": "Would you enjoy performing in front of an audience right now?",
+    "v": 0.775,
+    "a": 0.78
+  },
+  {
+    "id": "q1520",
+    "text": "Does the idea of going to a high-energy event sound exciting today?",
+    "v": 0.775,
+    "a": 0.82
+  },
+  {
+    "id": "q1521",
+    "text": "Do you feel up for a spontaneous adventure with friends at this moment?",
+    "v": 0.775,
+    "a": 0.86
+  },
+  {
+    "id": "q1522",
+    "text": "Could you jump into a fast-paced creative sprint right now with enthusiasm?",
+    "v": 0.775,
+    "a": 0.9
+  },
+  {
+    "id": "q1523",
+    "text": "Does tackling a physical challenge sound appealing and energizing?",
+    "v": 0.775,
+    "a": 0.94
+  },
+  {
+    "id": "q1524",
+    "text": "Would you enjoy going somewhere vibrant and new right now?",
+    "v": 0.775,
+    "a": 0.98
+  },
+  {
+    "id": "q1600",
+    "text": "Would you enjoy journalling quietly at this moment?",
+    "v": 0.825,
+    "a": 0.02
+  },
+  {
+    "id": "q1601",
+    "text": "Does tidying slowly and peacefully appeal to you right now?",
+    "v": 0.825,
+    "a": 0.06
+  },
+  {
+    "id": "q1602",
+    "text": "Could you happily do a slow, meditative activity for the next hour?",
+    "v": 0.825,
+    "a": 0.1
+  },
+  {
+    "id": "q1603",
+    "text": "Does the thought of comfortable stillness feel inviting right now?",
+    "v": 0.825,
+    "a": 0.14
+  },
+  {
+    "id": "q1604",
+    "text": "Does a quiet evening at home sound perfect right now?",
+    "v": 0.825,
+    "a": 0.18
+  },
+  {
+    "id": "q1605",
+    "text": "Would you enjoy sitting in a peaceful garden at this moment?",
+    "v": 0.825,
+    "a": 0.22
+  },
+  {
+    "id": "q1606",
+    "text": "Does reading something gentle appeal to you right now?",
+    "v": 0.825,
+    "a": 0.26
+  },
+  {
+    "id": "q1607",
+    "text": "Could you happily do listening to calm music for the next hour?",
+    "v": 0.825,
+    "a": 0.3
+  },
+  {
+    "id": "q1608",
+    "text": "Does the thought of a slow walk in nature feel inviting right now?",
+    "v": 0.825,
+    "a": 0.34
+  },
+  {
+    "id": "q1609",
+    "text": "Do you feel drawn to spending time on a personal project at this moment?",
+    "v": 0.825,
+    "a": 0.38
+  },
+  {
+    "id": "q1610",
+    "text": "Would doing some light gardening feel satisfying right now?",
+    "v": 0.825,
+    "a": 0.42
+  },
+  {
+    "id": "q1611",
+    "text": "Does writing in a journal sound enjoyable right now?",
+    "v": 0.825,
+    "a": 0.46
+  },
+  {
+    "id": "q1612",
+    "text": "Would you happily spend time on browsing something interesting online today?",
+    "v": 0.825,
+    "a": 0.5
+  },
+  {
+    "id": "q1613",
+    "text": "Does having a meaningful conversation feel like a good use of your time right now?",
+    "v": 0.825,
+    "a": 0.54
+  },
+  {
+    "id": "q1614",
+    "text": "Do you feel drawn to organising your space at this moment?",
+    "v": 0.825,
+    "a": 0.58
+  },
+  {
+    "id": "q1615",
+    "text": "Would sketching or drawing feel satisfying right now?",
+    "v": 0.825,
+    "a": 0.62
+  },
+  {
+    "id": "q1616",
+    "text": "Does the idea of playing a fast sport sound exciting today?",
+    "v": 0.825,
+    "a": 0.66
+  },
+  {
+    "id": "q1617",
+    "text": "Do you feel up for a dance class or movement session at this moment?",
+    "v": 0.825,
+    "a": 0.7
+  },
+  {
+    "id": "q1618",
+    "text": "Could you jump into an energetic group workout right now with enthusiasm?",
+    "v": 0.825,
+    "a": 0.74
+  },
+  {
+    "id": "q1619",
+    "text": "Does making something big happen today sound appealing and energizing?",
+    "v": 0.825,
+    "a": 0.78
+  },
+  {
+    "id": "q1620",
+    "text": "Would you enjoy going for a run right now?",
+    "v": 0.825,
+    "a": 0.82
+  },
+  {
+    "id": "q1621",
+    "text": "Does the idea of dancing to loud music sound exciting today?",
+    "v": 0.825,
+    "a": 0.86
+  },
+  {
+    "id": "q1622",
+    "text": "Do you feel up for a spontaneous road trip at this moment?",
+    "v": 0.825,
+    "a": 0.9
+  },
+  {
+    "id": "q1623",
+    "text": "Could you jump into starting an exciting new project right now with enthusiasm?",
+    "v": 0.825,
+    "a": 0.94
+  },
+  {
+    "id": "q1624",
+    "text": "Does playing a competitive game sound appealing and energizing?",
+    "v": 0.825,
+    "a": 0.98
+  },
+  {
+    "id": "q1700",
+    "text": "Does resting without any agenda sound perfect right now?",
+    "v": 0.875,
+    "a": 0.02
+  },
+  {
+    "id": "q1701",
+    "text": "Would you enjoy light stretching or yoga at this moment?",
+    "v": 0.875,
+    "a": 0.06
+  },
+  {
+    "id": "q1702",
+    "text": "Does watching the sky appeal to you right now?",
+    "v": 0.875,
+    "a": 0.1
+  },
+  {
+    "id": "q1703",
+    "text": "Could you happily do a long bath or shower for the next hour?",
+    "v": 0.875,
+    "a": 0.14
+  },
+  {
+    "id": "q1704",
+    "text": "Does the thought of sitting in comfortable silence feel inviting right now?",
+    "v": 0.875,
+    "a": 0.18
+  },
+  {
+    "id": "q1705",
+    "text": "Does napping in a warm room sound perfect right now?",
+    "v": 0.875,
+    "a": 0.22
+  },
+  {
+    "id": "q1706",
+    "text": "Would you enjoy gentle breathing exercises at this moment?",
+    "v": 0.875,
+    "a": 0.26
+  },
+  {
+    "id": "q1707",
+    "text": "Does looking through old photos appeal to you right now?",
+    "v": 0.875,
+    "a": 0.3
+  },
+  {
+    "id": "q1708",
+    "text": "Could you happily do making herbal tea for the next hour?",
+    "v": 0.875,
+    "a": 0.34
+  },
+  {
+    "id": "q1709",
+    "text": "Does playing a casual game sound enjoyable right now?",
+    "v": 0.875,
+    "a": 0.38
+  },
+  {
+    "id": "q1710",
+    "text": "Would you happily spend time on taking a pleasant drive today?",
+    "v": 0.875,
+    "a": 0.42
+  },
+  {
+    "id": "q1711",
+    "text": "Does making a playlist feel like a good use of your time right now?",
+    "v": 0.875,
+    "a": 0.46
+  },
+  {
+    "id": "q1712",
+    "text": "Do you feel drawn to trying a new recipe at this moment?",
+    "v": 0.875,
+    "a": 0.5
+  },
+  {
+    "id": "q1713",
+    "text": "Would working on something you enjoy feel satisfying right now?",
+    "v": 0.875,
+    "a": 0.54
+  },
+  {
+    "id": "q1714",
+    "text": "Does cooking a nice meal sound enjoyable right now?",
+    "v": 0.875,
+    "a": 0.58
+  },
+  {
+    "id": "q1715",
+    "text": "Would you happily spend time on catching up with a good friend today?",
+    "v": 0.875,
+    "a": 0.62
+  },
+  {
+    "id": "q1716",
+    "text": "Would you enjoy exploring a new neighbourhood right now?",
+    "v": 0.875,
+    "a": 0.66
+  },
+  {
+    "id": "q1717",
+    "text": "Does the idea of leading a brainstorming session sound exciting today?",
+    "v": 0.875,
+    "a": 0.7
+  },
+  {
+    "id": "q1718",
+    "text": "Do you feel up for learning something thrilling at this moment?",
+    "v": 0.875,
+    "a": 0.74
+  },
+  {
+    "id": "q1719",
+    "text": "Could you jump into joining a lively group activity right now with enthusiasm?",
+    "v": 0.875,
+    "a": 0.78
+  },
+  {
+    "id": "q1720",
+    "text": "Does trying something bold and new sound appealing and energizing?",
+    "v": 0.875,
+    "a": 0.82
+  },
+  {
+    "id": "q1721",
+    "text": "Would you enjoy performing in front of an audience right now?",
+    "v": 0.875,
+    "a": 0.86
+  },
+  {
+    "id": "q1722",
+    "text": "Does the idea of going to a high-energy event sound exciting today?",
+    "v": 0.875,
+    "a": 0.9
+  },
+  {
+    "id": "q1723",
+    "text": "Do you feel up for a spontaneous adventure with friends at this moment?",
+    "v": 0.875,
+    "a": 0.94
+  },
+  {
+    "id": "q1724",
+    "text": "Could you jump into a fast-paced creative sprint right now with enthusiasm?",
+    "v": 0.875,
+    "a": 0.98
+  },
+  {
+    "id": "q1800",
+    "text": "Does the thought of sitting by a window feel inviting right now?",
+    "v": 0.925,
+    "a": 0.02
+  },
+  {
+    "id": "q1801",
+    "text": "Does a slow stroll without a destination sound perfect right now?",
+    "v": 0.925,
+    "a": 0.06
+  },
+  {
+    "id": "q1802",
+    "text": "Would you enjoy journalling quietly at this moment?",
+    "v": 0.925,
+    "a": 0.1
+  },
+  {
+    "id": "q1803",
+    "text": "Does tidying slowly and peacefully appeal to you right now?",
+    "v": 0.925,
+    "a": 0.14
+  },
+  {
+    "id": "q1804",
+    "text": "Could you happily do a slow, meditative activity for the next hour?",
+    "v": 0.925,
+    "a": 0.18
+  },
+  {
+    "id": "q1805",
+    "text": "Does the thought of comfortable stillness feel inviting right now?",
+    "v": 0.925,
+    "a": 0.22
+  },
+  {
+    "id": "q1806",
+    "text": "Does a quiet evening at home sound perfect right now?",
+    "v": 0.925,
+    "a": 0.26
+  },
+  {
+    "id": "q1807",
+    "text": "Would you enjoy sitting in a peaceful garden at this moment?",
+    "v": 0.925,
+    "a": 0.3
+  },
+  {
+    "id": "q1808",
+    "text": "Does reading something gentle appeal to you right now?",
+    "v": 0.925,
+    "a": 0.34
+  },
+  {
+    "id": "q1809",
+    "text": "Does working on a creative hobby feel like a good use of your time right now?",
+    "v": 0.925,
+    "a": 0.38
+  },
+  {
+    "id": "q1810",
+    "text": "Do you feel drawn to going for a relaxed walk at this moment?",
+    "v": 0.925,
+    "a": 0.42
+  },
+  {
+    "id": "q1811",
+    "text": "Would reading an engaging book feel satisfying right now?",
+    "v": 0.925,
+    "a": 0.46
+  },
+  {
+    "id": "q1812",
+    "text": "Does planning something fun sound enjoyable right now?",
+    "v": 0.925,
+    "a": 0.5
+  },
+  {
+    "id": "q1813",
+    "text": "Would you happily spend time on listening to your favourite music today?",
+    "v": 0.925,
+    "a": 0.54
+  },
+  {
+    "id": "q1814",
+    "text": "Does watching a good film feel like a good use of your time right now?",
+    "v": 0.925,
+    "a": 0.58
+  },
+  {
+    "id": "q1815",
+    "text": "Do you feel drawn to spending time on a personal project at this moment?",
+    "v": 0.925,
+    "a": 0.62
+  },
+  {
+    "id": "q1816",
+    "text": "Does tackling a physical challenge sound appealing and energizing?",
+    "v": 0.925,
+    "a": 0.66
+  },
+  {
+    "id": "q1817",
+    "text": "Would you enjoy going somewhere vibrant and new right now?",
+    "v": 0.925,
+    "a": 0.7
+  },
+  {
+    "id": "q1818",
+    "text": "Does the idea of playing a fast sport sound exciting today?",
+    "v": 0.925,
+    "a": 0.74
+  },
+  {
+    "id": "q1819",
+    "text": "Do you feel up for a dance class or movement session at this moment?",
+    "v": 0.925,
+    "a": 0.78
+  },
+  {
+    "id": "q1820",
+    "text": "Could you jump into an energetic group workout right now with enthusiasm?",
+    "v": 0.925,
+    "a": 0.82
+  },
+  {
+    "id": "q1821",
+    "text": "Does making something big happen today sound appealing and energizing?",
+    "v": 0.925,
+    "a": 0.86
+  },
+  {
+    "id": "q1822",
+    "text": "Would you enjoy going for a run right now?",
+    "v": 0.925,
+    "a": 0.9
+  },
+  {
+    "id": "q1823",
+    "text": "Does the idea of dancing to loud music sound exciting today?",
+    "v": 0.925,
+    "a": 0.94
+  },
+  {
+    "id": "q1824",
+    "text": "Do you feel up for a spontaneous road trip at this moment?",
+    "v": 0.925,
+    "a": 0.98
+  },
+  {
+    "id": "q1900",
+    "text": "Could you happily do listening to calm music for the next hour?",
+    "v": 0.975,
+    "a": 0.02
+  },
+  {
+    "id": "q1901",
+    "text": "Does the thought of a slow walk in nature feel inviting right now?",
+    "v": 0.975,
+    "a": 0.06
+  },
+  {
+    "id": "q1902",
+    "text": "Does resting without any agenda sound perfect right now?",
+    "v": 0.975,
+    "a": 0.1
+  },
+  {
+    "id": "q1903",
+    "text": "Would you enjoy light stretching or yoga at this moment?",
+    "v": 0.975,
+    "a": 0.14
+  },
+  {
+    "id": "q1904",
+    "text": "Does watching the sky appeal to you right now?",
+    "v": 0.975,
+    "a": 0.18
+  },
+  {
+    "id": "q1905",
+    "text": "Could you happily do a long bath or shower for the next hour?",
+    "v": 0.975,
+    "a": 0.22
+  },
+  {
+    "id": "q1906",
+    "text": "Does the thought of sitting in comfortable silence feel inviting right now?",
+    "v": 0.975,
+    "a": 0.26
+  },
+  {
+    "id": "q1907",
+    "text": "Does napping in a warm room sound perfect right now?",
+    "v": 0.975,
+    "a": 0.3
+  },
+  {
+    "id": "q1908",
+    "text": "Would you enjoy gentle breathing exercises at this moment?",
+    "v": 0.975,
+    "a": 0.34
+  },
+  {
+    "id": "q1909",
+    "text": "Would doing some light gardening feel satisfying right now?",
+    "v": 0.975,
+    "a": 0.38
+  },
+  {
+    "id": "q1910",
+    "text": "Does writing in a journal sound enjoyable right now?",
+    "v": 0.975,
+    "a": 0.42
+  },
+  {
+    "id": "q1911",
+    "text": "Would you happily spend time on browsing something interesting online today?",
+    "v": 0.975,
+    "a": 0.46
+  },
+  {
+    "id": "q1912",
+    "text": "Does having a meaningful conversation feel like a good use of your time right now?",
+    "v": 0.975,
+    "a": 0.5
+  },
+  {
+    "id": "q1913",
+    "text": "Do you feel drawn to organising your space at this moment?",
+    "v": 0.975,
+    "a": 0.54
+  },
+  {
+    "id": "q1914",
+    "text": "Would sketching or drawing feel satisfying right now?",
+    "v": 0.975,
+    "a": 0.58
+  },
+  {
+    "id": "q1915",
+    "text": "Does playing a casual game sound enjoyable right now?",
+    "v": 0.975,
+    "a": 0.62
+  },
+  {
+    "id": "q1916",
+    "text": "Could you jump into starting an exciting new project right now with enthusiasm?",
+    "v": 0.975,
+    "a": 0.66
+  },
+  {
+    "id": "q1917",
+    "text": "Does playing a competitive game sound appealing and energizing?",
+    "v": 0.975,
+    "a": 0.7
+  },
+  {
+    "id": "q1918",
+    "text": "Would you enjoy exploring a new neighbourhood right now?",
+    "v": 0.975,
+    "a": 0.74
+  },
+  {
+    "id": "q1919",
+    "text": "Does the idea of leading a brainstorming session sound exciting today?",
+    "v": 0.975,
+    "a": 0.78
+  },
+  {
+    "id": "q1920",
+    "text": "Do you feel up for learning something thrilling at this moment?",
+    "v": 0.975,
+    "a": 0.82
+  },
+  {
+    "id": "q1921",
+    "text": "Could you jump into joining a lively group activity right now with enthusiasm?",
+    "v": 0.975,
+    "a": 0.86
+  },
+  {
+    "id": "q1922",
+    "text": "Does trying something bold and new sound appealing and energizing?",
+    "v": 0.975,
+    "a": 0.9
+  },
+  {
+    "id": "q1923",
+    "text": "Would you enjoy performing in front of an audience right now?",
+    "v": 0.975,
+    "a": 0.94
+  },
+  {
+    "id": "q1924",
+    "text": "Does the idea of going to a high-energy event sound exciting today?",
+    "v": 0.975,
+    "a": 0.98
+  }
+]
