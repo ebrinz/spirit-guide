@@ -231,6 +231,35 @@ All other inputs (GloVe, the Gutenberg corpus) are public-domain and downloaded 
 repository is otherwise **self-contained**: the constructor and word-graph-build code is vendored under
 `vendor/`, so no external project is required.
 
+## "Isn't this just measuring the obvious?"
+
+Fair challenge, and worth answering plainly. *That* affect-laden text nudges a model's affect
+representation is expected — it is sentiment tracking, and the basic effect would surprise no one. If
+that were the whole result, the graph-and-probe apparatus would be elaborate machinery for a foregone
+conclusion.
+
+Three things make it more than that, and none of them were predictable in advance:
+
+- **A predictor is not a lever.** Pushing the state *along the probe's own readout direction* pegs the
+  measurement while behaviour barely moves — the direction that best *predicts* an affective state is
+  not the one that *controls* it. Much of interpretability implicitly assumes otherwise.
+- **Measurement misleads in specific, catalogued ways.** A probe can read words accurately yet be blind
+  to the model's ongoing state (it was attached to the wrong layer); the steerability of a state flips
+  entirely with the grammar of the question you ask; self-report tracks the internal state only with a
+  validated instrument, not an ad-hoc one. These are cautions every affect-probing study inherits.
+- **Language has an edge, and we found it.** Some states a model can be driven into by direct injection
+  are reachable by *no sequence of words at all* — proven by exhaustive search, and the region is
+  *repulsive*: from just outside it, every possible next token leads away. Continuous embedding vectors
+  reach these states freely, so the barrier is the discreteness of language, not the model's geometry.
+  "There are states a mind can inhabit that no sentence can reach" is not common sense.
+
+So the honest split: the core placement result is *the expected, made rigorous, portable, and
+behaviourally checked* — useful normal science, not a surprise. The value that a sceptic could not have
+predicted lives in the instrument-failure findings and the vocabulary-void geometry. And throughout, the
+method has discriminating power — it killed one of its own headline correlations under a controlled
+intervention (§10), which is how you tell measurement apart from an abstraction that merely flatters its
+author.
+
 ## In closing
 
 Constructed poetry can place a language model's inner emotional state at a coordinate we choose —
