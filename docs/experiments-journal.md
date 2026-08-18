@@ -301,3 +301,12 @@ Tracked snapshots of key CSVs live in `results/`; full per-run JSON stays in
 - E31 six-state behavioral eval: place in 6 states, one projective prompt,
   score the answer. `results/six_state_eval.csv`.
 - Report §17 written with corrected value proposition.
+
+## E32 — Placement showcase, with vs without (2026-08-17, Llama)
+- Per-state evocative prompt, answered placed AND baseline (controlled: same
+  prompt). Valence moved intended direction in 4/6 (confident +0.19, agape
+  +0.13, creativity +0.08, determined +0.03; imaginative -0.04, eros -0.13
+  toward tender). Content legible on agape/creativity, noisy on confident
+  (valence up but text mentions anxiety). Honest curated pairs -> README.
+  Moderate effect shows through 1B noise; robust evidence is aggregate ρ=0.42.
+  `results/placement_showcase.csv`.

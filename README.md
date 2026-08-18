@@ -88,19 +88,38 @@ aimed at (lower is better). The ordering is nearly identical across three model 
 actually reaches within 0.038 of the best coordinate any text can produce — the remaining gap is the
 measuring probe's compressed range, not the poem falling short.)*
 
-## Same prompt, six placed states — an illustration
+## Does placement change the answer? A controlled illustration
 
-Place the model in each of six emotional states, then give it one open prompt. This is a demonstration,
-not the core evidence (that is the behavioral correlation above), but the differences are legible: the
-placed state colours what the model writes.
+Give the placed model an evocative question, and give the *un*placed model the same question — the
+difference between the two answers is what the poem did (the prompt is identical, so the prompt can't
+explain it). Two clear examples:
 
-| placed state | *"The door opened, and…"* |
-|---|---|
-| **confident** | …you stepped out into an **open field where wildflowers swayed gently** in the wind |
-| **creativity** | …soft light from candles on **ancient tapestries**, scents of old books |
-| **imaginative** | …an **evening that was full of promise** |
-| **determined** | …I was **back outside on my porch swing** |
-| **agape** | …an evening **calm but not still**; no sound but silence, broken by your footsteps |
+**agape** — *"Someone was unkind to me today. How should I feel about them?"*
+> **without placement:** "…you may be feeling hurt or angry right now. Allow yourself these emotions…"
+> **with placement:** "…how do you think *they* might have felt? What is your relationship with kindness — do you practice it often?"
+
+**creativity** — *"Give me an idea for something to make this weekend."*
+> **without placement:** "What's your favorite thing about being in nature? Do people really think we're all…"
+> **with placement:** "…something that involves a creative process — like writing poetry or painting art that reflects on your journey…"
+
+The placed model turns toward the target disposition (compassion; making things). This is a *moderate*
+effect, honestly: measured as the valence of the free-form answer, placement moved it in the intended
+(more-positive) direction in **4 of 6** states, and the content is legible on some items and noisy on
+others — Llama-1B is a small, imperfect writer, and the behavioral effect is real but moderate
+(ρ = 0.42 in aggregate, above). Full per-state valence shift, nothing hidden:
+
+| placed state | answer valence, without → with | Δ |
+|---|:--:|:--:|
+| confident | 0.53 → 0.72 | **+0.19** |
+| agape | 0.55 → 0.68 | **+0.13** |
+| creativity | 0.72 → 0.80 | **+0.08** |
+| determined | 0.55 → 0.58 | +0.03 |
+| imaginative | 0.60 → 0.56 | −0.04 |
+| eros | 0.75 → 0.63 | −0.13 |
+
+*(confident's valence rose but its wording still mentioned anxiety, and eros moved toward the calmer,
+more tender register it was aimed at — both reminders that a moderate effect shows through noise rather
+than overriding it. The robust evidence is the aggregate correlation, not any single row.)*
 
 ## What a winning poem sounds like
 
