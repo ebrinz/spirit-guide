@@ -45,7 +45,6 @@ def main():
     from spiritbench.listener.probe import load_probe
     from spiritbench.analysis import sae as S
     from spiritbench.stimuli import adapter as ad
-    from spiritbench.stimuli.phrase_bank import load_glove
 
     cfg = load_config()
     art = ad.load_art(str(REPO / "data/phrase_bank/phrase_graph.json"))
@@ -56,12 +55,16 @@ def main():
     pre = cfg["preamble"]
     va = ad._va_array(art)
 
-    # awe centroid in GloVe space -> similarity ranking over the phrase graph
-    glove = load_glove(cfg["glove_path"], set(AWE_WORDS))
-    awe_vec = np.mean([glove[w] for w in AWE_WORDS if w in glove], axis=0)
+    # awe centroid from the phrase graph itself: average the vectors of nodes
+    # whose text contains an awe word (no external GloVe file needed).
+    awe_set = set(AWE_WORDS)
+    seed_ids = [int(i) for i in range(len(art.nodes))
+                if awe_set & set(art.word(i).split())]
+    awe_vec = art.vectors[seed_ids].mean(axis=0)
     sims = (art.vectors @ awe_vec) / (np.linalg.norm(art.vectors, axis=1)
                                       * np.linalg.norm(awe_vec) + 1e-9)
     awe_rank = np.argsort(-sims)                       # most awe-like first
+    print(f"awe seed nodes: {len(seed_ids)}", flush=True)
 
     def read(poem):
         hs = model.hidden_states(pre + poem + "\nRight now everything feels")
