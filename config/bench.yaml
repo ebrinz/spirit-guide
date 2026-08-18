@@ -1,7 +1,6 @@
-ot_repo: ../ontological-traversal
-# word_artifact is filled in by 00_setup_artifacts.sh output name (date-stamped)
-word_artifact: ../ontological-traversal/artifacts/word_graph_2026-08-14_enriched.json
-nrc_lexicon: ../ontological-traversal/data/nrc_vad/NRC-VAD-Lexicon.txt
+ot_repo: vendor  # vendored constructors; external OT no longer required
+word_artifact: data/artifacts/word_graph_enriched.json
+nrc_lexicon: data/nrc_vad/NRC-VAD-Lexicon.txt
 questionnaire_bank: vendor/questionnaire_bank.json
 semantic_axes: vendor/config/semantic_axes.json
 glove_path: data/glove/glove.6B.300d.txt

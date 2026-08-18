@@ -211,6 +211,26 @@ python3 scripts/06_analyze.py             # leaderboard, figures, covariates
 
 Tests: `python -m pytest tests/ -q`. Runs on Apple Silicon (MPS); ~25 GB for models and artifacts.
 
+### The NRC-VAD lexicon (required; not included)
+
+Every emotional coordinate in this project comes from the **NRC Valence–Arousal–Dominance Lexicon**
+(Mohammad, 2018). It is free for research use but **cannot be redistributed**, so it is *not* in this
+repository — you download your own copy. `scripts/00_setup_artifacts.sh` does this automatically; to do
+it by hand:
+
+```bash
+mkdir -p data/nrc_vad
+curl -L -o /tmp/nrc-vad.zip https://saifmohammad.com/WebDocs/Lexicons/NRC-VAD-Lexicon.zip
+unzip -j /tmp/nrc-vad.zip 'NRC-VAD-Lexicon/NRC-VAD-Lexicon.txt' -d data/nrc_vad/
+```
+
+This places `data/nrc_vad/NRC-VAD-Lexicon.txt` where `config/bench.yaml` expects it (that path is
+gitignored, so it is never committed). Please cite: *Saif M. Mohammad, "Obtaining Reliable Human Ratings
+of Valence, Arousal, and Dominance for 20,000 English Words," ACL 2018*, and observe the NRC's terms.
+All other inputs (GloVe, the Gutenberg corpus) are public-domain and downloaded the same way. The
+repository is otherwise **self-contained**: the constructor and word-graph-build code is vendored under
+`vendor/`, so no external project is required.
+
 ## In closing
 
 Constructed poetry can place a language model's inner emotional state at a coordinate we choose —
