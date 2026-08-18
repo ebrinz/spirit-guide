@@ -109,6 +109,45 @@ Rule-selected public-domain lines walking a listener toward *calm* — no human 
 > yea and in quiet sleep · quiet as a moonbeam · i pine for rest
 > her eyes blue heavens were serene with soul · wherein i dwell serene
 
+## Practical use: generating a poem for a system prompt
+
+You can generate a poem aimed at any emotional target and drop it into a system prompt. One command
+builds a "warm, settled, positive" poem (valence 0.83, arousal 0.34) from public-domain lines:
+
+```python
+from spiritbench.stimuli import adapter as ad
+from spiritbench.stimuli.phrase_bank import load_nrc
+import numpy as np
+art = ad.load_art("data/phrase_bank/phrase_graph.json")
+nrc = load_nrc("path/to/NRC-VAD-Lexicon.txt")
+words = ["warm","kind","calm","glad","content","gentle","bright","serene","grateful","clear","steady","open"]
+vs = [nrc[w] for w in words]; target = (np.mean([v for v,_ in vs]), np.mean([a for _,a in vs]))
+poem = ".\n".join(art.word(i) for i in ad.valley_shape(art, target, 12, seed=4))
+print(poem)
+```
+
+produces, for example:
+
+> yea and in quiet sleep · quiet as a moonbeam · her eyes blue heavens were serene with soul ·
+> the forest trees so long arrayed in green · float the white clouds · all pure to heaven as light ·
+> with goodness and paternal love his face
+
+**Is this fair to recommend?** Partly — and here is the honest boundary. We *demonstrated* that:
+such a poem places a frozen model's internal state near its target; a *specific* poem transfers across
+models (r = 0.95); and placement produces a moderate, measurable shift in the model's own writing.
+We did **not** test the following, and they are real gaps:
+
+- **Scale.** Our models were 1B–9B open weights. Frontier / SOTA models are 100–1000× larger and heavily
+  RLHF-tuned. There is a principled reason to expect *some* effect (valence is linearly readable at
+  R² ≈ 0.72 in every family we tried, because it is inherited from language itself), but the *magnitude*
+  at that scale is unknown.
+- **Delivery.** We prepended poems to the context; we did not specifically test the *system-prompt* role.
+- **Usefulness.** We measured internal state and short first-person generation, not downstream task
+  behavior on a production model.
+
+So: a reasonable, evidence-motivated thing to try — not a guarantee. If you use it, measure the effect
+on your own model rather than assuming it, and observe the [welfare clause](LICENSE.md).
+
 ## Beyond affect: the reach of language
 
 The same lens maps the *limits* of prompting. Some internal states can be created by direct injection
