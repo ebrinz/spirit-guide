@@ -112,7 +112,7 @@ aimed at (lower is better). The ordering is nearly identical across three model 
 | **valley · found poetry** | **0.249** | **0.245** | **0.308** |
 | harmonic · found poetry | 0.286 | 0.274 | 0.348 |
 | valley · LLM-rendered verse | 0.331 | 0.292 | 0.44 |
-| neutral control (a manual) | 0.361 | 0.323 | |
+| neutral control (a manual) | 0.361 | 0.323 | – |
 | via negativa (negated antipode) | 0.477 | 0.442 | 0.570 |
 
 *(Placement error is measured against a nominal target; a follow-up calibration shows the best poem
@@ -205,7 +205,7 @@ python3 scripts/02_build_stimuli.py && python3 scripts/02b_build_additions.py
 python3 scripts/04_train_probe.py         # trains + validates the probe; halts if it fails its R² gate
 python3 scripts/05_run_listener.py        # the sweep (resumable)
 python3 scripts/06_analyze.py             # leaderboard, figures, covariates
-# value tests + six-state eval: scripts/07–32 (see the journal)
+# further experiments: scripts/07–32 (narrative) and lab/ (void/reach-of-language exploration)
 ```
 
 Tests: `python -m pytest tests/ -q`. Runs on Apple Silicon (MPS); ~25 GB for models and artifacts.

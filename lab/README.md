@@ -24,6 +24,22 @@ The frozen, coherent version of the project is always retrievable at tag **`v1.0
 
 ## Log
 
+**Relocated from the main pipeline (the "reach of language" horizon — summarized in the report's §16
+but kept off the README, per the exploratory contract):**
+
+| script | question | status |
+|---|---|---|
+| `20_e19_replication.py` | can feedback search reach directions language can't name? | replicated (drift + transfer controls) |
+| `21_void_probe.py` | are there states no prompt can approach? | yes — voids exist, repulsive |
+| `22_void_stress.py` | does the void survive a strong (exhaustive) optimizer? | yes — single-token floor > 1.0 |
+| `23_soft_prompt_void.py` | geometry or dictionary limit? | dictionary — soft prompts close ~92% |
+| `24_two_boundary_gemma.py` | does the two-boundary structure replicate across models? | floor: 3 archs; soft: 2 archs |
+| `25b_shadow_demo.py` | what does a model say held at a void's edge? | coherence frays (the "shadow") |
+| `26_void_cartography.py` | can a void be located/estimated from its rim? | triangulation exact; field-extension flags discontinuity |
+
+These are complete and journaled (`docs/experiments-journal.md`, E18–E26); they live here rather than in
+`scripts/` because the README's core narrative does not depend on them. New work goes below.
+
 | exp | question | status |
 |---|---|---|
 | _(none yet)_ | | |
