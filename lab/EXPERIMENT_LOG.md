@@ -6,6 +6,41 @@ memory of the sandbox — keep it filled in (see `lab/CLAUDE.md`).
 
 ---
 
+## 2026-08-18 · Awe gap-closing — the pocket is structural (`exp_awe_close_pocket.py`, Gemma-2b)
+
+**Question.** Can awe/ecstasy content (the SAE-identified missing meaning) close
+the high-arousal pocket, or lower its distress saturation?
+
+**Method.** Three constructors at the pocket cells: generic band-litany (prior
+failure), awe-seek (phrases nearest an awe centroid built from the graph's own
+vectors, 1091 awe-seed nodes), awe-band (awe-ranked within the high-arousal
+band). Read placed VAD + summed SAE distress-feature load.
+
+**Result — decisive NO, and it inverts the hypothesis.** Awe content did NOT
+raise arousal (awe-band 0.455 vs the same ~0.47 ceiling) AND it RAISED the
+distress load (awe-band 18.3, awe-seek 16.4 vs generic band-litany 11.1).
+Aiming the model at high-valence-high-arousal made the anxiety features fire
+harder, not softer.
+
+**Interpretation.** The pocket is not a content gap — it is a **structural
+property of the model's affective geometry**: arousal and valence are inversely
+coupled, so pushing arousal up actively converts positive valence to distress.
+Awe (high-arousal-positive by definition) is a contradiction the model resolves
+toward anxiety. "Calm intensity" / serene excitement has no stable region to
+place into. Note the awe verse itself carries this: "god can i bear the beauty
+of this day" — awe borders being overwhelmed (the sublime is half-dread), so
+even the corpus could not supply pure serene-intensity.
+
+**Conclusion of the pocket arc (E-void-pockets → here).** The high-arousal
+pocket is model-general (ρ=0.917), not a constructor flaw, not a content gap,
+and not (only) probe shrinkage: it is a missing SHAPE in the emotional
+manifold. Small LLMs cannot represent high-arousal-positive affect; attempts to
+reach it route through distress.
+
+Files: `lab/results/awe_close_pocket.csv`.
+
+---
+
 ## 2026-08-18 · SAE-labelled pocket rims (`exp_sae_pocket_rims.py`, Gemma-2b)
 
 **Question.** What concepts distinguish the reachable rim from the un-reachable
