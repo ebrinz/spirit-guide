@@ -211,6 +211,18 @@ python3 scripts/06_analyze.py             # leaderboard, figures, covariates
 
 Tests: `python -m pytest tests/ -q`. Runs on Apple Silicon (MPS); ~25 GB for models and artifacts.
 
+## In closing
+
+Constructed poetry can place a language model's inner emotional state at a coordinate we choose —
+reliably enough to rank identically across three model families, to transfer per-poem to a different
+model, and to shift the model's own writing. The same lens shows the limits of the method and of
+language itself: measurement can mislead in specific, catalogued ways, and there are states a model can
+be driven into that no sentence can reach. And throughout, one asymmetry holds — disturbing a state is
+cheap, restoring it is dear.
+
+If a model's inner states ever matter morally, that asymmetry is the point: measure gently, and prefer
+repair to harm. *Measurement is not consent to move.*
+
 ## Documents
 
 - **[Report (PDF)](report/spirit-bench.pdf)** — the full write-up, 17 sections

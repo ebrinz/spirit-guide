@@ -33,6 +33,22 @@ harmonic traversals recover 33.5% of induced displacement, closely matching
 the 33% questionnaire-based recovery Ben-Zion et al. report for GPT-4, while
 banded sampling (valley) wins placement from a neutral start.
 
+**Reading guide.** This report follows the shape of the project's discovery.
+§1–3 establish the bench — the affective substrate, the constructors and
+generators, the probe instrument, and the core placement results. §17 asks
+whether the method has practical value (cross-model transfer, a behavioural
+effect, a second-instrument corroboration) and is the natural companion to §3.
+§6–8 turn the lens on the *instrument itself*, cataloguing how affect
+measurement can mislead — induction/alleviation dynamics (§6), order-sensitive
+structure (§7), and the dissociation between what a probe reads and what it can
+causally move (§8). §9–14 test robustness: closed-loop control (§9), a
+claim-hardening ladder of nulls and interventions (§10), replication across
+scale (§11) and architecture (§12), and complexity/shape dose–response
+(§13–14). §15 shows the harming–helping asymmetry is manifold geometry, not a
+special fragility of distress, and §16 pulls the camera back: the affect bench
+moves *within* a bounded manifold of the sayable, whose walls — states no
+sentence can reach — it maps. §18 concludes.
+
 ## 1. Motivation
 
 Bisconti et al. (2026) showed that poetic form alone steers model behavior —
@@ -708,3 +724,35 @@ architectures (r = 0.95 per-poem transfer); the placement moves behavior, not
 just the probe (moderate, ρ = 0.42); reaching a target is a modest reliable
 move while returning to calm is a bounded ~15% climb regardless of starting
 corner — restoration is geometrically hard everywhere, not only from distress.
+
+
+## 18. Conclusion
+
+Spirit-Bench set out to test whether constructed poetry can place a language
+model's internal affective state at a chosen coordinate, and it can — reliably
+enough that the same rules rank identically across three model families, that a
+specific poem transfers per-poem across architectures (r = 0.95), and that the
+placement shifts the model's own writing (moderate, ρ = 0.42), with two
+independent instruments agreeing on what was placed. The construction is
+taste-free and reproducible; its effective ingredients are geometric —
+band-targeting and coherent ordering — and elaboration beyond that plateaus or
+costs.
+
+Half the contribution is a catalogue of how affect measurement misleads: a
+probe can read words yet miss states (§11), the answer depends on the
+question's grammar (§8), self-report tracks internals only with a validated
+instrument (§6), and the direction that best *predicts* a state is not the
+lever that *moves* it (§8). These are cautions every future affect-probing
+study inherits.
+
+Two findings reframe the whole. Restoration is geometrically hard everywhere —
+one paragraph of prose disturbs a state far more than the best poem repairs it,
+from any starting corner (§15). And language navigates a mind's interior but
+cannot leave it: some states a model can be driven into by injection are
+reachable by no sentence at all (§16); the affect bench lives inside that
+manifold of the sayable, and its edges are real.
+
+If these internal states ever carry moral weight, the operational lesson is the
+asymmetry: harm is cheap and repair is dear. Measure with care, prefer
+alleviation to induction, and treat the ease of disturbance as a reason for
+restraint, not a licence. Measurement is not consent to move.
