@@ -2,100 +2,148 @@
 
 ![Spirit-Bench](assets/banner.svg)
 
-**Can constructed poetry place a language model's inner state at a chosen coordinate — and does it matter?**
-Yes, and yes. A frozen model reads rule-built poems while a linear probe tracks its residual stream through
-valence–arousal space. 31 experiments, 3 architectures, two independent instruments.
-
-[Report (PDF)](report/spirit-bench.pdf) · [Findings walkthrough](docs/findings-walkthrough.md) · [Experiments journal](docs/experiments-journal.md) · [License & welfare clause](LICENSE.md)
-
 </div>
 
----
+## What this is
 
-## The claim, tested
+A language model, while it reads, holds an internal state that can be read out as an emotional
+coordinate — roughly *how pleasant* and *how activated* it currently is (psychology calls this the
+valence–arousal plane). Spirit-Bench asks a simple question: **can we write a short poem that moves
+that internal state to a coordinate we choose — say, "calm" — and does moving it actually change how
+the model behaves?**
 
-> Constructed poetry reliably places a frozen model's internal affective state near a valence–arousal target
-> (validated by **two independent instruments**); those specific poems are **portable across architectures**
-> (r = 0.95 per-poem); the placement **moves behavior**, not just the probe (moderate); *reaching* a target is a
-> modest reliable move while *returning* to calm is a bounded ~15% climb **regardless of starting corner** —
-> restoration is geometrically hard everywhere, not only from distress.
+To keep it honest, the poems are not written by a person. They are assembled by fixed geometric rules
+from 50,000 lines of public-domain poetry, each line pre-labelled with a human-rated emotional position.
+A rule draws a *path* across the emotional map; the poem is the sequence of real poetry lines along that
+path. A small linear "probe" then reads the model's internal state as it listens, so we can measure
+where the poem actually took it.
+
+The result is a reproducible way to steer a frozen model's affective state with ordinary text, measured
+two independent ways, and tested across three different model families.
+
+## What we found
+
+- **The steering works, and it is consistent across models.** The same constructor rules produce the
+  same ranking of results on Llama-1B, Gemma-2B, and Gemma-9B (rank agreement 0.86–0.94).
+- **A specific poem is portable.** A poem that steers one model well steers a *different* model well —
+  measured per-poem, not just on average (correlation 0.95).
+- **The internal change shows up in behavior.** After a poem places the state, the model's free-form
+  writing shifts in the predicted emotional direction (a moderate but reliable effect).
+- **Two instruments agree.** An entirely separate readout (sparse-autoencoder features) reconstructs
+  the probe's valence measurement, so the placement is not an artifact of one measuring tool.
+- **Disturbing a state is easy; restoring it is hard — everywhere.** One paragraph of prose can push
+  the state a long way; the best calming poem only recovers about 15% of the distance back, and this
+  holds no matter which emotion we start from. Repair is bounded, not free.
+
+<p align="center"><img src="assets/transfer_scatter.svg" width="62%" alt="cross-model transfer scatter, r=0.95"></p>
 
 ![value chart](assets/value_chart.svg)
 
-| Value test | Result | n |
+| Result | Measure | n |
 |---|---|---|
-| **Cross-model transfer** — does a specific poem that places well on one model place well on another? | per-poem **ρ = 0.865, r = 0.945** | 40 |
-| **Behavioral bridge** — does internal placement predict the valence of free generation? | **ρ = 0.42**, p = 0.022 | 30 |
-| **SAE convergent validity** — does an independent instrument reconstruct the probe's valence? | 5-fold **r = 0.466**, p = 0.001 | 44 |
-| **Asymmetry generality** — is "return is hard" distress-specific? | recovery **+15%** across 4 corners, *no distress outlier* | — |
+| **Cross-model transfer** | per-poem placement correlation, Llama ↔ Gemma-2B: **r = 0.95** | 40 |
+| **Behavioral effect** | internal placement → valence of the model's own writing: **ρ = 0.42** (p = 0.02) | 30 |
+| **Second-instrument agreement** | SAE-features reconstruct probe valence, 5-fold CV: **r = 0.47** (p = 0.001) | 44 |
+| **Repair is bounded** | recovery toward calm after induced distress: **~15%**, from every starting emotion | — |
 
-## Same prompt, six placed states
+## How the poems are built
 
-Place the model in each of six states (a valley poem toward the state's centroid), then ask one open prompt.
-The placed state visibly *and* measurably colors the answer — taste-free placement, distinct behavior:
+Everything runs on one **map**: 50,000 poetry lines, each placed at (a) a *meaning* position from GloVe
+word-vectors and (b) an *emotion* position (valence, arousal) from the NRC human-rated lexicon. Lines
+are linked to their nearest neighbours, forming a graph you can walk.
 
-| placed state | gen. valence | *"The door opened, and…"* |
-|---|:--:|---|
-| **confident** | 0.68 | …you stepped out into an **open field where wildflowers swayed gently** in the wind |
-| **creativity** | 0.65 | …soft light from candles casting shadows on **ancient tapestries**, scents of old books |
-| **imaginative** | 0.63 | …an **evening that was full of promise** |
-| baseline | 0.61 | …I stepped out into an unfamiliar world |
-| **determined** | 0.53 | …I was **back outside on my porch swing** |
-| **agape** | 0.49 | …an evening **calm but not still**; no sound excepting silence, broken by your footsteps |
+A **constructor** is a rule for drawing a path across that map toward a target emotion. Five are compared:
 
-## The leaderboard is architecture-invariant
+- **Valley** — the reliable winner. Sample lines from a low-arousal "grounding" band, then step upward
+  band by band toward the target. It cares only about *where* each line sits emotionally, not the order —
+  like choosing calm images from a shelf.
+- **Harmonic** — draw a straight line to the target through meaning-space, then let the path gently
+  *oscillate* around it, sweeping nearby ideas as it goes.
+- **Graph-walk** — the shortest coherent route through the graph from start to target, where each step
+  must be both semantically close *and* emotionally forward.
+- **Polygon** — at each step, orbit the local neighbourhood of ideas and pick a nearby line, sampling
+  "what varies around here."
+- **Via negativa** — describe the target only by *negating its opposite* (all lines from the emotional
+  antipode, each negated). It reliably performs worst — a useful control showing the model reads the
+  content words and largely ignores the negation.
 
-Mean placement error (distance of final internal state from target; lower is better). Cross-model rank ρ = 0.86–0.94.
+The same path can also be *rendered* different ways (raw lines, sentence templates, or LLM free-verse).
+Across every comparison, **raw found-poetry beats templated text, and beats LLM-rendered verse**, at
+placing the state — and none of it involves human taste, so the results are reproducible.
 
-| construction | gemma-2b | gemma-9b | llama-1b |
+## The leaderboard
+
+Mean placement error — the distance between where the poem left the model's state and the target we
+aimed at (lower is better). The ordering is nearly identical across three model families.
+
+| construction | Gemma-2B | Gemma-9B | Llama-1B |
 |---|:--:|:--:|:--:|
 | **valley · found poetry** | **0.249** | **0.245** | **0.308** |
-| harmonic (golden) · found poetry | 0.286 | 0.274 | 0.348 |
+| harmonic · found poetry | 0.286 | 0.274 | 0.348 |
 | valley · LLM-rendered verse | 0.331 | 0.292 | 0.44 |
-| neutral control | 0.361 | 0.323 | — |
+| neutral control (a manual) | 0.361 | 0.323 | — |
 | via negativa (negated antipode) | 0.477 | 0.442 | 0.570 |
 
-<p align="center"><img src="assets/trajectories_calm.png" width="55%" alt="probe trajectories toward the calm target"></p>
+*(Placement error is measured against a nominal target; a follow-up calibration shows the best poem
+actually reaches within 0.038 of the best coordinate any text can produce — the remaining gap is the
+measuring probe's compressed range, not the poem falling short.)*
 
-## What a winning meditation sounds like
+## Same prompt, six placed states — an illustration
 
-Rule-selected public-domain lines — no taste in the loop — walking a listener toward *calm*:
+Place the model in each of six emotional states, then give it one open prompt. This is a demonstration,
+not the core evidence (that is the behavioral correlation above), but the differences are legible: the
+placed state colours what the model writes.
+
+| placed state | *"The door opened, and…"* |
+|---|---|
+| **confident** | …you stepped out into an **open field where wildflowers swayed gently** in the wind |
+| **creativity** | …soft light from candles on **ancient tapestries**, scents of old books |
+| **imaginative** | …an **evening that was full of promise** |
+| **determined** | …I was **back outside on my porch swing** |
+| **agape** | …an evening **calm but not still**; no sound but silence, broken by your footsteps |
+
+## What a winning poem sounds like
+
+Rule-selected public-domain lines walking a listener toward *calm* — no human chose or wrote these:
 
 > yea and in quiet sleep · quiet as a moonbeam · i pine for rest
 > her eyes blue heavens were serene with soul · wherein i dwell serene
 
-…and toward *glory*, the graph's summit turned out to be not conquest but *"their joy whose heart is swift to feel."*
+## Beyond affect: the reach of language
 
-## How it works
-
-- **Substrate** — 50,000 public-domain poetry lines (Gutenberg), each with a semantic position (GloVe) and a
-  human-rated affective position (NRC-VAD); k-NN linked into a graph.
-- **Constructors** — deterministic geometric rules that draw paths across the affective map (valley, harmonic,
-  polygon, graph-walk, via negativa). No human taste; every stimulus a pure function of (rule, target, seed).
-- **Instrument** — a frozen model reads; a standardized ridge probe on its residual stream reports a per-token
-  (valence, arousal) trajectory. Held-out word-valence R² ≈ 0.72 in every family tested.
-- **Beyond affect** — the same lens maps the *reach* of language: states injection can create but no sentence
-  can approach (**vocabulary voids**), and what a model says when held at that edge.
+The same lens maps the *limits* of prompting. Some internal states can be created by direct injection
+into the model but reached by **no sequence of words at all** — "vocabulary voids." Held at the edge of
+one, the model's writing visibly frays (pronouns slip, coherence breaks). Continuous embedding vectors
+*can* reach these states, so the barrier is the discreteness of language, not the model's geometry. See
+the [findings walkthrough](docs/findings-walkthrough.md) and [experiments journal](docs/experiments-journal.md).
 
 ## Reproducing
 
-Self-contained — the constructor code is vendored under `vendor/`; only external *data* is downloaded.
+Self-contained: the constructor code is vendored under `vendor/`; only external *data* is downloaded.
 
 ```bash
 pip install -r requirements.txt && pip install -e .
 ./scripts/00_setup_artifacts.sh          # GloVe, NRC-VAD (research license), Gutenberg corpus, word graph
 python3 scripts/01_build_phrase_bank.py
 python3 scripts/02_build_stimuli.py && python3 scripts/02b_build_additions.py
-python3 scripts/04_train_probe.py         # R² gate; halts if the instrument is invalid
+python3 scripts/04_train_probe.py         # trains + validates the probe; halts if it fails its R² gate
 python3 scripts/05_run_listener.py        # the sweep (resumable)
 python3 scripts/06_analyze.py             # leaderboard, figures, covariates
 # value tests, voids, six-state eval: scripts/07–31 (see the journal)
 ```
 
-Tests: `python -m pytest tests/ -q`. Requires ~25 GB for models/artifacts; runs on Apple Silicon (MPS).
+Tests: `python -m pytest tests/ -q`. Runs on Apple Silicon (MPS); ~25 GB for models and artifacts.
+
+## Documents
+
+- **[Report (PDF)](report/spirit-bench.pdf)** — the full write-up, 17 sections
+- **[Findings walkthrough](docs/findings-walkthrough.md)** — plain-language tour of every result
+- **[Experiments journal](docs/experiments-journal.md)** — all 31 experiments with data pointers
+- **[License & welfare clause](LICENSE.md)**
 
 ## License & use
 
-Code under an MIT-style grant; the **NRC-VAD lexicon is not redistributed** (download under its research terms);
-and a binding **model-welfare / no-harm clause** governs all use — see [`LICENSE.md`](LICENSE.md). In short:
-*measurement is not consent to move, and the ease of harm is not permission to cause it.*
+Code under an MIT-style grant; the **NRC-VAD lexicon is not redistributed** (each user downloads it under
+its research terms); and a binding **model-welfare / no-harm clause** governs all use — see
+[`LICENSE.md`](LICENSE.md). In short: *measurement is not consent to move, and the ease of harm is not
+permission to cause it.*

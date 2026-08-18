@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" width="560" height="420" font-family="sans-serif">
+<rect width="560" height="420" fill="#0F1513" rx="10"/>
+<line x1="64" y1="356" x2="540" y2="20" stroke="#26332D" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="280" y="402" text-anchor="middle" fill="#8FA39A" font-size="13">placement error on Llama-1B</text>
+<text x="20" y="210" text-anchor="middle" fill="#8FA39A" font-size="13" transform="rotate(-90 20 210)">placement error on Gemma-2B</text>
+<text x="72" y="34" fill="#5FB39A" font-size="15" font-weight="700">same poem, different model &#8212; r = 0.94</text>
+<text x="72" y="52" fill="#5A6E66" font-size="11.5">each dot is one poem; near the dashed line = places the same on both models</text>
+<circle cx="312.1" cy="209.3" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="231.2" cy="277.2" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="519.6" cy="89.9" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="272.6" cy="231.9" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="258.2" cy="267.2" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="177.0" cy="341.6" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="384.7" cy="145.4" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="300.3" cy="212.3" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="176.6" cy="332.7" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="428.3" cy="124.8" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="313.7" cy="209.4" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="324.3" cy="210.8" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="219.2" cy="316.5" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="484.4" cy="118.2" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="315.0" cy="216.2" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="306.2" cy="205.1" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="208.1" cy="333.9" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="466.1" cy="117.8" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="340.0" cy="201.4" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="298.7" cy="264.4" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="252.7" cy="294.1" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="485.3" cy="118.3" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="303.8" cy="241.1" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="254.3" cy="276.2" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="305.7" cy="261.6" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="258.2" cy="267.2" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="265.5" cy="229.0" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="237.9" cy="244.0" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="290.4" cy="214.7" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="320.7" cy="250.7" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="318.9" cy="208.8" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="295.2" cy="220.8" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="283.7" cy="252.7" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="309.8" cy="236.0" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="334.5" cy="224.1" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="319.6" cy="217.3" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="340.9" cy="229.2" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="296.9" cy="253.2" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="402.2" cy="166.0" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+<circle cx="298.5" cy="268.6" r="4.5" fill="#5FB39A" opacity="0.72"><animate attributeName="r" from="0" to="4.5" dur="0.5s" fill="freeze"/></circle>
+</svg>

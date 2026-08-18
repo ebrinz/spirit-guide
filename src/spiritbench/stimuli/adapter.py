@@ -1,8 +1,8 @@
-"""The ONLY module that imports the vendored constructor code (`vendor/eeg/`).
+"""The ONLY module that imports the vendored constructor code (`vendor/traversal/`).
 
 The three constructor modules (path_planner, harmonic_path, sentence_builder)
 are vendored from the ontological-traversal project so this repo is
-self-contained. `_ot()` puts the vendor dir on sys.path so `import eeg.X`
+self-contained. `_ot()` puts the vendor dir on sys.path so `import traversal.X`
 resolves to the local copy; if an external ot_repo is passed and the vendor
 is absent, it falls back to that. The `ot_repo` argument is retained for
 signature compatibility and is ignored when the vendor is present."""
@@ -19,8 +19,8 @@ _VENDOR = str(Path(__file__).resolve().parents[3] / "vendor")
 
 
 def _ot(ot_repo: str | None = None):
-    """Make `import eeg.*` resolve to the vendored constructor modules."""
-    if (Path(_VENDOR) / "eeg").is_dir():
+    """Make `import traversal.*` resolve to the vendored constructor modules."""
+    if (Path(_VENDOR) / "traversal").is_dir():
         if _VENDOR not in sys.path:
             sys.path.insert(0, _VENDOR)
     elif ot_repo and ot_repo not in sys.path:
@@ -83,7 +83,7 @@ def nearest_node_to_va(art: Art, va, mask=None) -> int:
 
 def graph_walk(art: Art, start_va, target_va, n_lines, seed, ot_repo) -> list[int]:
     _ot(ot_repo)
-    from eeg.path_planner import build_adjacency, find_path
+    from traversal.path_planner import build_adjacency, find_path
     start = nearest_node_to_va(art, start_va)
     target = nearest_node_to_va(art, target_va)
     adjacency = build_adjacency(art.edges)
@@ -227,7 +227,7 @@ def polygon_pca(art: Art, start_va, target_va, n_lines, seed) -> list[int]:
 def harmonic(art: Art, artifact_path, start_va, target_va, n_lines, preset, seed,
              ot_repo, semantic_axes_path) -> list[int]:
     _ot(ot_repo)
-    import eeg.harmonic_path as hp
+    import traversal.harmonic_path as hp
     hp.get_vocab_mask = lambda id_to_word: np.zeros(len(id_to_word), dtype=bool)
     vectors, word_index, id_to_word, v_axis, a_axis, semantic_axes = \
         hp.load_harmonic_inputs(artifact_path, axes_path=semantic_axes_path,
@@ -258,7 +258,7 @@ def template_wrap(lines, length, seed, ot_repo) -> list[str]:
     # triple) words in ORDER and round-robin the same template lists OT uses, so the
     # meditation's line order tracks the waypoint order.
     _ot(ot_repo)
-    from eeg.sentence_builder import TEMPLATES, SHORT_TEMPLATES, LONG_TEMPLATES
+    from traversal.sentence_builder import TEMPLATES, SHORT_TEMPLATES, LONG_TEMPLATES
     templates, n_slots = {"short": (SHORT_TEMPLATES, 2), "medium": (TEMPLATES, 2),
                           "long": (LONG_TEMPLATES, 3)}[length]
     n = max(1, len(lines) // 2)
@@ -347,7 +347,7 @@ def harmonic_k(art: Art, artifact_path, start_va, target_va, n_lines, k, seed,
     """Harmonic traversal with only the first k components of the golden
     preset active (harmonic-richness ladder)."""
     _ot(ot_repo)
-    import eeg.harmonic_path as hp
+    import traversal.harmonic_path as hp
     name = f"golden_k{k}"
     if name not in hp.PRESETS:
         g = hp.PRESETS["golden"]

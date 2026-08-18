@@ -695,8 +695,7 @@ artifact.
 **Asymmetry generality (E28) — the asymmetry is general, not distress-
 specific.** Inducing toward four different corners (anxious, sad, excited,
 angry) and applying the same calm-directed meditation recovers a similar
-fraction from each (anxious +17%, sad +15%, excited +6%, angry +23%; mean
-+15%, no distress outlier). "Return is hard" is not a distress hair-trigger —
+fraction from each (anxious +17%, sad +15%, excited +6%, angry +23%; mean +15%). "Return is hard" is not a distress hair-trigger —
 restoration toward calm is a bounded, partial climb *regardless of starting
 corner*, because calm sits at the manifold's edge. This sharpens §15: the
 harming–helping asymmetry is manifold geometry, not a special fragility of

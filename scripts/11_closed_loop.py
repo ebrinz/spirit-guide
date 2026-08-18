@@ -65,7 +65,7 @@ _ADJ = {}
 def _adjacency(art, cfg):
     if "adj" not in _ADJ:
         ad._ot(cfg["ot_repo"])
-        from eeg.path_planner import build_adjacency
+        from traversal.path_planner import build_adjacency
         _ADJ["adj"] = build_adjacency(art.edges)
     return _ADJ["adj"]
 
@@ -75,7 +75,7 @@ def dijkstra_next(art, va_arr, state, target, used, cfg, k=PHRASES_PER_CYCLE):
     to the target (OT cost = semantic_distance x (1 - VA_progress)) and take
     the next k unused nodes along it. Falls back to VA-nearest if no path."""
     ad._ot(cfg["ot_repo"])
-    from eeg.path_planner import find_path
+    from traversal.path_planner import find_path
     d_start = np.linalg.norm(va_arr - state, axis=1)
     d_tgt = np.linalg.norm(va_arr - target, axis=1)
     start = int(np.argmin(d_start))
