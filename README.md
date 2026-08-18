@@ -26,24 +26,21 @@ two independent ways, and tested across three different model families.
 
 ## Isn't this measuring the obvious?
 
-Fair challenge, worth answering up front. *That* affect-laden text nudges a model's affect
-representation is expected: it is sentiment tracking, and the basic effect would surprise no one. If that
-were the whole result, the graph-and-probe apparatus would be elaborate machinery for a foregone
-conclusion. Two things make it more than that.
+That affect-laden text nudges a model's affect is expected (it's sentiment tracking). The value is in
+what the apparatus lets you show that isn't obvious:
 
-First, the method has **discriminating power**: it killed one of its own headline correlations under a
-controlled intervention (an `and`-density effect that looked significant until we tested it directly),
-which is how you tell real measurement apart from an abstraction that merely flatters its author. Second,
-the same apparatus produces findings a sceptic could not have predicted, most usefully that **a
-predictor is not a lever**, pushing the state *along the probe's own readout direction* pegs the
-measurement while behaviour barely moves, so the direction that best *predicts* an affective state is not
-the one that *controls* it. Much of interpretability implicitly assumes otherwise. Alongside it: a probe
-can read words accurately yet be blind to the model's ongoing state, and the steerability of a state
-flips entirely with the grammar of the question you ask, cautions every affect-probing study inherits.
+- **A predictor is not a lever.** Pushing the state along the probe's own readout direction pegs the
+  measurement while behaviour barely moves, so the direction that best *predicts* a state is not the one
+  that *controls* it. Much of interpretability assumes otherwise.
+- **A probe can read words yet miss the state.** Attached to the wrong layer it scored words perfectly
+  and was blind to the model's ongoing mood.
+- **The answer depends on the question's grammar.** A state's apparent steerability flips entirely with
+  how you phrase the read-out prompt.
+- **The method can falsify itself.** It killed one of its own headline correlations under a controlled
+  test, which is how you tell real measurement from an abstraction that flatters its author.
 
-So the honest split: the core placement result is *the expected, made rigorous, portable, and
-behaviourally checked*, useful normal science rather than a surprise; the value a sceptic could not have
-predicted lives in the instrument-failure findings.
+The core placement result is normal science (expected, made rigorous, portable, behaviourally checked);
+the findings a sceptic couldn't have called ahead are the instrument-failure ones above.
 
 ## What we found
 
