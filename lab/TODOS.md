@@ -30,11 +30,17 @@ big model; tens of minutes to hours).
   V/A (98%). The dominance axis is architecture-invariant too — full V/A/D
   geometry is shared up to a linear map. See EXPERIMENT_LOG.
 
-- [ ] **Characterise the ~50% non-aligning residual.** Only ~half the full
-  residual is linearly shared cross-model; the rest is where the architectures
-  genuinely differ. Is it lexical/surface, or a second shared-but-nonlinear
-  structure? Probe with a nonlinear map (kernel ridge / small MLP) on the paired
-  states, or correlate the residual-of-the-map with surface features. 🟢
+- [x] ~~**Characterise the ~50% non-aligning residual.**~~ DONE
+  (`exp_residual_char.py`, 2026-08-19): affect is a tiny (~4% of variance) but
+  precisely-shared (R2 0.87) subspace; the non-affect ~96% aligns at only 0.36 and
+  is largely model-PRIVATE (CKA barely rises linear 0.39 → RBF 0.42), uniform
+  across coherent/incoherent passages. Emotion is a near-universal low-dim island
+  in otherwise-divergent representations. See EXPERIMENT_LOG.
+
+- [ ] **(🟢, spun off) What do the non-affect high-variance directions carry?**
+  The affect subspace is only ~4% of variance. Probe the same paired states for
+  non-affect attributes (topic, syntax, length) to see if the other directions are
+  task-relevant or mostly scale/positional.
 
 - [x] ~~**Is dominance-distress the corpus or the axis?**~~ DONE
   (`exp_dominance_corpus_slice.py`, 2026-08-19): NOT separable in this corpus.
@@ -103,3 +109,5 @@ big model; tens of minutes to hours).
   architecture-invariant.
 - ✅ Dominance-distress corpus-vs-axis — not separable; high dominance in this
   corpus is martial/command content (no calm mastery exists).
+- ✅ Non-aligning residual — affect is a tiny (~4%) precisely-shared island; the
+  rest is model-private. Emotion is near-universal, most representation is not.

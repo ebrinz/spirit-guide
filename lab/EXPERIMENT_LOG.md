@@ -6,6 +6,48 @@ memory of the sandbox — keep it filled in (see `lab/CLAUDE.md`).
 
 ---
 
+## 2026-08-19 · The non-aligning residual is model-private; affect is a tiny shared island (`exp_residual_char.py`, analysis-only)
+
+**Question.** The cross-model linear map recovers only ~half of Llama's residual
+variance while affect transfers at ~98%. What is the unexplained rest — non-affect
+content, shared-but-nonlinear structure, or genuinely model-private?
+
+**Method.** On the paired passage states (probe-scaler space): (1) split the
+alignment R2 into the 3-D Llama affect subspace (V/A/D readout directions) and its
+orthogonal complement; (2) linear vs nonlinear map, plus linear vs RBF CKA;
+(3) residual magnitude for coherent vs incoherent control passages.
+
+**Result.**
+- **Affect is a tiny, precisely-shared island.** The 3-D affect subspace holds
+  only **3.6%** of Llama's residual variance but aligns at **R2 0.87**; the other
+  **96.4%** (non-affect) aligns at only **R2 0.36**. Emotion is a small, sharply-
+  shared subspace embedded in a mostly model-private representation.
+- **The non-affect residual is largely model-private, not hidden nonlinear
+  structure.** CKA rises only from 0.387 (linear) to 0.421 (RBF) — a small
+  nonlinear gain. (The RFF regression map underperformed the linear map, 0.10 vs
+  0.38: RBF features drop the linear signal, so that map is biased and
+  uninformative — CKA is the valid nonlinear check.)
+- **Uniform across coherence:** residual norm 34.9 (coherent) vs 34.8
+  (incoherent). The model-private part is pervasive, not idiosyncratic noise-
+  handling.
+
+**Interpretation.** This sharpens the alignment story: the two architectures share
+a *small, low-dimensional emotional coordinate system* (V/A/D, ~4% of variance,
+~98% shared) sitting inside representations that are otherwise ~64% divergent and
+not recoverable from each other even nonlinearly. Emotion looks like a near-
+universal structure; most of the rest is model-specific. Good news for the whole
+program: the thing we measure and steer (affect) is exactly the part that is
+architecture-invariant.
+
+**Opened up.** The affect subspace holds only ~4% of variance yet is what the
+probe reads — worth checking whether the OTHER high-variance directions carry
+anything task-relevant (topic? syntax?) or are mostly scale/positional. A supervised
+probe for non-affect attributes on the same states would tell.
+
+Files: none persisted (analysis prints; rerun is seconds).
+
+---
+
 ## 2026-08-19 · Dominance-distress is martial CONTENT, not separable from the axis here (`exp_dominance_corpus_slice.py`, lexical/analysis-only)
 
 **Question.** The capstone found dominance reaches high arousal WITH high distress.
