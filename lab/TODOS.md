@@ -25,11 +25,10 @@ big model; tens of minutes to hours).
   alpha (`exp_dominance_axis`). Re-fit across the alpha grid + bootstrap the
   passage set to report a stable fraction with a CI. Saved states only.
 
-- [ ] **Does the dominance direction align cross-model?** V/A axes are ~100%
-  shared up to a linear map (`exp_crossmodel_align`). Fit the same paired map and
-  test whether the dominance readout direction transfers as cleanly, or whether D
-  is more model-private than V/A. Saved states + the D ridge from
-  `exp_dominance_axis`. 🟢
+- [x] ~~**Does the dominance direction align cross-model?**~~ DONE
+  (`exp_dominance_align.py`, 2026-08-19): D transfers at 96% of ceiling, tied with
+  V/A (98%). The dominance axis is architecture-invariant too — full V/A/D
+  geometry is shared up to a linear map. See EXPERIMENT_LOG.
 
 - [ ] **Characterise the ~50% non-aligning residual.** Only ~half the full
   residual is linearly shared cross-model; the rest is where the architectures
@@ -93,3 +92,5 @@ big model; tens of minutes to hours).
 - ✅ Llama behavioral validation — split replicates once persona removed.
 - ✅ #3 Cross-model alignment — affect axes architecture-invariant up to a linear
   map (V/A read at 98% of ceiling after Gemma→Llama mapping).
+- ✅ Dominance alignment — D transfers at 96% of ceiling; full V/A/D geometry is
+  architecture-invariant.

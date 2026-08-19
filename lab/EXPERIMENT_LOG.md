@@ -6,6 +6,31 @@ memory of the sandbox — keep it filled in (see `lab/CLAUDE.md`).
 
 ---
 
+## 2026-08-19 · Dominance is architecture-invariant too (`exp_dominance_align.py`, analysis-only)
+
+**Question.** V/A are ~100% shared cross-model up to a linear map. Is the
+dominance axis — the third lever that escaped the arousal pocket, ~40% orthogonal
+to V/A — equally shared, or is it where the models diverge?
+
+**Method.** Same paired-anchor test as `exp_crossmodel_align`, adding a Llama D
+readout alongside V/A. Map Gemma states -> Llama space (labels unseen), read with
+Llama's V/A/D heads, R2 vs true labels as a fraction of the within-Llama ceiling.
+
+**Result.** dominance transfers at **96% of ceiling** (within 0.897 -> cross
+0.863), essentially tied with valence (98%) and arousal (98%). The 2-point gap is
+within noise.
+
+**Interpretation.** The dominance direction, including its orthogonal-to-VA part,
+is NOT model-private — it is shared across architectures at nearly the same
+fidelity as V/A. This explains why the dominance arousal-escape replicated on
+Gemma (`exp_gemma_passage_probe`): the D lever is common ground. The full V/A/D
+affective geometry, not just the 2-D plane, is architecture-invariant up to a
+linear change of basis.
+
+Files: none persisted (analysis prints; rerun is seconds).
+
+---
+
 ## 2026-08-19 · Cross-model alignment — affect axes are architecture-invariant up to a linear map (`exp_crossmodel_align.py`, analysis-only)
 
 **Question.** Today's findings live in the 2-D VAD projection. Does the shared
