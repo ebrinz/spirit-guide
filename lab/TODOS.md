@@ -36,12 +36,19 @@ big model; tens of minutes to hours).
   structure? Probe with a nonlinear map (kernel ridge / small MLP) on the paired
   states, or correlate the residual-of-the-map with surface features. 🟢
 
-- [ ] **Is dominance-distress the corpus or the axis?** The dominance pool is
-  high-NRC-dominance poetry lines, which skew toward conflict/war/force. Re-slice
-  the pool to hold NRC valence AND arousal fixed while varying only dominance,
-  and inspect the lines — is the distress intrinsic to dominance, or an artifact
-  of violent content in this corpus? Lexical analysis on saved node data first;
-  a forward-pass check only if the slice looks clean.
+- [x] ~~**Is dominance-distress the corpus or the axis?**~~ DONE
+  (`exp_dominance_corpus_slice.py`, 2026-08-19): NOT separable in this corpus.
+  High dominance here = martial/hierarchical power (battle/king/command/war/
+  warrior/supreme); no "calm mastery" content exists. Gore is a minority (21%,
+  r 0.16) but even non-gore high-D is conquest/command themed. Dominance-distress
+  is a content property; a true axis test needs out-of-corpus calm-power content.
+  See EXPERIMENT_LOG.
+
+- [ ] **(🟡, spun off) Gore vs non-gore high-D distress.** Forward-pass SAE
+  distress comparison of the violent (64) vs non-violent (236) high-D sub-pools
+  at matched V/A/D — does explicit gore add distress on top of the command/
+  conquest baseline, or is the whole martial-power theme uniformly distressing?
+  Gemma-2b + SAE, ~30 forward passes.
 
 ## 🟡 Moderate compute (small-model forward passes)
 
@@ -94,3 +101,5 @@ big model; tens of minutes to hours).
   map (V/A read at 98% of ceiling after Gemma→Llama mapping).
 - ✅ Dominance alignment — D transfers at 96% of ceiling; full V/A/D geometry is
   architecture-invariant.
+- ✅ Dominance-distress corpus-vs-axis — not separable; high dominance in this
+  corpus is martial/command content (no calm mastery exists).

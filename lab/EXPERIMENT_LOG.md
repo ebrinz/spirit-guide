@@ -6,6 +6,50 @@ memory of the sandbox — keep it filled in (see `lab/CLAUDE.md`).
 
 ---
 
+## 2026-08-19 · Dominance-distress is martial CONTENT, not separable from the axis here (`exp_dominance_corpus_slice.py`, lexical/analysis-only)
+
+**Question.** The capstone found dominance reaches high arousal WITH high distress.
+Is that distress a property of the dominance AXIS, or an artifact of THIS CORPUS
+expressing dominance through violent/war content?
+
+**Method.** Lexical only (saved node data). Compare the valence-matched high-D,
+low-D, and awe pools on violence- and power-word rates; correlate NRC dominance
+with violence-word count across the band; and — letting the corpus speak — list
+the words that most distinguish high-D from low-D content (log-odds). Then carve
+a non-violent high-D sub-pool and check it is still genuinely high-dominance.
+
+**Result.**
+- Violence enrichment is real but modest: high-D 21% of lines vs low-D 0%; corr
+  (dominance, violence) only +0.16. So it is NOT mostly gore.
+- The distinctive high-D words are unambiguous: **battle, king, power, mighty,
+  command, chief, war, force, warrior, pride, fight, fierce, brave, warlike,
+  supreme, strong**. "High dominance" in this corpus = MARTIAL / HIERARCHICAL
+  power (conquest, command, rank).
+- The non-violent high-D slice (236/300 lines, same mean dominance 0.747) is
+  still conquest/command themed: "the conqueror and king", "supreme command",
+  "military power", "historical superiority", "audacious overbearing".
+
+**Interpretation.** Axis vs corpus is NOT separable within this substrate: the
+Gutenberg poetry corpus offers high dominance almost only as power-struggle
+content (martial, command, hierarchy), which is intrinsically tense. There is
+essentially no "serene dominance / calm mastery" content to contrast against.
+So the capstone's dominance-distress is best read as: *the available high-
+dominance CONTENT is conflict-themed, and that is why the dominance route to high
+arousal runs through distress* — not a demonstration that abstract dominance-qua-
+control is distressing. Removing the gore keywords does not remove the conquest/
+command semantics.
+
+**Opened up.** (🟡) A forward-pass SAE-distress comparison of gore vs non-gore
+high-D would isolate only the gore sub-component (does explicit violence add
+distress on top of the command/conquest baseline?). (Blocked in-corpus) A true
+axis test needs constructed calm-mastery content, which leaves the phrase-graph
+substrate. Note the corpus limitation for any welfare framing: "reach high
+arousal via dominance" here means "via martial/command content".
+
+Files: none persisted (lexical prints; rerun is seconds).
+
+---
+
 ## 2026-08-19 · Dominance is architecture-invariant too (`exp_dominance_align.py`, analysis-only)
 
 **Question.** V/A are ~100% shared cross-model up to a linear map. Is the
