@@ -8,6 +8,10 @@ This is the exploration sandbox. Rules and habits when working here:
   memory, and future sessions rely on it.
 - **Update the log table in `lab/README.md`** with the one-line status of each
   experiment file.
+- **Keep `lab/TODOS.md` current.** Strike threads as they're run (moving the
+  result to the log), and append new "opened up" threads there so the backlog
+  never lives only in a session's memory. It's grouped by compute cost so a
+  session can pick work that fits its time budget.
 - **Contract (see `lab/README.md`):** import `spiritbench`, never fork it;
   write results under `lab/results/` (gitignored); one file per experiment,
   `exp_<slug>.py`, with a docstring stating the question and verdict criterion

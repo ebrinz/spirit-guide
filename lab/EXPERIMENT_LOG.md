@@ -6,6 +6,47 @@ memory of the sandbox — keep it filled in (see `lab/CLAUDE.md`).
 
 ---
 
+## 2026-08-19 · Cross-model alignment — affect axes are architecture-invariant up to a linear map (`exp_crossmodel_align.py`, analysis-only)
+
+**Question.** Today's findings live in the 2-D VAD projection. Does the shared
+affect structure survive in FULL residual space? (original thread #3)
+
+**Method.** Llama-1B and Gemma-2b passage states were collected on the SAME 1200
+passages (seed=13), so they are 1200 PAIRED anchors already on disk (one stimulus,
+read by both models at the anchor token) — no forward passes. Ridge-map Gemma
+residual -> Llama residual; held-out R2 vs a row-shuffled baseline (kills the
+pairing). Then affect preservation: map held-out Gemma states into Llama space and
+read them with LLAMA's own probe, predicting the true VAD labels. The map is fit
+only to reconstruct states — it never sees labels — so there is no label leakage.
+
+**Result.**
+- Full-residual alignment R2 ≈ 0.46–0.54 across matched fractional depths, vs a
+  shuffled baseline of −0.13 to −0.17. Huge gap: ~half of one model's entire
+  residual variance is linearly predictable from the other's, purely from the
+  pairing.
+- **Affect preservation is near-perfect.** Gemma L1 mapped to Llama L15 and read
+  with Llama's probe: valence R2 0.902, arousal R2 0.900 — both **98% of the
+  within-Llama ceiling** (0.919 / 0.916).
+
+**Interpretation.** A clean dissociation: only ~50% of the full residual is
+linearly shared between the two architectures, but the affect-relevant subspace
+is ~100% shared. Valence and arousal are the SAME axes in both models up to a
+linear change of basis. A Gemma state, translated, lands where Llama's
+independently-trained emotion ruler expects it. This lifts the earlier cross-
+model agreement (rank ρ 0.86–0.94; per-poem r 0.95) from the 2-D VAD projection
+to the full residual representation: the emotional coordinate system is nearly
+architecture-invariant.
+
+**Opened up.** The ~50% non-affect residual that does NOT align is where the
+models genuinely differ — worth characterising (is it lexical/surface, or a
+second shared-but-nonlinear structure?). Also: does the dominance direction
+(exp_dominance_axis) align cross-model as cleanly as V/A, or is the D axis more
+model-private?
+
+Files: none persisted (analysis prints; rerun is seconds).
+
+---
+
 ## 2026-08-18 · Behavioral validation on Llama — the split replicates once persona is removed (`exp_llama_behavioral_distress.py`, Llama-1B)
 
 **Question.** No Llama SAE exists, so validate the awe-clean / dominance-dirty
