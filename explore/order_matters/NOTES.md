@@ -49,14 +49,62 @@ The spread across constructors shrinks fourfold, and the ranking does not surviv
 `valley` is first on the pipeline's metric and last-but-two on the anchor read, while `graph-walk`
 is last on one and first on the other.
 
-**Two readings, and this experiment cannot choose between them.** Either the constructors genuinely
-converge on similar final states and the leaderboard ordering is substantially a property of the
-recency-weighted metric; or the single-token anchor read through a *word*-trained probe is simply
-less sensitive, compressing real differences. The second is a live possibility — this project has
-already caught the word probe compressing arousal to a ~0.45 ceiling and manufacturing a "structural
-pocket" (see `lab/EXPERIMENT_LOG.md`, 2026-08-18). Settling it needs a passage-calibrated Llama
-probe, which does not exist yet; Llama has only the word probe, and the calibrated ones built so far
-are Gemma's.
+**Two readings, and a passage-calibrated probe settles which.** Either the constructors genuinely
+converge and the leaderboard ordering is a property of the recency-weighted metric; or the
+single-token read through a *word*-trained probe is simply less sensitive. The second was a live
+possibility — this project has already caught the word probe compressing arousal to a ~0.45 ceiling
+and manufacturing a "structural pocket" (`lab/EXPERIMENT_LOG.md`, 2026-08-18) — so
+`scripts/19_passage_probe.py` was run to give Llama the calibrated ruler it lacked (layer 15,
+held-out R²_v 0.919, R²_a 0.916; its acid test reproduces the README's calibration footnote,
+placing the best valley poem 0.038 from the calm target where the word probe reads 0.256).
+
+**The compression was real, and it was the probe's.** Adding the calibrated read as a third readout:
+
+| readout | constructor spread | rank agreement with the EMA metric |
+|---|--:|--:|
+| EMA + word probe (the pipeline's) | 0.079 | — |
+| anchor + word probe | 0.019 | ρ = −0.50 |
+| **anchor + passage probe** | **0.100** | **ρ = −0.10** |
+
+So "the constructors converge" is dead: under a calibrated whole-context ruler they differ *more*
+than under the pipeline's metric, not less. The 0.019 spread was the word probe being nearly blind,
+as its own acid test shows — it reads the 24 calmest passages at (0.57, 0.39) and the 24 most
+distressed at (0.58, 0.49), almost the same point.
+
+**But the ranking is still metric-dependent, which is the part that matters.** The calibrated read
+and the pipeline's metric agree on essentially nothing (ρ = −0.10):
+
+| constructor | EMA (pipeline) | anchor + passage probe |
+|---|--:|--:|
+| valley | **0.313** (1st) | 0.201 (2nd) |
+| harmonic-golden | 0.341 (2nd) | 0.259 (4th) |
+| harmonic-prime | 0.381 (3rd) | 0.278 (5th) |
+| polygon-pca | 0.384 (4th) | **0.178 (1st)** |
+| graph-walk | 0.393 (5th) | 0.240 (3rd) |
+
+`polygon-pca` goes from fourth to first; `graph-walk` from last to third. `valley` is the one
+constructor that holds up near the top under both.
+
+**And valley's advantage is concentrated at one target.** Under the calibrated ruler, per target:
+
+| constructor | calm | focused | excited |
+|---|--:|--:|--:|
+| valley | **0.038** | 0.196 | 0.369 |
+| polygon-pca | 0.156 | **0.066** | **0.312** |
+| harmonic-golden | 0.211 | 0.190 | 0.377 |
+| graph-walk | 0.233 | 0.137 | 0.350 |
+| harmonic-prime | 0.231 | 0.203 | 0.400 |
+
+Valley is extraordinary at calm — 0.038, four times closer than the next constructor — and
+middling at focused and excited. The published leaderboard averages across targets, so that
+structure is invisible in it.
+
+**The order effect under the calibrated read.** Shuffling costs +0.018 (10/15 cells, p = 0.083),
+against +0.034 (13/15, p = 0.005) under the EMA. The effect is clearly significant on the
+pipeline's metric and not on the calibrated one, but the paired difference between the two is not
+itself significant (p = 0.17), so "the metric is more order-sensitive than the model" is the
+direction of the evidence rather than an established result. Reversal tells the same story more
+loudly: reversing valley costs +0.116 on the EMA but only +0.047 on the calibrated read.
 
 ## Calibration: how big is the shuffle effect?
 
@@ -83,6 +131,8 @@ controls in this project are not reliable, and the fix is cheap, since all 150 r
 ## Caveats
 
 One model, one construction seed per constructor, 8 permutations, 3 targets, medium length only.
+The per-target table rests on a single poem per cell, so the valley-at-calm figure of 0.038 in
+particular wants a seed sweep before it is leaned on.
 The published leaderboard averages over more stimuli and three models, so none of these numbers
 replace its numbers. Nothing here says the EMA read is wrong — it is a defensible way to measure a
 trajectory, and the README does describe constructors as paths. What the run shows is that the
@@ -91,10 +141,17 @@ ranking, which is worth stating explicitly wherever that ranking is used.
 
 ## Opened up
 
-- **Build Llama a passage-calibrated probe.** It is the missing piece for deciding between the two
-  readings above, it is the same recipe already used twice for Gemma, and it costs about 20 minutes.
-- **Re-run the leaderboard under both readouts.** If the ranking is metric-dependent on the full
-  stimulus set, the report should say so next to the table.
+- ~~**Build Llama a passage-calibrated probe.**~~ DONE, `data/passage_probe/` (layer 15,
+  R²_v 0.919). It refuted the convergence reading and produced the ranking result above.
+- **Re-run the leaderboard under the calibrated read.** This is now the obvious next step and the
+  data is cheap: if the constructor ranking on the full stimulus set is as metric-dependent as it
+  is on these 15 cells, the report should say so next to the table. Note the calibrated probe can
+  only be read at the anchor, so this is a comparison of two different measures, not a correction
+  of one.
+- **Seed-sweep valley at calm.** Its 0.038 under the calibrated ruler is the single most striking
+  number here and rests on one poem.
+- **Why does polygon-pca win under the calibrated read?** It was fourth of five in the published
+  table and first here. Worth understanding before anyone believes either ordering.
 - **Multi-permutation controls in the pipeline.** `scripts/02` builds one shuffle; building eight
   and reporting the spread would give every leaderboard row an error bar for free.
 - **Does the EMA window explain the constructor ranking?** valley puts target-band lines last by

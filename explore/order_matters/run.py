@@ -78,6 +78,10 @@ def main():
     art = ad.load_art(apath)
     model = HiddenStateModel(cfg["listener_model"], device=cfg["device"])
     probe = load_probe(REPO_ROOT / "data/probe/probe.pkl")
+    # passage-calibrated probe (scripts/19), read at the anchor only — it was trained on
+    # anchor-token states, so applying it per-token inside an EMA would be off-distribution
+    ppath = REPO_ROOT / "data/passage_probe/probe_passage.pkl"
+    pprobe = load_probe(ppath) if ppath.exists() else None
     pre = cfg["preamble"]
     n_pre = len(model.tokenizer(pre)["input_ids"])
     n_lines = ad.LENGTH_LINES["medium"]
@@ -93,8 +97,9 @@ def main():
         text = ".\n".join(lines)
         ah = model.hidden_states(pre + text + ANCH)
         av = probe.predict(ah[probe.layer][-1:])[0]
+        pv = pprobe.predict(ah[pprobe.layer][-1:])[0] if pprobe else np.array([np.nan, np.nan])
         return (placement_error(traj, target_va), float(np.linalg.norm(av - np.asarray(target_va))),
-                traj[-1], av)
+                float(np.linalg.norm(pv - np.asarray(target_va))), traj[-1], av, pv)
 
     rows = []
     for cons in cons_list:
@@ -113,14 +118,15 @@ def main():
             variants.append(("reversed", list(range(len(base)))[::-1]))
             for label, perm in variants:
                 lines = [base[i] for i in perm]
-                e_ema, e_anch, t_last, a_last = measure(lines, tva)
+                e_ema, e_anch, e_pass, t_last, a_last, p_last = measure(lines, tva)
                 tail = va[perm[-EMA_WINDOW_LINES:]]
                 rows.append(dict(constructor=cons, target=tname, variant=label,
                                  kind="ordered" if label == "ordered" else
                                       ("reversed" if label == "reversed" else "shuffled"),
-                                 ema_error=e_ema, anchor_error=e_anch,
+                                 ema_error=e_ema, anchor_error=e_anch, passage_error=e_pass,
                                  ema_v=float(t_last[0]), ema_a=float(t_last[1]),
                                  anchor_v=float(a_last[0]), anchor_a=float(a_last[1]),
+                                 passage_v=float(p_last[0]), passage_a=float(p_last[1]),
                                  tail_v=float(tail[:, 0].mean()), tail_a=float(tail[:, 1].mean()),
                                  target_v=tva[0], target_a=tva[1]))
             o = rows[-len(variants)]
