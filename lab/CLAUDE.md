@@ -17,6 +17,9 @@ This is the exploration sandbox. Rules and habits when working here:
   `exp_<slug>.py`, with a docstring stating the question and verdict criterion
   up front. Changing the engine (`src/spiritbench/`) happens on a `feat/*`
   branch with tests, not here.
+- **Open-ended looking with no hypothesis or verdict criterion belongs in
+  `explore/`, not here** (see `explore/README.md`). It graduates into a
+  `lab/exp_<slug>.py` only once it has a question and a criterion.
 - **Nothing in the published narrative (README, report, `scripts/00–06`) may
   depend on `lab/`.** Graduate a finding out of the sandbox only once it is
   validated *and* chosen for the story; then it moves to a numbered `scripts/`
