@@ -257,6 +257,7 @@ Valley's self-reported arousal moves -0.053 on average across the three models (
 | 9 | `reversal_test` | causal test of the mechanism | passes on Llama; the 9B null was the probe's layer-6 pick |
 | 10 | `showcase` | one poem, three models, three rulers | the table above |
 | 11 | `creativity_poem` | build an ad-hoc poem for creativity and mentation | a VA coordinate does not target a concept; adding a semantic mask fixed it — **[its own README](creativity_poem/README.md)** |
+| 12 | `hypnagogia` | do the poems induce a hypnagogia-LIKE state behaviourally? | **no** — 9/10 markers move the same way under opposite targets; what drives them is verse vs prose, and a coherent build gets the effect without the discord |
 
 Each folder has a `NOTES.md` with the numbers, the caveats, and what it opened up.
 
