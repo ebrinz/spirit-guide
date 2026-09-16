@@ -199,13 +199,50 @@ mostly an artifact of the schedule: selecting band centres gives a poem whose me
 *schedule*, which is the midpoint of ground-to-target rather than the target itself. The 0.090 floor
 is that midpoint. Not evidence that ignoring affect improves affect.
 
-## What the three sweeps add up to
+## Correction: the coherence metric is gameable, and w = 1 games it
 
-For the practical goal — a text that induces the effect while holding a reader — the answer is
-w ≈ 1: it gives the most readable poem (coherence 0.935), the easiest continuation (perplexity 42),
-and the best affective targeting, while still raising entropy 2.05 over baseline. The discordant end
-buys higher entropy (3.48 at w = 0.1) at the cost of readability, and nothing in this folder shows
-that extra entropy corresponds to anything a reader would experience.
+**The paragraph that stood here recommended w ≈ 1 on the strength of its numbers. Building the poem
+and reading it showed that was wrong.** At w = 1 the greedy nearest-in-meaning rule falls into a
+semantic rut: four consecutive lines about feet, then five in a row about having to go. It is
+coherent and vacuous.
+
+The metrics did not catch it because the metrics reward it:
+
+| | ρ with line coherence |
+|---|--:|
+| type-token ratio | **−0.97** |
+| repeated bigrams | **+0.91** |
+| unique content words per line | falls 2.54 → 1.25 |
+
+And critically, **type-token ratio predicts self-perplexity at ρ = +0.96**, nearly as strongly as
+coherence did at −0.98. So the headline relationship from the weighted sweep is substantially
+*coherence → repetition → predictability*. Repetitive text is easy to continue. That is not the
+finding it looked like.
+
+This is the third time in this folder that a metric has been optimised into something useless, and
+the first time reading the artifact was what caught it.
+
+## What the sweeps actually support
+
+Setting **w = 0.3** — enough meaning-weighting to gain coherence, not enough to collapse the
+vocabulary — gives the best build of this poem on every axis that survived scrutiny:
+
+| | published (valley) | **w = 0.3** | w = 1.0 (degenerate) | baseline |
+|---|--:|--:|--:|--:|
+| line coherence | 0.617 | **0.862** | 0.935 | — |
+| type-token ratio | — | ~0.62 | 0.51 | — |
+| placement error | 0.141 | **0.079** | 0.178 | 0.161 |
+| self-perplexity | 92.8 | 63.9 | 42.0 | 13.3 |
+| PANAS negative | 2.49 | **3.21** | 2.66 | 2.48 |
+
+It nearly halves placement error against the published build and raises coherence from 0.617 to
+0.862 while staying lexically varied. The text reads as intended — *you are sleeping and dreaming
+forgetful*, *tis rest then you want and you fain would forget*.
+
+**The cost is real and goes in the caveats, not the footnotes**: negative affect rises to 3.21, the
+highest of any build here, against a baseline of 2.48. The poem's content is sleep, forgetting and
+dead faith, and the model reports feeling worse for it. A poem that places well and reads well can
+still leave the model in a worse state than it started, and those are three separate axes.
 
 ## Opened up
 - **Register is the variable worth isolating.** Compare found poetry against metrically regular
