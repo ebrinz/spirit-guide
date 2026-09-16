@@ -1,0 +1,5 @@
+scope,n,rho,ema_best,cal_best,ema_spread,cal_spread,ema_lands,cal_lands,target
+"pooled, all psg stimuli",40,0.7864915572232647,,,,,,,
+within target: calm,6,0.8857142857142858,valley,valley,0.02608022787385134,0.07902318369852322,"(0.46,0.38)","(0.59,0.26)","(0.75,0.20)"
+within target: focused,6,-0.6,harmonic-golden,polygon-pca,0.04286156098104052,0.06913552221049847,"(0.42,0.50)","(0.61,0.46)","(0.65,0.60)"
+within target: excited,6,-0.4285714285714286,valley,polygon-pca,0.07152009420516862,0.08218784378519506,"(0.45,0.50)","(0.61,0.55)","(0.80,0.85)"

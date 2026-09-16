@@ -71,12 +71,13 @@ than under the pipeline's metric, not less. The 0.019 spread was the word probe 
 as its own acid test shows — it reads the 24 calmest passages at (0.57, 0.39) and the 24 most
 distressed at (0.58, 0.49), almost the same point.
 
-**But the ranking looks metric-dependent here — and that part is SUPERSEDED.** On these 15 cells
-the two readouts agree on essentially nothing (ρ = −0.10). Run on the full canonical stimulus set,
-they agree well (ρ = +0.78 over 75 stimuli; valley still first, via-negativa still last). See
-`explore/calibrated_leaderboard/NOTES.md`. The ρ = −0.10 below rests on five constructors with one
-poem each and was underpowered — this note's own single-seed mistake. What survives is the
-`polygon-pca` re-ordering, which replicates on the full set.
+**And the ranking is metric-dependent — this held up.** On these 15 cells the two readouts agree on
+essentially nothing (ρ = −0.10). `explore/calibrated_leaderboard` first appeared to refute that
+(ρ = +0.78 across the full stimulus set) but that number pools across targets, and both readouts
+agree strongly about which *targets* are hard. Split by target at matched conditions, the mean
+within-target rank agreement is ρ = −0.05, matching this run. The agreement is real at calm
+(ρ = +0.89) and absent at focused and excited. See that note for the mechanism, which appears to be
+the word probe's compressed range.
 
 | constructor | EMA (pipeline) | anchor + passage probe |
 |---|--:|--:|
