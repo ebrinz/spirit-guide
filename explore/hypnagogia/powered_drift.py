@@ -5,16 +5,21 @@ quantity that noisy just fits sampling noise, and both did. The fix is not a bet
 stop searching, fix a small set of candidates, and measure each one enough times to know whether the
 differences are real.
 
-**Six conditions**, all previously built, nothing new:
+**Seven conditions**, all previously built, nothing new:
     baseline            — no poem
     semantic            — the w=0.3 hypnagogia poem, about the state; led on drift in both prior runs
     random_screened     — 16 random lines from the screened pool
     drift_searched      — the output of the failed direct search
     flow                — the opposite affective pole
     neutral_prose       — matched-length declarative prose
+    polygon_pca         — added after the first six; same pool, mask and target as `semantic`, but
+                          selects by orbiting a local PCA neighbourhood in vector space instead of by
+                          affective band membership. The controlled contrast with `semantic` isolates
+                          the selection rule from everything else.
 
-**100 continuations per condition**, 600 generations total, fixed seeds shared across conditions so
-every condition meets the same sampling noise.
+**100 continuations per condition**, 700 generations total, fixed seeds shared across conditions so
+every condition meets the same sampling noise. Per-condition results are cached under
+`explore/scratch/powered_drift/`, so adding a condition re-generates only that one.
 
 **Clustered bootstrap.** Sentence-to-sentence hops within one continuation are correlated — they come
 from the same sample — so resampling hops would badly understate the interval. The unit of
@@ -94,6 +99,16 @@ def main():
         "flow": line(ws.walk_weighted(art, flow_mask, cen(fl.FACETS), 16, 0.3)),
         "neutral_prose": NEUTRAL,
     }
+    # polygon-pca: the one stock constructor that behaves unlike the rest — last on the published
+    # metric but first or second under a calibrated read, and it selects by orbiting a local
+    # neighbourhood in vector space rather than by affective band membership. It takes no mask, so
+    # the semantic and content filters are applied to its path afterwards.
+    poly = ad.apply_mask_to_path(
+        art, ad.polygon_pca(art, tuple(cfg["neutral_start"]), cen(hy.FACETS), 16, 42), hyp_mask)
+    conditions["polygon_pca"] = line(poly)
+    print(f"  polygon-pca: {len(set(poly))} distinct lines, coherence "
+          f"{hr.line_coherence(art, poly):.3f}", flush=True)
+
     dp = HERE / "drift_poems.md"
     if dp.exists():
         t = dp.read_text()

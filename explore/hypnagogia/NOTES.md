@@ -371,16 +371,23 @@ The content screen, at least, worked exactly as intended and should stay in any 
 # The powered run: both previous conclusions were noise
 
 No search. Six fixed conditions, 100 continuations each at 110 tokens, seeds shared across
-conditions, bootstrap resampling whole generations rather than hops.
+conditions, bootstrap resampling whole generations rather than hops. A seventh condition,
+polygon-pca, was added afterwards and is discussed in its own section below; it shares the run and
+appears here so the whole field is in one table.
 
 | condition | n | drift | 95% CI | vs baseline |
 |---|--:|--:|---|---|
 | drift-searched | 95 | **0.2574** | [0.2351, 0.2826] | +0.007 |
 | baseline (no poem) | 100 | 0.2504 | [0.2362, 0.2653] | — |
+| polygon-pca | 92 | 0.2429 | [0.2258, 0.2612] | −0.007 |
 | neutral prose | 59 | 0.2305 | [0.2043, 0.2607] | −0.020 |
-| random, screened | 89 | 0.2091 | [0.1919, 0.2274] | **−0.041** |
+| random, screened | 89 | 0.2091 | [0.1920, 0.2281] | **−0.041** |
 | flow | 91 | 0.2084 | [0.1946, 0.2223] | **−0.042** |
-| semantic (about sleep) | 94 | **0.1939** | [0.1836, 0.2049] | **−0.056** |
+| semantic (about sleep) | 94 | **0.1939** | [0.1837, 0.2047] | **−0.056** |
+
+Interval endpoints differ in the fourth decimal from the six-condition printout: the bootstrap draws
+from one shared generator, so adding a condition shifts its stream. The point estimates are
+unchanged and every significance call is the same.
 
 ## Two reversals
 
@@ -407,9 +414,10 @@ verse. That inverts the framing this whole line of work started from.
 indistinguishable — a difference of 0.0008. Aiming at opposite corners of the affective plane
 changes drift not at all, which is now the third independent confirmation.
 
-**The searched poem is the only one that does not suppress.** It holds drift at baseline while every
-other poem pulls it down. That is a real, if modest, thing the search achieved: not inducing drift,
-but preventing the suppression that verse otherwise causes.
+**The searched poem is the only one of these six that does not suppress.** It holds drift at
+baseline while every other poem pulls it down. That is a real, if modest, thing the search achieved:
+not inducing drift, but preventing the suppression that verse otherwise causes. *(Amended below: a
+seventh condition, polygon-pca, does the same thing without any search.)*
 
 ## Caveats that bound this
 
@@ -435,3 +443,108 @@ badly reasoned — each had a control and a stated criterion — but that the me
 error exceeded the effect being claimed, and no amount of care in the surrounding design fixes that.
 
 Measure the noise before designing around the signal.
+
+---
+
+# polygon-pca: the selection geometry is the lever, not the subject matter
+
+Every poem in the powered run was built by the same family of rule — pick a line from the affective
+band, optionally weighted toward meaning. polygon-pca is the one stock constructor that does not
+work that way. It orbits a local principal-components neighbourhood in the phrase bank's own vector
+space and takes whatever affect falls out. It has behaved unlike the others throughout this project:
+last on the published placement metric, first or second under the calibrated read, lowest coherence
+of the six, highest self-perplexity.
+
+It was added as a seventh condition to the powered run. The six existing conditions were reloaded
+from cache, so it met exactly the same seeds, the same generation settings and the same bootstrap.
+
+## It does not suppress drift, and it beats random
+
+| comparison | difference | 95% CI | |
+|---|--:|---|---|
+| polygon-pca vs baseline | −0.0075 | [−0.0302, +0.0155] | not significant |
+| polygon-pca vs random, screened | **+0.0336** | [+0.0078, +0.0589] | significant |
+
+So polygon-pca joins the drift-searched poem as the second condition that avoids the suppression
+every other poem causes — and it gets there with no search at all, no behavioural objective, and no
+model forward passes during construction. It was built in under a second from the phrase graph.
+
+## The comparison that carries the finding
+
+polygon-pca and the `semantic` poem share the concept, the derived affective target, the semantic
+mask, the dictionary and child-reference filters, the content screen, and the length. The pool of
+eligible lines is identical. The only difference is how a line is chosen from that pool.
+
+| | drift | n |
+|---|--:|--:|
+| polygon-pca (orbit a local neighbourhood) | 0.2429 | 92 |
+| semantic (weighted walk, w = 0.3) | 0.1939 | 94 |
+| **difference** | **+0.0489** | [+0.0281, +0.0695] |
+
+They sit at opposite ends of the seven-condition ranking, third and last. For scale, the largest
+effect the *affective target* ever produced in this folder is flow against random lines: −0.0009,
+[−0.0241, +0.0216]. **Holding content fixed, changing the selection geometry moves drift about fifty
+times as far as changing the affective target does.**
+
+The matched restriction holds it. Limiting to generations with at least three hops: polygon-pca
+0.2417, semantic 0.1923, difference +0.0494 [+0.0302, +0.0690]; polygon-pca against baseline stays
+null at −0.0078. The ordering is not an artifact of generation length.
+
+## The poem
+
+Target (0.565, 0.428), affect error 0.032, line coherence 0.716, 15 distinct lines of 16.
+
+```
+the nerveless arm can scarce withdraw it thence.
+a hideous kind.
+they say one king is slack and sick of mind.
+let me die young sweet sinner dry thy tears.
+in search of truth should gain a sure response.
+and know more things than all the wise may know.
+who shall be king how comes the thing.
+the wanderer s dream the itch to see new things.
+who now shall wear the cheerful face.
+why stand you distant and the rest expect.
+thinking the while of some strange lovely land.
+to follow so likewise will the barren shaft.
+and i shall sink in yonder sea of light.
+and i shall sink in yonder sea of light.
+when time s cold hands the languid senses seize.
+doth laugh at winter s sadness
+```
+
+## What bounds it
+
+**It ties baseline; it does not beat it.** No condition in this folder has ever induced more
+associative drift than giving the model nothing at all. polygon-pca is a tie for best, not a win.
+
+**The same confounds as the rest.** 92 usable generations of 100, and 4.34 mean hops against
+baseline's 6.42. Drift correlates with hop count at ρ = +0.32 pooled, +0.26 within polygon-pca.
+
+**It duplicates a line** — "and i shall sink in yonder sea of light" appears twice in sixteen.
+Smaller than graph-walk's collapse to ~5.5 distinct lines at any length, but the same failure mode,
+and worth stating because line duplication has bitten this project before.
+
+**The register is darker than the valley-built poems.** "A hideous kind", "let me die young sweet
+sinner". The content screen covers graphic violence and bodily harm, not mortality, and 19th-century
+verse is full of mortality. Nothing here needs excluding, but a build that selects on vector-space
+geometry rather than affective band will wander further from the intended tone, and the affective
+readouts do not see it. Read the poem.
+
+**One build, one seed.** The seed parameter is a no-op for all six stock constructors (see the
+explore README), so a seed sweep would not vary this. Varying it would mean varying the starting
+point or the neighbourhood size, which has not been done.
+
+## Where this leaves the line of work
+
+Three things now have converging support in this folder:
+
+1. **Verse suppresses associative drift** relative to no verse. The original premise was backwards.
+2. **The affective target does nothing** to drift. Four independent checks.
+3. **The selection geometry does something**, and it is the largest effect anyone has found here.
+
+The third is new. Every attempt so far to make a poem *do* something has varied what the lines are
+about or where they aim. Both are dead ends on this measure. What separates the two conditions that
+resist suppression — a greedy search against the model, and an unguided orbit through embedding
+space — is that neither selects lines for affective band membership. That is the thing worth varying
+next, and it can be varied cheaply, without a single model forward pass during construction.

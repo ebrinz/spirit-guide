@@ -111,6 +111,35 @@ fewer than two sentences, leaving drift undefined and silently discarding most o
 
 → `hypnagogia/NOTES.md`, final section
 
+### 5. On the one measure that moves, the selection rule matters and the affective target does not
+
+A seventh condition, `polygon-pca`, was added to that powered run. It shares its concept, derived
+affective target, semantic mask, content filters and length with the worst-performing condition.
+The eligible pool of lines is identical. Only the rule for choosing a line from that pool differs:
+polygon-pca orbits a local principal-components neighbourhood in the phrase bank's vector space,
+while the other selects by affective band membership weighted toward meaning.
+
+| | drift | |
+|---|--:|---|
+| polygon-pca | 0.2429 | third of seven, ties baseline |
+| weighted walk, same pool | 0.1939 | last of seven, significantly below baseline |
+| difference | **+0.0489** | 95% CI [+0.0281, +0.0695] |
+
+For scale, the largest effect the *affective target* has produced anywhere in this folder is flow
+against random lines: −0.0009, CI [−0.0241, +0.0216]. The ordering holds under a matched
+restriction to generations with at least three sentence hops.
+
+**What bounds it.** This is one build against one build, so "different construction rule" and
+"different text" are not separated — a second poem from each rule would be needed for that. Neither
+condition beats the no-poem baseline; polygon-pca ties it. And polygon-pca carries the same
+confounds as the rest, including 92 usable generations of 100 and fewer hops per generation than
+baseline.
+
+Worth stating anyway, because every prior attempt to make a poem *do* something varied what the
+lines are about or where they aim, and both are now dead ends on this measure.
+
+→ `hypnagogia/NOTES.md`, final section
+
 ---
 
 ## The illustration: one poem, two rulers
@@ -283,6 +312,7 @@ Valley's self-reported arousal moves -0.053 on average across the three models (
 | 13 | `hypnagogia`, sweeps | can coherence be controlled, and does it matter? | yes on the third try (weighted selection, ρ = +1.00); it predicts continuation difficulty, but largely *via repetition* — and optimising it produces degenerate text |
 | 14 | `hypnagogia`, searches | select lines for what they DO, not what they are about | two searches; entropy steers but does not transfer, drift-search needs screening because maximising surprise hunts for violent lines |
 | 15 | `hypnagogia`, powered | settle it with 100 continuations per condition | **poems suppress drift rather than inducing it**; two earlier conclusions reversed |
+| 16 | `hypnagogia`, polygon-pca | does the odd constructor behave differently here too? | yes — same pool and target as the worst condition, +0.049 drift, ties baseline; **the selection geometry is the lever, not the subject matter** |
 
 Each folder has a `NOTES.md` with the numbers, the caveats, and what it opened up.
 
@@ -324,10 +354,12 @@ Reported because they cost real compute and should not be re-run blind.
 - **The polygon-pca inversion does not survive resampling** on either model.
 - **The self-report composite is largely a valence reading** (ρ +0.46 to +0.56 with probe valence),
   which limits how independent a "best state" judgement based on it can be.
-- **Poems do not induce associative drift; they suppress it.** Every poem tested sits below a
-  no-poem baseline (0.194–0.257 against 0.250), three significantly, at 100 generations each.
+- **Poems do not induce associative drift.** No poem tested exceeds a no-poem baseline of 0.250 at
+  100 generations each. Most suppress it, three significantly; the best two — a poem searched
+  against the model, and polygon-pca — only tie it.
 - **The affective target does not move behaviour at all.** flow 0.2084 against random screened lines
-  0.2091 — a difference of 0.0008, the third independent confirmation.
+  0.2091 — a difference of 0.0008, the third independent confirmation. A fourth: holding the target
+  fixed and changing only the selection rule moves drift 50 times further.
 - **Instruct-tuned models analyse the poem instead of inhabiting it.** 18 of 21 free generations
   opened with "This meditation prompts…" or "**Explanation:**", so that channel scored critique prose.
 
