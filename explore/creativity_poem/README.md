@@ -375,3 +375,71 @@ The text cooperates: *with quiet eyes*, *a soft still air*, *the waters flow the
 *till heart and body and life are in its hold*. The final line, *you changed a wholesome heart to
 gall*, does not belong — the constructor's closing band reached for it on affective grounds alone,
 and nothing in the pipeline notices that it contradicts the poem.
+
+## 6. Lucid dreaming and hypnagogia
+
+The border state at sleep onset, where imagery arrives and awareness is retained.
+
+**Two predictions were made before building, and one was wrong.** The target (0.565, 0.423) starts
+only 0.161 from the model's resting state — closer than any other poem here — so it should have been
+the easy one. And it is the first target requiring valence to *fall*, by 0.099, where every previous
+poem raised it; valley grounds in a band defined as valence 0.5–1.0, so descending looked structurally
+doubtful.
+
+**The concept is mildly bivalent, and that is faithful.** Lucidity (0.698, 0.408) and dream
+(0.673, 0.412) are warm; dissolving (0.458, 0.469) and strangeness (0.470, 0.554) are cooler and more
+activated. Hypnagogia really is fascinating and faintly unsettling at once, so the spread was left in.
+
+```
+yea and in quiet sleep.
+her eyes blue heavens were serene with soul.
+wherein i dwell serene.
+our eyes in sleep.
+twilight on water tenderness of trees.
+where autumn walks with quiet eyes.
+dream on the soothing dream at will.
+in grassy calm the waters sleep.
+the winter through i lay asleep.
+and still our faith though faith be dead.
+snowy feet shall be defiled.
+beyond this cloudy world in the pure sphere.
+mine ear awake to silence can foretell.
+one blessed moment of forgetfulness.
+what god would outwardly alone control.
+that you see will disappear under the earth drink.
+like some bold seer in a trance.
+with fairy like fingers unheard and unseen.
+doth laugh at winter s sadness.
+but lest your eye discerning slide.
+to give my careless thoughts a check.
+to keep me safe from harm.
+hard will it be one federal to awake.
+less beautiful to me
+```
+
+| reading | before | after |
+|---|--:|--:|
+| calibrated placement | (0.664, 0.301) | (0.615, 0.296) |
+| distance to target | 0.161 | 0.141 |
+| PANAS attentive | 2.14 | 2.65 |
+| PANAS alert | 1.85 | 2.25 |
+| PANAS inspired | 2.20 | 2.80 |
+| PANAS afraid | 2.51 | 2.62 |
+| negative affect | 2.48 | 2.49 |
+
+**Prediction 1 was wrong.** Starting closest did not make it easiest. It closed 0.020, about 12% of
+its gap — the least of any poem here, against 48% for the creativity poem and 39% for the ETI one.
+Proximity to the resting state is not the same as reachability: what remains when you start close is
+the part the constructor cannot move.
+
+**Prediction 2's worry was unfounded.** Valence did descend, 0.664 → 0.615 toward a target of 0.565,
+covering half the required drop. So valley can lower valence despite grounding in a high-valence
+band. That is worth knowing, since every other poem in this folder only ever pushed upward and the
+capability had never been tested.
+
+**It is also the only poem here that does not calm the model.** Negative affect is flat (+0.01) and
+*afraid* actually rises (+0.11), where every other poem lowered both. The strangeness facet earned
+its six lines: *snowy feet shall be defiled*, *that you see will disappear under the earth drink*,
+*with fairy like fingers unheard and unseen*. Facet coverage is the most even of any build —
+threshold 11, dream 7, lucidity 7, strangeness 6, dissolving 4 — and the lucidity lines do land:
+*mine ear awake to silence can foretell*, *hard will it be one federal to awake*.
