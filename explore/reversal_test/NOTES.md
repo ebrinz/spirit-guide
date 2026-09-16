@@ -56,13 +56,17 @@ models**, paying 0.097 and 0.150 on the metric against 0.004–0.070 for everyth
 half that mattered for the original question — that the *metric specifically* is what the ascent
 exploits. On Llama valley pays 2.4× more on the metric than on the calibrated read; at 9B, 1.1×.
 
-**A possible instrument explanation, untested.** The 9B calibrated probe selects layer 6 of 43,
-while Llama's selects layer 15 of 17 — proportionally much deeper. A very shallow read may be
-closer to "which words are present near the read position" and so inherit some of the same recency
-character the EMA has, which would blunt the contrast by construction rather than by biology. The
-lab raised the same concern about the Gemma-2B passage probe selecting layer 1 and checked then that
-its result held across depths; that check was not repeated here and should be, by re-reading the 9B
-states at several layers.
+**The instrument explanation was right — see `LAYER_CHECK.md`.** The 9B calibrated probe selects
+layer 6 of 43, while Llama's selects layer 15 of 17. Re-reading the same 144 poems at all 43 layers
+shows reversal cost collapsing with depth (Spearman layer vs cost −0.89): +0.075 in layers 1–6,
++0.022 in layers 15–28, **−0.009 in layers 29–42**, while probe R²_v stays between 0.886 and 0.932
+everywhere. So a deep whole-context read *is* order-invariant, as the mechanism requires, and at
+layer 6 it is not. Reading deep restores the differential and makes it larger than Llama's: valley's
+reversal costs the metric 0.150 against 0.034 deep, a ratio of 4.4× versus Llama's 2.4×.
+
+The conclusion below that the mechanism is "model-specific" should therefore read
+**instrument-specific**: it appears whenever the comparison read is deep enough to be
+order-invariant.
 
 ## The honest complication
 
@@ -87,9 +91,12 @@ across variants in a way the others are not, and I do not have an account of it.
 
 Settles, on Llama only: the metric's preference for valley is substantially mechanical there. Valley
 ends where the metric looks, reversing it removes most of that advantage, and the effect across
-constructors tracks the structural feature the mechanism names. **At 9B the same test comes out
-null**, so the mechanism is not established as general — it is one model's result with a plausible
-instrument confound (the 9B calibrated probe's very shallow layer) that has not been ruled out.
+constructors tracks the structural feature the mechanism names. **At 9B the same test comes out null at the probe's
+own layer-6 pick** — but `LAYER_CHECK.md` shows that is the shallow-probe confound, not a model
+difference: read at layers 29–42 and reversal costs the calibrated read nothing while still costing
+the metric 0.150. The mechanism's premise (a deep integrated read is order-invariant) holds on both
+models. What remains Llama-only is the *structured* half, that the cost scales with each
+constructor's tail rise.
 
 Also does not settle: whether valley is *actually* the best constructor. That depends on which reading of
 "placement" you want. If placement means "where the model's state ends up after reading the whole
