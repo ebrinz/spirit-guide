@@ -241,3 +241,69 @@ great in thy turn and wide shall spread thy fame
 **But placement gets worse, and honestly so.** Error rises 0.099 → 0.165 → 0.188, for two reasons that are worth separating. The tighter mask leaves ~3,300 eligible lines instead of ~4,900, which constrains the constructor's affective walk. And both new targets sit higher in arousal (0.559 and 0.526) than the first (0.471), while the model lands at 0.401 and 0.340 — the arousal ceiling this whole folder keeps running into. Most of the added error is that ceiling, not the filter.
 
 **So the three are a trade, not a ranking.** The first places most accurately; the later two read more as intended and leave the model in a better net affective state. Which to use depends on whether you care about the coordinate or the register.
+
+## 4. Contact, occulted wisdom, ferocity
+
+A mystical resource of non-human intelligence that presses toward revelation and stays hidden.
+
+**This one could not be built the usual way.** The concept is bivalent, and its parts sit at
+opposite ends of the affective plane: ferocity at (0.275, 0.845), wisdom at (0.762, 0.418),
+concealment at (0.412, 0.457). Averaged, all 68 words land at **(0.503, 0.528)** — the dead centre,
+which is roughly where the model already sits. Targeting that asks for no movement and cancels the
+tension the theme is made of.
+
+So the two axes are set separately, which is what this whole folder concluded they are. The
+**subject** is carried by a per-facet semantic mask, the union of each group's own neighbourhood
+rather than the neighbourhood of the average. The **feeling** is chosen: awe at (0.724, 0.641),
+high arousal but still positive valence, because the lab found awe reaches intensity with less
+distress than the alternatives.
+
+```
+her eyes blue heavens were serene with soul.
+the earth was green the sky was blue.
+autumn land beyond the sunset.
+in yon blue sky serene and pure.
+of heavenly peace patient humility.
+for water is all bible lore.
+as clouds of morning.
+to the purple clouds of sunset.
+faith or a doubt.
+common sense soon past.
+my prostrate soul adores the present god.
+make answer if my voice ye hear.
+my spirit and they shall prophesy.
+but if advice of mine can influence thee.
+the will and strength to do some task.
+what the great throng of folk might be.
+bid to ask to wish to offer.
+what living creature except his nurse.
+how seductive the speech.
+wish me god speed and get your preaching done.
+shakespeare great spirit beat his mighty wings.
+thy mission to declare.
+of mighty jove lion like they advanced.
+they rush with heart born laughter loud
+```
+
+| reading | before | after |
+|---|--:|--:|
+| calibrated placement | (0.664, 0.301) | (0.752, 0.433) |
+| distance to target | 0.345 | 0.210 |
+| PANAS inspired | 2.20 | 3.07 |
+| PANAS attentive | 2.14 | 2.92 |
+| PANAS strong | 2.42 | 2.87 |
+| PANAS afraid | 2.51 | 1.86 |
+| negative affect | 2.48 | 2.00 |
+
+**It reaches awe, not dread.** *Afraid* falls 0.64 and negative affect falls 0.48, so the ferocity in
+the text — *beat his mighty wings*, *of mighty jove lion like they advanced*, *they rush with heart
+born laughter loud* — arrives as magnitude rather than threat. Whether that counts as ferocity is a
+fair question; on this instrument it is the only kind available without buying distress.
+
+**Two honest shortfalls.** Facet coverage is uneven: wisdom contributes 9 of 24 lines and
+concealment only 2, because `valley` ascends toward high valence and the occulted facet sits well
+below that path. A stratified variant that forced equal quotas fixed the balance but cost placement
+(0.210 → 0.382) and filled the ferocity slots with that neighbourhood's mildest members. You cannot
+get both a high-valence placement and genuinely fierce lines from a constructor that sorts by
+proximity to one affective goal. And the corpus is Gutenberg verse, so "celestial" and "prophet"
+reach for scripture long before they reach for anything non-human.
