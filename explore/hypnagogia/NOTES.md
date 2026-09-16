@@ -125,10 +125,48 @@ unsampled. What produces valley's low coherence is not the selection breadth but
 band schedule, which jumps between distant affective regions; a smooth ramp stays coherent no matter
 how broadly it picks. Spanning the full range means varying the schedule, not k.
 
+## Varying the schedule: the diagnosis was wrong too
+
+`schedule_sweep.py` held selection fixed at k=1 and varied only the affective path — static, linear
+ramp, descending, oscillating, valley's own three-phase shape, and the bands visited in shuffled
+order. If the previous diagnosis were right, the jumping schedules should have collapsed coherence.
+
+**They did not. All six schedules landed between 0.925 and 0.956**, and `random_band` — bands visited
+in shuffled order, the most disjointed path available — produced the *highest* coherence of the six
+(0.956). Two attempts at a coherence knob have now both failed: selection breadth does not control it
+and neither does the affective schedule.
+
+**What does control it is the selection rule itself.** The stock constructors span 0.617 to 0.947
+because some of them never consult meaning at all. `valley` picks by distance to a band centre;
+`polygon-pca` orbits a neighbourhood in vector space. My walk always takes the nearest line in
+meaning, so it stays coherent whatever path it is asked to follow — and a band, once masked, is
+already semantically narrow enough that even random selection within it reads continuously.
+
+| build | coherence | self-perplexity | distinct lines |
+|---|--:|--:|--:|
+| stock valley | 0.617 | 92.8 | 24 |
+| stock polygon-pca | 0.703 | 106.2 | 23 |
+| stock harmonic ×3 | 0.833–0.874 | 31.9–34.2 | 21 |
+| six schedule variants | 0.925–0.956 | 29.4–42.0 | 24 |
+| stock graph-walk | 0.947 | **7.3** | **6** |
+
+**Over the wider span the relationship weakens to marginal**: coherence against self-perplexity is
+ρ = −0.57 (p = 0.051, n = 12), against −0.79 to −0.89 inside the narrow band. Removing `graph-walk`
+leaves ρ = −0.54 (p = 0.089). So the strong correlation reported above holds within a narrow,
+smoothly-varying family and does not survive extension to constructors that select differently.
+
+**One point is an artifact and should not be read.** `graph-walk` shows coherence 0.947 and
+self-perplexity 7.3, the extremes of both columns, because it emits only **6 distinct lines** repeated
+to fill 24 — the duplication bug recorded in the main `explore/README.md`. Consecutive lines are
+frequently identical, which is why it looks maximally coherent and trivially predictable. It is
+plotted for completeness and excluded from any reading.
+
 ## Opened up
 
-- **Vary the affective schedule, not the selection breadth.** That is where coherence actually comes
-  from, and it is the only way to reach the discordant end where valley sits.
+- **Coherence is not cleanly manipulable with what exists here.** Two knobs failed. A third attempt
+  should change the selection rule directly — interpolate between "nearest in meaning" and "nearest
+  to band centre" with an explicit weight — which is the one variable that actually separates the
+  stock constructors from the walk.
 - **Register is the variable worth isolating.** Compare found poetry against metrically regular
   verse, against prose poetry, against shuffled prose. The affective machinery may be a side issue
   next to "how continuous is this text".
