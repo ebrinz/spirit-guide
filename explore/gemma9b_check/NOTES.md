@@ -47,8 +47,13 @@ Its rank out of six, EMA → calibrated:
 | excited | 5 → 1 | 3 → 1 |
 
 Both models rank polygon-pca *last* on the published metric at the focused target and *first* on the
-calibrated read. That is the same inversion, on two architectures, at a scale difference of 9×. It
-is the one finding in this arc I would now defend.
+calibrated read. That is the same inversion, on two architectures, at a scale difference of 9×.
+
+> **SUPERSEDED.** I wrote here that this was "the one finding in this arc I would now defend".
+> `explore/polygon_sweep` resampled it over poem length and start coordinate and it does not hold:
+> polygon-pca's rank gap is +0.67 against a spread of 2.22 (Wilcoxon p = 0.48). The cross-model
+> agreement above is two single poems agreeing, not two samples — and a construction-seed sweep
+> turns out to be impossible, because the seed is a no-op for every constructor. See that note.
 
 Consequently, on matched cells the calibrated read puts polygon-pca first at both scales:
 
