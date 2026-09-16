@@ -106,6 +106,58 @@ the only constructor where the two move in opposite directions.
 the calm target both improve together. So the clean opposition is model-specific; what generalises is
 the asymmetry itself — the pipeline's metric barely responds to length, the calibrated read does.
 
+## 3b. Why the metric flatters valley: it ends where the metric looks
+
+The two readouts are dominated by *different coordinates*, and that is the whole story. Decomposing
+each readout's miss at the focused target (0.65, 0.60), medium length, Llama:
+
+| constructor | EMA miss V | EMA miss A | calibrated miss V | calibrated miss A |
+|---|--:|--:|--:|--:|
+| harmonic-golden | −0.185 | −0.115 | −0.036 | −0.187 |
+| **valley** | −0.215 | **−0.041** | −0.008 | **−0.196** |
+| harmonic-organic | −0.224 | −0.109 | −0.042 | −0.143 |
+| harmonic-prime | −0.230 | −0.122 | −0.035 | −0.200 |
+| graph-walk | −0.253 | −0.101 | −0.104 | −0.089 |
+| polygon-pca | −0.276 | −0.099 | −0.039 | −0.053 |
+
+Under the **EMA read**, every constructor undershoots valence badly (−0.19 to −0.28) because the word
+probe cannot reach high valence at all; arousal is nearly hit. So that metric is effectively scoring
+**valence shortfall**. Under the **calibrated read** valence is essentially solved (−0.01 to −0.10)
+and **arousal** becomes the binding constraint. Two metrics, two different questions.
+
+Valley is the constructor the two probes disagree about most on arousal, and its own design explains
+why. It grounds in low-arousal content and ascends to the target band, so:
+
+| | whole poem | last 4 lines (the EMA's window) | rise |
+|---|--:|--:|--:|
+| **valley** NRC arousal | 0.394 | **0.600** | **+0.206** |
+| harmonic-golden | 0.389 | 0.470 | +0.081 |
+| graph-walk | 0.472 | 0.547 | +0.076 |
+| harmonic-prime | 0.381 | 0.429 | +0.049 |
+| polygon-pca | 0.550 | 0.595 | +0.044 |
+| harmonic-organic | 0.392 | 0.388 | −0.004 |
+
+Valley's closing lines sit at arousal **0.600** — exactly the focused target — while its body sits at
+0.394. Its body-to-tail rise is more than twice any other constructor's. So the recency-weighted read
+reports arousal 0.559, near target, and the whole-context read reports 0.404, missing by 0.196.
+
+**Across constructors this predicts the rank gap.** How much the EMA read overstates arousal relative
+to the calibrated read correlates with the rank gap at **ρ = −0.77 on both models** (p = 0.072 each,
+six constructors). Constructors with sustained high arousal throughout — graph-walk (body 0.472) and
+polygon-pca (0.550) — have *negative* gaps: the calibrated read sees their sustained arousal, the
+compressed word probe caps it, and the pipeline's metric penalises them.
+
+So the answer to "why does the metric flatter valley" is: **valley is the only constructor built to
+put target-band content last, and the metric weights the last ~30 tokens at 96%.** The design and the
+measurement are matched. That is not cheating — the constructor was designed against a trajectory
+framing, and the metric implements that framing — but it does mean the leaderboard gap between valley
+and the rest is partly a statement about where each constructor places its target content, not only
+about how well it places the model's state.
+
+Caveats: six constructors, so p = 0.072 is directional rather than conclusive; the poem-structure to
+probe-gap link is weaker still (ρ = +0.60, p = 0.21). The valley case itself is not marginal — every
+number in its chain is the extreme of its column.
+
 ## 4. The two instruments, side by side
 
 Worth recording since both now exist for both models, built the same way:
@@ -143,10 +195,15 @@ published 9B table.
   and is a `feat/*` branch change with tests, not a lab edit.
 - **Re-read `scripts/14`'s journal line.** "Order effect 6/6 constructors at fresh seeds" should say
   what it measured.
-- **The valley and graph-walk gaps deserve their own experiment.** They are the two that clear the
-  criterion on both models, they point in opposite directions, and one of them is the published
-  winner. Why the pipeline's metric flatters valley and penalises graph-walk is answerable: compare
-  where each puts its target-band lines relative to the EMA's ~30-token window.
+- ~~**Why does the metric flatter valley?**~~ ANSWERED in §3b: valley puts target-band content last
+  (body-to-tail arousal rise +0.206, more than double any other constructor) and the metric weights
+  the last ~30 tokens at 96%. Across constructors the EMA-vs-calibrated arousal gap predicts the rank
+  gap at rho -0.77 on both models.
+- **Test it causally.** The account predicts that reversing valley should collapse its EMA advantage
+  while barely moving its calibrated score. `order_matters` already measured the first half
+  (reversing valley costs +0.116 on the EMA, its largest reversal cost) and the second
+  (+0.047 calibrated); running both readouts over reversed poems for all six constructors would
+  close the argument properly.
 - **Length is a confound in the published leaderboard.** Valley's cell averages short, medium and
   long while most constructors are medium only. Given how strongly the calibrated read responds to
   length, any cross-constructor comparison should hold length fixed.
