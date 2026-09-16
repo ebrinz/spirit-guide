@@ -1,4 +1,4 @@
-# reversal_test — the mechanism survives a causal test
+# reversal_test — the mechanism passes on Llama and fails at 9B
 
 `explore/polygon_sweep` §3b proposed that the published placement metric flatters valley because the
 metric weights the last ~30 tokens at 96% and valley is the only constructor that puts target-band
