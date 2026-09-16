@@ -61,6 +61,48 @@ The published winner is second under a calibrated ruler on both models. The marg
 (0.023 and 0.010) and each constructor here rests on three stimuli, so this wants a seed sweep
 before it is quoted — but it points the same way twice.
 
+## The poem the two rulers disagree about most
+
+The best placement at `focused` on 9B is `polygon-pca-psg-focused-e4c8bfe0`. Under the calibrated
+read it lands at **(0.631, 0.571)** against a target of (0.65, 0.60) — an error of **0.034**, the
+closest placement to any target anywhere in this run. The published metric scores the same poem
+0.214, ranking it **sixth of seven**, below the via-negativa control's neighbours and barely ahead
+of via-negativa itself. It is the clearest single instance of the inversion:
+
+> the courier aquiline so swiftly gone ·
+> atrides then his silver studded sword ·
+> one of that saintly murderous brood ·
+> if inference and reason shun ·
+> tenfold increased he ll reap who has foregone ·
+> be it of war or peace or hate or love ·
+> which i as freely give hell shall unfould ·
+> to heat the soldering irons ·
+> the shepherd s slender strain ·
+> sudden as sweet ·
+> god knows what end the strife will take ·
+> get busy massa willie ·
+> where beauty walks with naked face ·
+> where wild flowers welcome the wandering bee ·
+> over particular remember this caution of martial ·
+> i ll kneel in loving reverent awe ·
+> admire and hate thy blooming years ·
+> with a rocket s sullen glow ·
+> because in the great future buried deep ·
+> but i shall hear thy wild triumphant voice ·
+> the fatal issue to his health fame peace ·
+> a happier home to him is fate cruel ·
+> our fainting hopes in vain revive ·
+> and that the giant wave democracy
+
+Worth reading before drawing a moral from it. This is not a poem a person would choose to induce
+focus: it is tonally scattered, lurching between battle, farce ("get busy massa willie"), and
+pastoral, and several lines carry scanning corruption ("unfould"). Polygon-pca samples the local
+neighbourhood around each step rather than following a path, which is exactly what produces this
+texture. Whatever places a 9B model's state at (0.63, 0.57) is evidently not the property that makes
+text read as focused to a human, and the two metrics disagree about the poem precisely where that
+gap is widest. The `line_ablation` finding that corrupted lines cost self-report sits oddly beside
+this one; both can be true, since they are different readouts.
+
 ## An independent confirmation: the arousal ceiling is not the word probe
 
 Both calibrated probes saturate in arousal well below the excited target, averaged over the six
