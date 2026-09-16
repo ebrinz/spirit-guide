@@ -1,4 +1,8 @@
-# reversal_test — the mechanism passes on Llama and fails at 9B
+# reversal_test — the mechanism passes, once the comparison read is deep enough
+
+> Read `LAYER_CHECK.md` alongside this. The 9B null reported below turned out to be an
+> artifact of the 9B probe's layer-6 selection; at layers 29–42 the contrast returns, larger
+> than Llama's. The 9B sections here are kept as the record of how that was found.
 
 `explore/polygon_sweep` §3b proposed that the published placement metric flatters valley because the
 metric weights the last ~30 tokens at 96% and valley is the only constructor that puts target-band
@@ -14,7 +18,7 @@ EMA read *in proportion to* each constructor's tail rise, because reversal moves
 out of the metric's window, and (2) leave the calibrated whole-context read's cost unrelated to that
 rise, since it sees the same lines either way.
 
-## Both predictions hold on Llama-1B — and neither does at 9B
+## Both predictions hold on Llama-1B — and neither does at 9B's own probe layer
 
 Llama first.
 
@@ -36,7 +40,7 @@ Valley, the extreme ascender, pays **0.097** on the pipeline's metric for being 
 on the calibrated read — 2.4× as much. The three constructors with essentially flat arousal profiles
 pay 0.004 to 0.015 on the metric. On this model the mechanism predicted the ordering and got it.
 
-## It does not replicate at 9B
+## It does not replicate at 9B's layer-6 pick
 
 | | Llama-1B | Gemma-9B |
 |---|--:|--:|
@@ -47,8 +51,10 @@ pay 0.004 to 0.015 on the metric. On this model the mechanism predicted the orde
 | paired difference between readouts | p = 0.25 | p = 0.85 |
 | valley: EMA vs calibrated cost | +0.097 vs **+0.041** | +0.150 vs **+0.131** |
 
-At 9B, reversal costs the two readouts essentially the same amount, and the tail-rise predictor does
-not discriminate between them. So the clean Llama result is **model-specific, not general.**
+At 9B *read at layer 6*, reversal costs the two readouts essentially the same amount and the
+tail-rise predictor does not discriminate between them. That looked like the Llama result being
+model-specific. It is not — it is layer-specific, as the depth sweep below and in `LAYER_CHECK.md`
+shows.
 
 What does replicate is narrower: **valley is by far the most order-sensitive constructor on both
 models**, paying 0.097 and 0.150 on the metric against 0.004–0.070 for everything else. That fits the
