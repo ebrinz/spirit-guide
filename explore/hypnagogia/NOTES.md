@@ -161,12 +161,53 @@ to fill 24 — the duplication bug recorded in the main `explore/README.md`. Con
 frequently identical, which is why it looks maximally coherent and trivially predictable. It is
 plotted for completeness and excluded from any reading.
 
-## Opened up
+## The third knob works, and settles it
 
-- **Coherence is not cleanly manipulable with what exists here.** Two knobs failed. A third attempt
-  should change the selection rule directly — interpolate between "nearest in meaning" and "nearest
-  to band centre" with an explicit weight — which is the one variable that actually separates the
-  stock constructors from the walk.
+`weighted_selection.py` scores every eligible line in the band as
+
+    score = w · (similarity in meaning to the previous line) + (1 − w) · (proximity to band centre)
+
+with both terms min–max normalised within the band. w = 1 is the coherent walk; w = 0 is valley's
+rule, selecting on affect alone. Schedule, mask, target, length and seed all held fixed.
+
+**It is a perfect knob.** w against coherence is ρ = +1.00, and the span is **0.583–0.935** — wider
+than the stock constructors managed (0.617–0.947) and reaching below valley. The diagnosis was right
+on the third try: the selection rule is the variable, not selection breadth and not the schedule.
+
+**With a clean span, the relationship is unambiguous:**
+
+| | ρ with line coherence | p |
+|---|--:|--:|
+| self-perplexity | **−0.98** | < 0.001 |
+| participation ratio | −0.61 | 0.060 |
+| next-token entropy | −0.37 | 0.293 |
+
+Self-perplexity tracks coherence almost perfectly across the full range — 104 at w = 0 falling
+monotonically to 42 at w = 1. The earlier weakening to ρ = −0.54 was an artifact of comparing
+constructors that differ in many ways at once, not a fragile relationship.
+
+**Entropy and perplexity genuinely dissociate.** Across all three sweeps entropy has now failed to
+track coherence (−0.56, −0.48, −0.49 in the k-sweep; −0.33 across schedules; −0.37 here, none
+significant). And it is not even monotone: entropy peaks at w = 0.1–0.2 (6.77) and is *lowest* at
+both extremes. So the two things this folder has been treating as one measure of "flattening" are
+different. Coherence controls how hard the model finds the continuation; it does not control the
+shape of the immediate next-token distribution.
+
+**One result to read carefully.** Coherence also correlates with affective accuracy (ρ = −0.92,
+error 0.090 → 0.054), which sounds like meaning-based selection improving affective targeting. It is
+mostly an artifact of the schedule: selecting band centres gives a poem whose mean is the mean of the
+*schedule*, which is the midpoint of ground-to-target rather than the target itself. The 0.090 floor
+is that midpoint. Not evidence that ignoring affect improves affect.
+
+## What the three sweeps add up to
+
+For the practical goal — a text that induces the effect while holding a reader — the answer is
+w ≈ 1: it gives the most readable poem (coherence 0.935), the easiest continuation (perplexity 42),
+and the best affective targeting, while still raising entropy 2.05 over baseline. The discordant end
+buys higher entropy (3.48 at w = 0.1) at the cost of readability, and nothing in this folder shows
+that extra entropy corresponds to anything a reader would experience.
+
+## Opened up
 - **Register is the variable worth isolating.** Compare found poetry against metrically regular
   verse, against prose poetry, against shuffled prose. The affective machinery may be a side issue
   next to "how continuous is this text".
