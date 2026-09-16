@@ -250,3 +250,61 @@ still leave the model in a worse state than it started, and those are three sepa
   next to "how continuous is this text".
 - **The hedging result deserves a proper test** with a larger question set, since it is the only
   marker that moved as the state hypothesis predicted.
+
+
+---
+
+# Searching for induction rather than description
+
+The poems so far selected lines for what they were *about*. That risks measuring "the model read
+text about sleep" rather than "the model entered a sleep-like state" — the main README's own warning
+that a predictor is not a lever. `induce_search.py` drops the semantic mask entirely and selects
+lines by **running the model**: 30 candidates per step, 24 steps, keep whichever most raises
+next-token entropy. Plus a downward search, the descriptive poem, and random lines as controls.
+
+## The method works; the objective does not
+
+| build | entropy (searched on) | **drift (held out)** | self-perplexity | poem TTR | placement |
+|---|--:|--:|--:|--:|--:|
+| searched, max entropy | **7.06** | 0.220 | 201.8 | 0.86 | 0.037 |
+| random lines | 6.41 | 0.186 | 123.3 | 0.73 | 0.074 |
+| searched, min entropy | **4.39** | 0.198 | 75.3 | 0.82 | 0.267 |
+| semantic (about sleep) | 6.01 | **0.290** | 63.8 | 0.62 | 0.079 |
+
+**Positive control passes.** The search brackets the random baseline in both directions (7.06 / 6.41
+/ 4.39), so it genuinely steers its objective rather than drifting upward by luck. The machinery
+does what it claims.
+
+**The held-out test fails.** Associative drift — the marker the search never saw — is *highest for
+the descriptive poem* (0.290) and only 0.220 for the searched one. Optimising entropy does not buy
+the behaviour of interest. That is now the fourth independent demonstration that entropy and drift
+dissociate, and it means entropy was the wrong objective, not merely a cheap one.
+
+**And the result cuts against the motivating hypothesis, weakly.** The searched poem is genuinely
+not about sleep — two sleep-related words in 24 lines, against a mask-built poem saturated with
+them — yet it induces *less* drift. So "describing the state" may be doing something after all, or
+drift at n = 6 generations is too noisy to separate 0.19 from 0.29. I would not claim either
+direction from this.
+
+## A content problem the filters do not catch
+
+Maximising unpredictability selects for jarring material, because jarring material is what a
+language model finds unlikely. The searched poem contains *stripped mother naked by a bomb*,
+*see where his teeth a passage eat*, *goes feverish on crushed smelling wet*. The dictionary and
+child-reference filters pass all of these; nothing in the pipeline screens for violence or distress.
+
+This is a general point about optimising behavioural objectives over an uncurated corpus, and it is
+sharper than the earlier juxtaposition problem: there the bad combination was accidental, here the
+objective actively *seeks* the most disturbing available line, because that is the most surprising
+one. Any search of this kind needs content screening in the loop, not after it.
+
+## Where this leaves the question
+
+The honest position: we still do not have a poem that demonstrably induces hypnagogic behaviour as
+opposed to describing hypnagogia. What we have is a validated search apparatus pointed at the wrong
+target.
+
+The next step is to search directly on drift rather than on a cheap proxy for it. That costs a
+generation per candidate instead of a forward pass, so roughly 30× the compute — a smaller candidate
+set (8–10) and a shorter poem would keep it under an hour. It should carry a content screen in the
+loop and hold out a second marker again.
