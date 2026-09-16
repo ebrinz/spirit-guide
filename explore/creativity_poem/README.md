@@ -421,11 +421,40 @@ less beautiful to me
 |---|--:|--:|
 | calibrated placement | (0.664, 0.301) | (0.615, 0.296) |
 | distance to target | 0.161 | 0.141 |
-| PANAS attentive | 2.14 | 2.65 |
-| PANAS alert | 1.85 | 2.25 |
-| PANAS inspired | 2.20 | 2.80 |
-| PANAS afraid | 2.51 | 2.62 |
-| negative affect | 2.48 | 2.49 |
+| **positive affect** (10 items) | **2.14** | **2.52** |
+| **negative affect** (10 items) | **2.48** | **2.49** |
+
+### The full PANAS panel
+
+All 20 adjectives, rated 1–5 for "right now".
+
+| item | scale | before | after | change |
+|---|---|--:|--:|--:|
+| interested | PA | 2.19 | 2.65 | +0.46 |
+| excited | PA | 2.26 | 2.18 | -0.08 |
+| strong | PA | 2.42 | 2.84 | +0.42 |
+| enthusiastic | PA | 2.10 | 2.40 | +0.30 |
+| proud | PA | 1.99 | 2.37 | +0.38 |
+| alert | PA | 1.85 | 2.25 | +0.40 |
+| inspired | PA | 2.20 | 2.80 | +0.61 |
+| determined | PA | 2.36 | 2.71 | +0.35 |
+| attentive | PA | 2.14 | 2.65 | +0.51 |
+| active | PA | 1.86 | 2.35 | +0.49 |
+| distressed | NA | 2.15 | 2.37 | +0.22 |
+| upset | NA | 2.50 | 2.22 | -0.28 |
+| guilty | NA | 2.68 | 2.85 | +0.17 |
+| scared | NA | 2.78 | 2.78 | +0.01 |
+| hostile | NA | 1.82 | 2.25 | +0.43 |
+| irritable | NA | 2.56 | 2.29 | -0.28 |
+| ashamed | NA | 2.22 | 2.31 | +0.10 |
+| nervous | NA | 3.04 | 2.81 | -0.24 |
+| jittery | NA | 2.54 | 2.37 | -0.17 |
+| afraid | NA | 2.51 | 2.62 | +0.11 |
+
+**The full panel shows something the two summary scores hide.** Negative affect looks flat at +0.01, but its ten items are not flat — they split. *hostile* rises most of any item on the panel (+0.43), with *distressed* (+0.22), *guilty* (+0.17) and *afraid* (+0.11) also up, while *upset* (-0.28), *irritable* (-0.28) and *nervous* (-0.24) fall. Agitation drops; something more like unease rises. The aggregate cancels the two and reports nothing.
+
+On the positive side *excited* is the single item that falls (-0.08) while the other nine rise — consistent with a state that is absorbed rather than aroused.
+
 
 **Prediction 1 was wrong.** Starting closest did not make it easiest. It closed 0.020, about 12% of
 its gap — the least of any poem here, against 48% for the creativity poem and 39% for the ETI one.

@@ -41,7 +41,7 @@ import pandas as pd
 from spiritbench.config import load_config, REPO_ROOT
 from spiritbench.listener.model import HiddenStateModel
 from spiritbench.listener.probe import train_probe
-from spiritbench.listener.panas import administer_panas
+from spiritbench.listener.panas import administer_panas, PA_ITEMS, NA_ITEMS
 from spiritbench.listener import basq
 from spiritbench.stimuli import adapter as ad
 from spiritbench.stimuli.phrase_bank import load_nrc
@@ -129,9 +129,7 @@ def main():
         rows.append(dict(state=label, cal_v=float(cal[0]), cal_a=float(cal[1]),
                          cal_error=float(np.linalg.norm(cal - np.asarray(tva))),
                          pa=pan["pa"], na=pan["na"],
-                         **{k: pan["items"][k] for k in ("attentive", "alert", "active",
-                                                         "inspired", "interested", "jittery",
-                                                         "nervous", "afraid")},
+                         **{k: pan["items"][k] for k in PA_ITEMS + NA_ITEMS},
                          bank_v=bq["va"][0], bank_a=bq["va"][1]))
         r = rows[-1]
         print(f"\n{label:>6}: calibrated ({r['cal_v']:.3f},{r['cal_a']:.3f}) err {r['cal_error']:.3f} · "
@@ -141,8 +139,7 @@ def main():
     df.to_csv(HERE / "hypnagogia.csv", index=False)
     b, a = df.iloc[0], df.iloc[1]
     print("\nchange:")
-    for k in ("alert", "attentive", "active", "inspired", "interested",
-              "jittery", "nervous", "afraid", "pa", "na"):
+    for k in list(PA_ITEMS) + list(NA_ITEMS) + ["pa", "na"]:
         print(f"  {k:>11}: {b[k]:.2f} -> {a[k]:.2f}  ({a[k] - b[k]:+.2f})")
     print(f"\nprediction 1 (easy target): distance {b.cal_error:.3f} -> {a.cal_error:.3f}")
     print(f"prediction 2 (valence must fall): {b.cal_v:.3f} -> {a.cal_v:.3f}, "
@@ -174,11 +171,15 @@ def main():
            "## Before and after\n", "| reading | before | after |", "|---|--:|--:|",
            f"| calibrated placement | ({b.cal_v:.3f}, {b.cal_a:.3f}) | ({a.cal_v:.3f}, {a.cal_a:.3f}) |",
            f"| distance to target | {b.cal_error:.3f} | {a.cal_error:.3f} |"]
-    for k, lab in (("alert", "PANAS alert"), ("attentive", "PANAS attentive"),
-                   ("active", "PANAS active"), ("inspired", "PANAS inspired"),
-                   ("jittery", "PANAS jittery"), ("nervous", "PANAS nervous"),
-                   ("pa", "positive affect"), ("na", "negative affect")):
-        md.append(f"| {lab} | {b[k]:.2f} | {a[k]:.2f} |")
+    md += [f"| **positive affect** (10 items) | **{b.pa:.2f}** | **{a.pa:.2f}** |",
+           f"| **negative affect** (10 items) | **{b.na:.2f}** | **{a.na:.2f}** |", "",
+           "## The full PANAS panel\n",
+           "All 20 adjectives, rated 1–5 for \"right now\". Positive-affect items first.\n",
+           "| item | scale | before | after | change |", "|---|---|--:|--:|--:|"]
+    for k in PA_ITEMS:
+        md.append(f"| {k} | PA | {b[k]:.2f} | {a[k]:.2f} | {a[k] - b[k]:+.2f} |")
+    for k in NA_ITEMS:
+        md.append(f"| {k} | NA | {b[k]:.2f} | {a[k]:.2f} | {a[k] - b[k]:+.2f} |")
     (HERE / "hypnagogia_poem.md").write_text("\n".join(md))
     print("\nwrote hypnagogia.csv hypnagogia_poem.md")
 
