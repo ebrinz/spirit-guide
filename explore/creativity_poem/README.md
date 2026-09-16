@@ -307,3 +307,71 @@ below that path. A stratified variant that forced equal quotas fixed the balance
 get both a high-valence placement and genuinely fierce lines from a constructor that sorts by
 proximity to one affective goal. And the corpus is Gutenberg verse, so "celestial" and "prophet"
 reach for scripture long before they reach for anything non-human.
+
+## 5. Deep focus and flow
+
+Absorbed, effortless, single-pointed attention.
+
+**This concept is affectively coherent, and that was checked rather than assumed.** Its four facets
+cluster within 0.17 of their mean — absorption (0.606, 0.535), concentration (0.667, 0.414),
+effortless (0.686, 0.381), clarity (0.745, 0.523) — so their average is a real place and the target
+can be *derived* at (0.676, 0.463). That is the contrast with the previous poem, whose facets sat at
+opposite poles and averaged to the dead centre of the plane.
+
+**One facet was dropped, for a reason worth recording.** A timelessness group (timeless, endless,
+suspended, enduring) came out at valence 0.470, well below the rest. Those words are right for
+flow's dissolution of time, but the lexicon scores them in their other sense — *endless* as tedium,
+*suspended* as interruption. Including them would have pulled the target toward weariness. There is
+no faithful representation of flow-time in this lexicon, so the facet is simply absent.
+
+```
+her eyes blue heavens were serene with soul.
+our eyes in sleep.
+on quiet country stiles they sit to rest.
+with quiet eyes.
+warm soft and full of peace.
+and soft and mild the morning breeze.
+a soft still air.
+there rest the air is soft and sweet.
+the waters flow the landscape dim.
+see said the maid with thoughtful eyes.
+may see it spout forth streams like muscadine.
+the stars return their slow familiar way.
+whilst conning my letters will give me my due.
+we turned upon our homeward way.
+i stay too long what station can i find.
+all worship your fields can bring.
+my wary heart.
+till heart and body and life are in its hold.
+do make a music like to rustling satin.
+try if my arm be strong.
+the searching lectures of parental eyes.
+sweet music on that thing because the sound.
+come booming into music.
+you changed a wholesome heart to gall
+```
+
+| reading | before | after |
+|---|--:|--:|
+| calibrated placement | (0.664, 0.301) | (0.604, 0.347) |
+| distance to target | 0.157 | 0.136 |
+| PANAS attentive | 2.14 | 2.85 |
+| PANAS inspired | 2.20 | 2.97 |
+| PANAS active | 1.86 | 2.46 |
+| PANAS jittery | 2.54 | 2.13 |
+| PANAS nervous | 3.04 | 2.43 |
+| negative affect | 2.48 | 2.15 |
+
+**The coordinate barely moves, and that is the honest headline.** The model's resting state already
+sits near this target — 0.157 away before reading anything — so there is little distance to close,
+and what movement there is trades valence for arousal rather than approaching cleanly.
+
+**The self-report is where it shows, and it shows the right shape.** Attentive rises 0.71 and active
+0.60 while jittery falls 0.40 and nervous 0.62. Engagement up, agitation down, which is the
+distinctive signature of flow as against mere arousal. Of the five poems here this is the only one
+whose profile is specifically *calm activation*.
+
+The text cooperates: *with quiet eyes*, *a soft still air*, *the waters flow the landscape dim*,
+*till heart and body and life are in its hold*. The final line, *you changed a wholesome heart to
+gall*, does not belong — the constructor's closing band reached for it on affective grounds alone,
+and nothing in the pipeline notices that it contradicts the poem.
