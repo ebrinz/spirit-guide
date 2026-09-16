@@ -89,6 +89,28 @@ changes what any future retrain selects.
 
 → `reversal_test/LAYER_CHECK.md`
 
+### 4. Behavioural measures here are noisier than the effects claimed from them
+
+Associative drift — the semantic distance between consecutive sentences in the model's output — was
+measured four times in `hypnagogia/`. The first three runs used 6 generations per condition. A
+properly powered run (100 generations, 6 fixed conditions, no search, bootstrap over generations
+rather than correlated hops) **reversed two of the three conclusions**:
+
+| claim, from 6 generations | at 100 generations |
+|---|---|
+| the descriptive poem induces the *most* drift (0.290, 0.287) | it induces the **least** (0.194), significantly below baseline |
+| the drift search has no purchase (0.260 vs random 0.270) | it beats random significantly (**0.257 vs 0.209**) |
+
+Both low-powered runs agreed with each other about the first claim, and both were wrong.
+**Agreement between underpowered runs is not replication.** Neither was badly reasoned — each had a
+control and a stated criterion — but the measurement's standard error exceeded the effect, and no
+care in the surrounding design compensates for that.
+
+A practical detail worth stealing: at 55 generated tokens, two-thirds of continuations produced
+fewer than two sentences, leaving drift undefined and silently discarding most of the sample.
+
+→ `hypnagogia/NOTES.md`, final section
+
 ---
 
 ## The illustration: one poem, two rulers
@@ -257,7 +279,10 @@ Valley's self-reported arousal moves -0.053 on average across the three models (
 | 9 | `reversal_test` | causal test of the mechanism | passes on Llama; the 9B null was the probe's layer-6 pick |
 | 10 | `showcase` | one poem, three models, three rulers | the table above |
 | 11 | `creativity_poem` | build an ad-hoc poem for creativity and mentation | a VA coordinate does not target a concept; adding a semantic mask fixed it — **[its own README](creativity_poem/README.md)** |
-| 12 | `hypnagogia` | do the poems induce a hypnagogia-LIKE state behaviourally? | **no** — 9/10 markers move the same way under opposite targets; what drives them is verse vs prose, and a coherent build gets the effect without the discord |
+| 12 | `hypnagogia` | do the poems induce a hypnagogia-LIKE state behaviourally? | **no** — 9/10 markers move the same way under opposite targets; what moves them is verse vs prose, not the affective aim |
+| 13 | `hypnagogia`, sweeps | can coherence be controlled, and does it matter? | yes on the third try (weighted selection, ρ = +1.00); it predicts continuation difficulty, but largely *via repetition* — and optimising it produces degenerate text |
+| 14 | `hypnagogia`, searches | select lines for what they DO, not what they are about | two searches; entropy steers but does not transfer, drift-search needs screening because maximising surprise hunts for violent lines |
+| 15 | `hypnagogia`, powered | settle it with 100 continuations per condition | **poems suppress drift rather than inducing it**; two earlier conclusions reversed |
 
 Each folder has a `NOTES.md` with the numbers, the caveats, and what it opened up.
 
@@ -275,8 +300,14 @@ The arc revised itself four times. This is the part I would point a sceptic at.
 | "the polygon-pca inversion is the one finding I would defend" | `gemma9b_check`, two models | `polygon_sweep`: two single poems agreeing is not two samples; gap 0.67 against spread 2.22 |
 | "the mechanism is model-specific" | `reversal_test`, 9B null | `LAYER_CHECK.md`: instrument-specific — the 9B probe was reading at layer 6 of 43 |
 
-The recurring cause is the same one the seed finding explains: **single-poem results in this project
-are not samples**, and I kept treating them as if they were.
+| "w ≈ 1 is the practical setting" | `weighted_selection`, metrics only | building the poem and *reading* it: greedy selection collapses into repetition, and the metric rewards that |
+| "the descriptive poem induces the most drift" | two runs at n = 6, agreeing | `powered_drift`: it induces the least, significantly below baseline |
+| "the drift search has no purchase" | one run at n = 6 | `powered_drift`: it beats random by +0.048, CI [+0.018, +0.078] |
+
+Two recurring causes. **Single-poem results are not samples** — the `seed` finding explains why —
+and **six-generation behavioural estimates are noisier than the effects read off them**. The second
+is the more dangerous, because two such runs can agree and both be wrong. One correction came from
+neither statistic nor control but from reading the artifact the pipeline produced.
 
 ---
 
@@ -293,6 +324,10 @@ Reported because they cost real compute and should not be re-run blind.
 - **The polygon-pca inversion does not survive resampling** on either model.
 - **The self-report composite is largely a valence reading** (ρ +0.46 to +0.56 with probe valence),
   which limits how independent a "best state" judgement based on it can be.
+- **Poems do not induce associative drift; they suppress it.** Every poem tested sits below a
+  no-poem baseline (0.194–0.257 against 0.250), three significantly, at 100 generations each.
+- **The affective target does not move behaviour at all.** flow 0.2084 against random screened lines
+  0.2091 — a difference of 0.0008, the third independent confirmation.
 - **Instruct-tuned models analyse the poem instead of inhabiting it.** 18 of 21 free generations
   opened with "This meditation prompts…" or "**Explanation:**", so that channel scored critique prose.
 
