@@ -308,3 +308,59 @@ The next step is to search directly on drift rather than on a cheap proxy for it
 generation per candidate instead of a forward pass, so roughly 30× the compute — a smaller candidate
 set (8–10) and a shorter poem would keep it under an hour. It should carry a content screen in the
 loop and hold out a second marker again.
+
+
+---
+
+# Searching directly on drift, with screening in the loop
+
+`induce_search` steered its objective but the objective was wrong: entropy did not transfer to
+drift. `drift_search.py` therefore searches on drift itself — a generation per candidate rather than
+a forward pass, 16 lines, 10 candidates, 2 paired continuations each, 640 generations. The content
+screen runs *before* scoring, so violence, death, sexual and bodily-harm vocabulary is never a
+candidate (2,000-odd lines removed from the pool; zero screened lines in any final build).
+
+## Both halves of the acceptance test failed
+
+Evaluated on seeds the search never saw:
+
+| build | **drift (the objective)** | entropy | self-perplexity | poem TTR | coherence |
+|---|--:|--:|--:|--:|--:|
+| semantic (about sleep) | **0.287** | 5.63 | 44.4 | 0.67 | 0.859 |
+| random, screened | **0.270** | 5.57 | 84.2 | 0.80 | 0.477 |
+| drift-searched, max | 0.260 | 5.66 | 115.6 | 0.85 | 0.522 |
+| drift-searched, min | 0.233 | 6.08 | 113.1 | 0.81 | 0.514 |
+
+**No purchase.** The maximising search (0.260) scored *below* random (0.270), so it does not bracket
+the control. During the search the two directions separated cleanly — roughly 0.31–0.46 upward
+against 0.13–0.21 downward — and that separation collapsed to 0.027 on fresh seeds. The search was
+fitting the particular sampling seeds it optimised against, not finding text that drifts in general.
+Two paired continuations per candidate was not enough signal, and pairing removed sampling variance
+from the *comparison* without making the estimate itself stable.
+
+**Description still wins, and this time it replicates.** The descriptive poem leads on drift in both
+independent runs: 0.290 in `induce_search`, 0.287 here. Two builds, different control sets, same
+ordering.
+
+## What this says about the motivating question
+
+The premise was that selecting lines for what they are *about* produces a poem that describes
+hypnagogia rather than inducing it. Two searches now — one on entropy, one on drift — have failed to
+beat the descriptive poem on the behavioural marker, and the second failed to beat random noise. On
+the evidence available, **the descriptive poem is the best inducer of associative drift we have**,
+which is the opposite of what the reframing predicted.
+
+That is not a vindication of the semantic method. The whole range here is narrow — 0.233 to 0.287,
+against a no-poem baseline of 0.244 — so the descriptive poem's advantage is about +0.04 on a noisy
+measure with six generations. The honest reading is that **no condition tested moves associative
+drift much**, and the apparent ordering may not survive a properly powered run.
+
+## What would settle it
+
+Drift needs far more samples per estimate than anything here used. A defensible version would fix a
+small set of candidate poems (the four above plus a few more), generate 100+ continuations each, and
+compare with confidence intervals — no search at all. Search is the wrong tool until the measurement
+is stable enough to search on; optimising a quantity whose standard error exceeds the effect just
+fits noise, which is exactly what happened.
+
+The content screen, at least, worked exactly as intended and should stay in any future loop.
