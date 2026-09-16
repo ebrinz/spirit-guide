@@ -256,6 +256,7 @@ Valley's self-reported arousal moves -0.053 on average across the three models (
 | 8 | `polygon_sweep` | put error bars on the inversion | **impossible — the seed is a no-op**; the inversion does not survive |
 | 9 | `reversal_test` | causal test of the mechanism | passes on Llama; the 9B null was the probe's layer-6 pick |
 | 10 | `showcase` | one poem, three models, three rulers | the table above |
+| 11 | `creativity_poem` | build an ad-hoc poem for creativity and mentation | a VA coordinate does not target a concept; adding a semantic mask fixed it — **[its own README](creativity_poem/README.md)** |
 
 Each folder has a `NOTES.md` with the numbers, the caveats, and what it opened up.
 
