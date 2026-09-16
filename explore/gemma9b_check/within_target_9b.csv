@@ -1,0 +1,5 @@
+scope,n,rho,ema_best,cal_best,cal_lands,target
+"pooled, all psg",41,0.5354996079797892,,,,
+within target: calm,6,0.48571428571428577,valley,valley,"(0.65,0.27)","(0.75,0.20)"
+within target: focused,6,-0.4285714285714286,valley,polygon-pca,"(0.68,0.49)","(0.65,0.60)"
+within target: excited,6,0.3714285714285715,valley,polygon-pca,"(0.71,0.52)","(0.80,0.85)"
