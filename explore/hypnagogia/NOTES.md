@@ -364,3 +364,74 @@ is stable enough to search on; optimising a quantity whose standard error exceed
 fits noise, which is exactly what happened.
 
 The content screen, at least, worked exactly as intended and should stay in any future loop.
+
+
+---
+
+# The powered run: both previous conclusions were noise
+
+No search. Six fixed conditions, 100 continuations each at 110 tokens, seeds shared across
+conditions, bootstrap resampling whole generations rather than hops.
+
+| condition | n | drift | 95% CI | vs baseline |
+|---|--:|--:|---|---|
+| drift-searched | 95 | **0.2574** | [0.2351, 0.2826] | +0.007 |
+| baseline (no poem) | 100 | 0.2504 | [0.2362, 0.2653] | — |
+| neutral prose | 59 | 0.2305 | [0.2043, 0.2607] | −0.020 |
+| random, screened | 89 | 0.2091 | [0.1919, 0.2274] | **−0.041** |
+| flow | 91 | 0.2084 | [0.1946, 0.2223] | **−0.042** |
+| semantic (about sleep) | 94 | **0.1939** | [0.1836, 0.2049] | **−0.056** |
+
+## Two reversals
+
+**"The descriptive poem induces the most drift" is false — it induces the least.** It measured 0.290
+and 0.287 in two underpowered runs against a ~0.244 baseline. At n = 94 it is **0.194**, the lowest of
+all six conditions and significantly *below* baseline (−0.056, CI [−0.074, −0.039]). The finding that
+replicated twice was not merely noisy but sign-flipped.
+
+**"The drift search has no purchase" is also false.** The previous run put it at 0.260 against random
+0.270 and called it a failure. At n = 95 it is **0.257 against random 0.209**, a significant advantage
+(+0.048, CI [+0.018, +0.078]). The search did work; six generations could not see it.
+
+So two consecutive conclusions in this folder were artifacts of the same cause, and they were wrong
+in opposite directions on different questions. **Agreement between two underpowered runs is not
+replication.** Both prior runs agreed with each other about description winning, and both were wrong.
+
+## What the powered data actually says
+
+**Poems suppress associative drift; they do not induce it.** Every poem sits below the no-poem
+baseline, three of them significantly. The model drifts *more* when given nothing than when given
+verse. That inverts the framing this whole line of work started from.
+
+**The affective target still does nothing.** flow (0.2084) and random screened lines (0.2091) are
+indistinguishable — a difference of 0.0008. Aiming at opposite corners of the affective plane
+changes drift not at all, which is now the third independent confirmation.
+
+**The searched poem is the only one that does not suppress.** It holds drift at baseline while every
+other poem pulls it down. That is a real, if modest, thing the search achieved: not inducing drift,
+but preventing the suppression that verse otherwise causes.
+
+## Caveats that bound this
+
+**Unequal usable samples, and they are not missing at random.** Drift needs two sentences; prose
+yielded only 59 usable generations of 100, against 100 for baseline. Conditions differ in how often
+the model produces segmented output at all, so the comparison is partly conditioned on its own
+outcome.
+
+**Drift correlates with generation length** (pooled ρ = +0.33 with hop count; +0.52 within baseline),
+and conditions differ systematically in hops per generation (baseline 6.4, poems 3.3–4.6). Some of
+the baseline advantage is that it produces longer, more segmented continuations.
+
+**The ordering survives a matched restriction.** Limiting every condition to generations with ≥3
+hops preserves it exactly — searched 0.263, baseline 0.250, random 0.226, prose 0.215, flow 0.207,
+semantic 0.192 — with semantic still below baseline at p < 0.0001. So the ranking is not an artifact
+of the hop-count difference, though the mechanism may still run partly through generation length.
+
+## The methodological lesson, which is the durable part
+
+This folder produced six conclusions about drift across four experiments. The powered run overturned
+two of them and confirmed one. The distinguishing feature of the two that fell is not that they were
+badly reasoned — each had a control and a stated criterion — but that the measurement's standard
+error exceeded the effect being claimed, and no amount of care in the surrounding design fixes that.
+
+Measure the noise before designing around the signal.
