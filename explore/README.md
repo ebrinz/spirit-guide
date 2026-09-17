@@ -129,16 +129,35 @@ For scale, the largest effect the *affective target* has produced anywhere in th
 against random lines: −0.0009, CI [−0.0241, +0.0216]. The ordering holds under a matched
 restriction to generations with at least three sentence hops.
 
-**What bounds it.** This is one build against one build, so "different construction rule" and
-"different text" are not separated. Worse, the two builds did **not** in fact differ only in the
-selection rule: polygon-pca started its trajectory at (0.5, 0.5) and the walk at (0.6, 0.25), so the
-origin varied too. Neither condition beats the no-poem baseline; polygon-pca ties it. And
-polygon-pca carries the same confounds as the rest, including 92 usable generations of 100 and fewer
-hops per generation than baseline.
+**That comparison was confounded twice over**, and `rule_vs_text` unpicks it by crossing the two
+rules against four shared trajectory origins: eight poems, 100 continuations each, with the poem
+rather than the generation as the unit of resampling. Four nearly disjoint builds per rule
+(within-rule Jaccard on chosen lines 0.03–0.06).
 
-Both problems are addressed by `rule_vs_text`, which crosses the two rules against four shared
-trajectory origins — eight poems, 100 continuations each, with the poem rather than the generation
-as the unit of resampling. See the section below.
+| component of the original +0.0490 | |
+|---|--:|
+| rule main effect | **+0.0240**, CI [+0.0057, +0.0416] |
+| trajectory origin main effect | +0.0179 |
+| interaction | +0.0071 |
+
+**The rule effect is real and about half the headline.** Same sign at all four origins, t = 2.92 on
+the 4-vs-4 poem means (p = 0.027), and it survives restriction to generations with at least three
+sentence hops. Crossing the design also equalised the two things that bounded the earlier result:
+mean hops 4.34 against 4.33, usable generations 361 against 370. It is not a length artifact.
+
+**The other half was a parameter nobody was looking at.** The two call sites started their affective
+trajectories from different places — `neutral_start` (0.5, 0.5) for polygon-pca, a hardcoded
+(0.6, 0.25) for the walk — and the original comparison happened to pair the best origin for one with
+the worst for the other. The origin's spread across four values is 0.0204, nearly the size of the
+rule effect itself. It was a config default and a literal in a function body, and it moves the only
+behavioural measure in this folder that responds to anything.
+
+**What is still unresolved.** The two rules occupy disjoint line-coherence ranges (polygon
+0.653–0.759, walk 0.823–0.859), so "rule" and "coherence" are the same contrast here and the
+r = −0.77 across eight poems is not independent evidence for either. The within-rule slopes disagree
+and are n = 4 apiece. Separating them needs builds whose coherence ranges overlap. Also: the
+families overlap at the edges, between-poem SD within a rule (0.008–0.014) is the same order as the
+rule gap, and nothing tested still beats the no-poem baseline.
 
 Worth stating anyway, because every prior attempt to make a poem *do* something varied what the
 lines are about or where they aim, and both are now dead ends on this measure.
@@ -318,6 +337,7 @@ Valley's self-reported arousal moves -0.053 on average across the three models (
 | 14 | `hypnagogia`, searches | select lines for what they DO, not what they are about | two searches; entropy steers but does not transfer, drift-search needs screening because maximising surprise hunts for violent lines |
 | 15 | `hypnagogia`, powered | settle it with 100 continuations per condition | **poems suppress drift rather than inducing it**; two earlier conclusions reversed |
 | 16 | `hypnagogia`, polygon-pca | does the odd constructor behave differently here too? | yes — same pool and target as the worst condition, +0.049 drift, ties baseline; **the selection geometry is the lever, not the subject matter** |
+| 17 | `hypnagogia`, rule_vs_text | was that the rule or just those two texts? | the rule, at **half the size** (+0.024, 4 disjoint poems each); the other half was an unexamined trajectory origin, itself a lever of comparable size |
 
 Each folder has a `NOTES.md` with the numbers, the caveats, and what it opened up.
 
@@ -325,7 +345,7 @@ Each folder has a `NOTES.md` with the numbers, the caveats, and what it opened u
 
 ## Corrections log
 
-The arc revised itself four times. This is the part I would point a sceptic at.
+The arc revised itself six times. This is the part I would point a sceptic at.
 
 | claim | how it was made | how it was corrected |
 |---|---|---|
@@ -339,11 +359,18 @@ The arc revised itself four times. This is the part I would point a sceptic at.
 | "the descriptive poem induces the most drift" | two runs at n = 6, agreeing | `powered_drift`: it induces the least, significantly below baseline |
 | "the drift search has no purchase" | one run at n = 6 | `powered_drift`: it beats random by +0.048, CI [+0.018, +0.078] |
 | "polygon-pca and the walk differ *only* in the selection rule" | `powered_drift`, reading the two call sites as matched | `rule_vs_text`: they also started from different trajectory origins — polygon from (0.5, 0.5), the walk from (0.6, 0.25). Two factors, not one |
+| "the selection rule moves drift by +0.049" | `powered_drift`, one build against one build | `rule_vs_text`, 2 rules x 4 origins: the rule effect is +0.024; the origin contributed +0.018 and the pairing happened to be the most flattering of the four |
 
-Two recurring causes. **Single-poem results are not samples** — the `seed` finding explains why —
+Three recurring causes. **Single-poem results are not samples** — the `seed` finding explains why —
 and **six-generation behavioural estimates are noisier than the effects read off them**. The second
 is the more dangerous, because two such runs can agree and both be wrong. One correction came from
 neither statistic nor control but from reading the artifact the pipeline produced.
+
+The third showed up last and is the easiest to repeat: **two call sites that look matched in prose
+were not matched in code**. Nothing about "same concept, same target, same mask, same length" was
+false; the trajectory origin simply was not on the list, because it lives as a config default on one
+side and a literal inside a function on the other. Checking that a comparison is controlled means
+reading both call signatures, not both descriptions.
 
 ---
 
@@ -365,7 +392,10 @@ Reported because they cost real compute and should not be re-run blind.
   against the model, and polygon-pca — only tie it.
 - **The affective target does not move behaviour at all.** flow 0.2084 against random screened lines
   0.2091 — a difference of 0.0008, the third independent confirmation. A fourth: holding the target
-  fixed and changing only the selection rule moves drift 50 times further.
+  fixed and changing only the selection rule moves drift ~25 times further.
+- **The `seed` argument cannot be used to resample a build.** Confirmed again while designing
+  `rule_vs_text`: `polygon_pca` constructs a `RandomState` and never reads it. Varying a build means
+  varying its trajectory origin, its target, or its length.
 - **Instruct-tuned models analyse the poem instead of inhabiting it.** 18 of 21 free generations
   opened with "This meditation prompts…" or "**Explanation:**", so that channel scored critique prose.
 

@@ -553,3 +553,107 @@ about or where they aim. Both are dead ends on this measure. What separates the 
 resist suppression — a greedy search against the model, and an unguided orbit through embedding
 space — is that neither selects lines for affective band membership. That is the thing worth varying
 next, and it can be varied cheaply, without a single model forward pass during construction.
+
+---
+
+# Rule against text: the effect is real, half the size, and partly something else
+
+The previous section compared one polygon-pca build against one weighted-walk build. Two things
+were wrong with it. "Different rule" and "different text" were perfectly confounded, and — found
+while building this — the two call sites did not even share a trajectory origin: `polygon_pca` was
+passed `neutral_start` (0.5, 0.5) while `walk_weighted` hardcoded (0.6, 0.25).
+
+So: **2 rules x 4 shared origins, fully crossed.** Eight poems, 100 continuations each, same seeds.
+The origin is the only knob both rules genuinely expose — `seed` is a no-op for `polygon_pca`, which
+builds a `RandomState` and never reads it, and inert for the walk below w = 1. It produces four
+nearly disjoint builds per rule: within-rule Jaccard on chosen lines 0.03–0.06, cross-rule at the
+same origin 0.00–0.03.
+
+**Two of the eight rebuild the powered run's conditions, and reproduce them to five decimals**
+(polygon@S1 0.2429 vs 0.2429, n = 92 both; walk@S2 0.1939 vs 0.1939, n = 94 both). The pipeline is
+deterministic under fixed seeds, which is worth having demonstrated rather than assumed.
+
+## The crossed cell means
+
+| origin | polygon-pca | walk w=0.3 | origin mean | rule gap |
+|---|--:|--:|--:|--:|
+| S1 (0.50, 0.50) | 0.2429 | 0.2147 | 0.2288 | +0.0283 |
+| S2 (0.60, 0.25) | 0.2280 | 0.1939 | 0.2110 | +0.0340 |
+| S3 (0.40, 0.45) | 0.2363 | 0.2264 | 0.2313 | +0.0099 |
+| S4 (0.70, 0.30) | 0.2254 | 0.2016 | 0.2135 | +0.0238 |
+| **mean** | **0.2331** | **0.2091** | | **+0.0240** |
+
+## The rule effect survives, at half the size
+
+**+0.0240, 95% CI [+0.0057, +0.0416]**, resampling poems within rule and then generations within
+poem. A 4-vs-4 t-test on the poem means agrees: t = 2.92, p = 0.027. The gap has the same sign at
+all four origins. It holds under the matched restriction to generations with at least three hops
+(+0.0249, p = 0.032).
+
+**But the families overlap.** The lowest polygon build (0.2254) sits just below the highest walk
+build (0.2264). Between-poem SD within a rule is 0.0080 for polygon and 0.0143 for walk, against a
+rule gap of 0.0240 — the same order of magnitude. This is a real effect with poem-level variance
+almost as large as itself, not a clean separation of two families.
+
+Pooling generations instead of poems gives essentially the same point estimate, +0.0238, on an
+interval several times too narrow. The point estimate was never the problem; the interval was.
+
+## Where the other half of +0.049 went
+
+| component | |
+|---|--:|
+| observed, polygon@S1 vs walk@S2 | +0.0490 |
+| rule main effect | +0.0240 |
+| origin main effect | +0.0179 |
+| residual (interaction) | +0.0071 |
+
+**The original comparison happened to pair the best origin for polygon with the worst for walk.**
+S1 is the highest-drift origin (0.2288) and S2 the lowest (0.2110). Roughly 40% of the headline
+number was a parameter nobody was looking at, hardcoded differently in two call sites.
+
+**The origin matters nearly as much as the rule.** Its spread across four values is 0.0204 against
+the rule's 0.0240. It was never a designed variable — it is a default in a config file and a
+literal in a function body — and it moves the only behavioural measure in this folder that responds
+to anything at all.
+
+## Two caveats from last time are now gone
+
+The earlier result was bounded by unequal usable samples and unequal generation lengths. Crossing
+the design removed both:
+
+| | mean hops | usable |
+|---|--:|--:|
+| polygon-pca | 4.34 | 361 / 400 |
+| walk w=0.3 | 4.33 | 370 / 400 |
+
+So the rule effect is not a generation-length artifact. That was the live worry and it is answered.
+
+## The caveat that is not gone: coherence
+
+The two rules do not overlap in line coherence — polygon 0.653–0.759, walk 0.823–0.859. Across all
+eight poems, coherence predicts drift at r = −0.77 (p = 0.027). But with non-overlapping ranges,
+**"rule" and "coherence" are the same contrast**, and that correlation is just the rule effect
+rewritten. It is not independent evidence for either.
+
+The only leverage is the within-rule slopes, and they disagree: r = +0.12 within polygon
+(p = 0.88), r = −0.89 within walk (p = 0.11). Both at n = 4. Nothing can be concluded from that.
+
+**This design cannot tell whether the lever is the selection geometry or the coherence it produces.**
+Separating them needs builds that break the collinearity — polygon-pca constrained toward higher
+coherence, or the walk pushed below 0.76 by lowering w — so the two ranges overlap. That is the
+next experiment, and it is cheap, since `weighted_selection` already established w as a coherence
+knob spanning 0.583–0.935.
+
+## What stands
+
+1. **The selection rule does move associative drift**, by +0.024 [+0.006, +0.042], with the poem as
+   the unit of analysis and four nearly disjoint texts per rule. It is not a two-text accident.
+2. **The earlier +0.049 was inflated about twofold** by an unexamined origin parameter.
+3. **The trajectory origin is a real lever too**, of comparable size, and was being set by accident.
+4. **Whether the mechanism is geometry or coherence is unresolved**, and this design cannot resolve
+   it, because the two rules occupy disjoint coherence ranges.
+
+The honest summary is that the finding got smaller and more interesting. Smaller because half of it
+was a confound. More interesting because the confound turned out to be a second lever, and because
+the thing all of this keeps pointing at — how lines are chosen, not what they mean or where they
+aim — now has two independent parameters attached to it.
