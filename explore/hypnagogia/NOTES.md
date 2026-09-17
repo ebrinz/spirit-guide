@@ -475,6 +475,11 @@ polygon-pca and the `semantic` poem share the concept, the derived affective tar
 mask, the dictionary and child-reference filters, the content screen, and the length. The pool of
 eligible lines is identical. The only difference is how a line is chosen from that pool.
 
+> **Corrected below.** That last sentence is wrong. The two builds also started their affective
+> trajectories from different points — polygon-pca from `neutral_start` (0.5, 0.5), the walk from a
+> hardcoded (0.6, 0.25). So this comparison varies two factors, not one. `rule_vs_text.py` crosses
+> the rules against four shared origins to separate them; see the final section.
+
 | | drift | n |
 |---|--:|--:|
 | polygon-pca (orbit a local neighbourhood) | 0.2429 | 92 |
@@ -533,7 +538,7 @@ readouts do not see it. Read the poem.
 
 **One build, one seed.** The seed parameter is a no-op for all six stock constructors (see the
 explore README), so a seed sweep would not vary this. Varying it would mean varying the starting
-point or the neighbourhood size, which has not been done.
+point or the neighbourhood size — which is exactly what the next section does.
 
 ## Where this leaves the line of work
 

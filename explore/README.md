@@ -130,10 +130,15 @@ against random lines: −0.0009, CI [−0.0241, +0.0216]. The ordering holds und
 restriction to generations with at least three sentence hops.
 
 **What bounds it.** This is one build against one build, so "different construction rule" and
-"different text" are not separated — a second poem from each rule would be needed for that. Neither
-condition beats the no-poem baseline; polygon-pca ties it. And polygon-pca carries the same
-confounds as the rest, including 92 usable generations of 100 and fewer hops per generation than
-baseline.
+"different text" are not separated. Worse, the two builds did **not** in fact differ only in the
+selection rule: polygon-pca started its trajectory at (0.5, 0.5) and the walk at (0.6, 0.25), so the
+origin varied too. Neither condition beats the no-poem baseline; polygon-pca ties it. And
+polygon-pca carries the same confounds as the rest, including 92 usable generations of 100 and fewer
+hops per generation than baseline.
+
+Both problems are addressed by `rule_vs_text`, which crosses the two rules against four shared
+trajectory origins — eight poems, 100 continuations each, with the poem rather than the generation
+as the unit of resampling. See the section below.
 
 Worth stating anyway, because every prior attempt to make a poem *do* something varied what the
 lines are about or where they aim, and both are now dead ends on this measure.
@@ -333,6 +338,7 @@ The arc revised itself four times. This is the part I would point a sceptic at.
 | "w ≈ 1 is the practical setting" | `weighted_selection`, metrics only | building the poem and *reading* it: greedy selection collapses into repetition, and the metric rewards that |
 | "the descriptive poem induces the most drift" | two runs at n = 6, agreeing | `powered_drift`: it induces the least, significantly below baseline |
 | "the drift search has no purchase" | one run at n = 6 | `powered_drift`: it beats random by +0.048, CI [+0.018, +0.078] |
+| "polygon-pca and the walk differ *only* in the selection rule" | `powered_drift`, reading the two call sites as matched | `rule_vs_text`: they also started from different trajectory origins — polygon from (0.5, 0.5), the walk from (0.6, 0.25). Two factors, not one |
 
 Two recurring causes. **Single-poem results are not samples** — the `seed` finding explains why —
 and **six-generation behavioural estimates are noisier than the effects read off them**. The second

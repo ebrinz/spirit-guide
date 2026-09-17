@@ -52,14 +52,18 @@ def norm(x):
     return np.zeros_like(x) if hi - lo < 1e-12 else (x - lo) / (hi - lo)
 
 
-def walk_weighted(art, mask, target_va, n_lines, w, seed=42):
+def walk_weighted(art, mask, target_va, n_lines, w, seed=42, start_va=(0.6, 0.25)):
     """w=1: always the nearest in meaning (the coherent walk).
-       w=0: always the nearest to the band centre (valley's rule), meaning ignored."""
+       w=0: always the nearest to the band centre (valley's rule), meaning ignored.
+
+    start_va is where the affective schedule begins. It defaults to the value this
+    was written with, so every existing caller is unchanged; `rule_vs_text.py` varies
+    it to get several builds from one rule."""
     rng = np.random.RandomState(seed)
     va = ad._va_array(art)
     V = art.vectors / np.maximum(np.linalg.norm(art.vectors, axis=1, keepdims=True), 1e-9)
     idx = np.where(mask)[0]
-    tv0, ta0 = 0.6, 0.25
+    tv0, ta0 = start_va
     sched = [(tv0 + (target_va[0] - tv0) * j / (n_lines - 1),
               ta0 + (target_va[1] - ta0) * j / (n_lines - 1)) for j in range(n_lines)]
     used, out, cur = set(), [], None
