@@ -657,3 +657,65 @@ The honest summary is that the finding got smaller and more interesting. Smaller
 was a confound. More interesting because the confound turned out to be a second lever, and because
 the thing all of this keeps pointing at — how lines are chosen, not what they mean or where they
 aim — now has two independent parameters attached to it.
+
+---
+
+# Breaking the coherence collinearity
+
+`rule_vs_text` left one thing unresolved and said so: polygon-pca's four builds spanned line
+coherence 0.653–0.759 and the walk's spanned 0.823–0.859. Disjoint ranges, so "rule" and
+"coherence" were the same contrast, and the r = −0.77 across those eight poems was the rule effect
+rewritten rather than independent evidence for either.
+
+## First attempt: reorder the lines. It does not work, and that is informative
+
+Permuting a build's lines is the ideal manipulation — it holds the line multiset *exactly* fixed,
+so any change is attributable to sequencing alone. Greedy max- and min-coherence reorderings of all
+eight builds:
+
+| line-set | min order | as built | max order |
+|---|--:|--:|--:|
+| polygon@S1 | 0.676 | 0.716 | 0.760 |
+| polygon@S3 | 0.608 | 0.674 | 0.704 |
+| polygon@S4 | 0.615 | 0.653 | 0.714 |
+| walk@S1 | 0.775 | 0.823 | 0.835 |
+| walk@S3 | 0.756 | 0.826 | 0.830 |
+| walk@S4 | 0.806 | 0.859 | 0.859 |
+
+Reordering moves a build by only 0.05–0.10, and the families still barely meet: the overlap band
+would be 0.756–0.798, holding three polygon builds against two walk ones. Not enough to test
+anything.
+
+**The reason is worth keeping.** Line coherence is overwhelmingly a property of *which* lines a rule
+selects — which region of embedding space it draws from — and only marginally of what order they
+sit in. A rule that picks from a tight neighbourhood produces a coherent poem however you shuffle
+it. So coherence is not a sequencing property that can be dialled independently of content, which
+is exactly why it is hard to separate from the rule that chose the content.
+
+## The design that does work
+
+The walk's `w` already controls coherence (`weighted_selection`, ρ +1.00 — the third knob that
+finally worked). Measured under this mask and length it spans 0.544 at w = 0 to 0.859 at w = 0.3,
+**straddling polygon's whole range**. So: build a coherence-response curve inside the walk family
+and ask whether polygon lies on it.
+
+| family | builds | coherence |
+|---|--:|---|
+| walk, w ∈ {0, 0.04, 0.07, 0.1, 0.3} × 4 origins | 20 | 0.544–0.859 |
+| polygon-pca, 4 origins | 4 | 0.653–0.759 |
+
+The intermediate weights are picked to populate polygon's range, not to space `w` evenly: w = 0.04
+lands all four origins inside 0.653–0.759, which takes the matched-coherence band from four walk
+builds to seven. Eight of the twenty-four come from `rule_vs_text`'s cache, each verified to rebuild
+the identical poem first.
+
+    polygon lands ON the walk curve             -> the rule effect was coherence all along
+    polygon lands ABOVE it at matched coherence -> the geometry does something coherence does not
+
+A matched-band contrast is reported alongside the regression, since it assumes no functional form.
+
+**One covariate that has to be controlled, not eyeballed.** Within the walk family coherence and
+type-token ratio move together — TTR 0.84 at w = 0, 0.68 at w = 0.3 — because greedy
+nearest-in-meaning selection repeats itself, which is the trap w = 1 fell into. polygon sits at
+0.73–0.82 across its range, comparable to the walk at matched coherence, but the model is refit
+with TTR as a term so the conclusion does not rest on that looking close enough.
