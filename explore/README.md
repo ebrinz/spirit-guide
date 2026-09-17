@@ -426,6 +426,10 @@ Reported because they cost real compute and should not be re-run blind.
   lines come from, not by their sequence. Use the walk's `w` instead (0.544–0.859).
 - **Instruct-tuned models analyse the poem instead of inhabiting it.** 18 of 21 free generations
   opened with "This meditation prompts…" or "**Explanation:**", so that channel scored critique prose.
+  Confirmed again on Gemma-2-2B-it, where it is worse and *differential by condition*: 6 of 6
+  continuations after a poem were literary criticism while the no-poem baseline was ordinary prose,
+  so the contamination would not cancel between arms. Three prompt variants did not fix it (best
+  still 2 of 6). Use the base checkpoint — `unsloth/gemma-2-2b` gives 1 of 12.
 
 ---
 

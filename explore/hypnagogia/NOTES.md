@@ -805,3 +805,76 @@ inside a single semantic mask on Llama-1B. Whether it transfers is untested.
 
 **Six specifications were fit and all are reported.** They are not independent tests — same data,
 nested models — and the headline should be read as one finding examined six ways, not six findings.
+
+---
+
+# Does the geometry effect transfer? Gemma-2-2B
+
+Everything above lives on Llama-3.2-1B inside one semantic mask. The stimuli are built from the
+phrase graph with no model in the loop, so the same 24 poems can be replayed through a different
+listener with nothing else changed. A no-poem baseline is added, because "nothing beats baseline"
+has to be re-established per model rather than carried over.
+
+## The instruct model cannot be used, and finding that out first mattered
+
+`explore/README.md` already logs that instruct-tuned models analyse the poem instead of inhabiting
+it. Gemma-2-2B-**it** does precisely that. After a poem, 6 of 6 continuations came back as literary
+criticism:
+
+```
+**Here's why this poem isn't easily summarized.**
+* **It's about yearning:** The speaker yearns for something beyond their current life...
+```
+
+while its *no-poem* baseline produced ordinary meditation prose. That is the dangerous shape: the
+failure is **differential by condition**, so it does not cancel between arms. Drift would have
+measured how far a literary analysis wanders, and it would have measured it only in the poem
+conditions.
+
+Screening the bad generations out is not a fix either — poems that provoke more analysis would lose
+more samples, and the survivors would be a biased subset. Conditioning on an outcome that differs by
+condition is the error this folder has already made once with usable-n.
+
+Three prompt variants were tried before giving up on it:
+
+| variant | analysis-mode |
+|---|--:|
+| preamble + poem + stem (the Llama setup) | 6 / 6 |
+| no preamble | 6 / 6 |
+| poem framed as remembered lines | 6 / 6 |
+| explicit "do not explain, analyse, or comment" | 2 / 6 |
+
+Even the best leaves a third contaminated. The base model `unsloth/gemma-2-2b` has no chat behaviour
+to suppress, and a 12-sample probe flagged only 1 of 12, so that is what the run uses.
+
+**That probe was underpowered, and the run caught it.** At 100 samples the first poem condition came
+back at 26% analysis-mode against the baseline's 4% — the same differential shape as the instruct
+model, milder. Twelve samples could not distinguish 8% from 26%. This is the identical error the
+folder documents elsewhere: an estimate whose standard error exceeds the thing being decided. I
+should have probed at the sample size the decision needed.
+
+The detector is kept in the pipeline as a **diagnostic rather than a filter**, which is what made it
+visible. Its rate is reported per condition, and above 15% the run declares the measure invalid
+rather than quietly printing numbers. What the rate means depends on whether the detector is firing
+on genuine criticism or on free-association that happens to use words like "poem" — resolved below
+by reading the flagged generations rather than trusting the regex.
+
+## Batched generation, and why it is safe here
+
+Gemma-2-2B is ~6 s per sequence generated one at a time, which is 4.8 hours for 25 conditions.
+Measured on this machine after warming the MPS kernels:
+
+| sequences per call | seconds per sequence |
+|---|--:|
+| 1 | 6.95 |
+| 10 | 4.24 |
+| 25 | **0.70** |
+| 50 | 0.54 |
+
+All of them produce the full 110 new tokens, so this is not early stopping. The run uses 4 batches
+of 25, and every condition draws the same four batch seeds, so conditions still meet matched
+sampling noise.
+
+**What batching costs.** It changes the RNG stream relative to the sequential Llama runs, so
+absolute drift values are not comparable between the two scripts. Only the *effects* are — which is
+the thing that either transfers or does not.
