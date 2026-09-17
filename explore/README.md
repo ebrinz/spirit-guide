@@ -152,12 +152,36 @@ the worst for the other. The origin's spread across four values is 0.0204, nearl
 rule effect itself. It was a config default and a literal in a function body, and it moves the only
 behavioural measure in this folder that responds to anything.
 
-**What is still unresolved.** The two rules occupy disjoint line-coherence ranges (polygon
-0.653–0.759, walk 0.823–0.859), so "rule" and "coherence" are the same contrast here and the
-r = −0.77 across eight poems is not independent evidence for either. The within-rule slopes disagree
-and are n = 4 apiece. Separating them needs builds whose coherence ranges overlap. Also: the
-families overlap at the edges, between-poem SD within a rule (0.008–0.014) is the same order as the
-rule gap, and nothing tested still beats the no-poem baseline.
+**Was that the geometry, or the coherence the geometry produces?** In `rule_vs_text` the two rules
+occupied disjoint coherence ranges, so the question could not be asked. `coherence_collinearity`
+breaks that by using the walk's `w` as a coherence knob: 20 walk builds spanning 0.544–0.859 against
+polygon's four at 0.653–0.759, 24 builds and ~2,200 usable generations. Reordering a build's lines
+was tried first and is too weak — it moves coherence only 0.05–0.10, because coherence is a property
+of *which* lines a rule selects, not what order they sit in.
+
+**Three levers, all real, all separable.**
+
+| | effect on drift | p |
+|---|--:|--:|
+| line coherence (per unit, TTR controlled) | −0.1085 | 0.015 |
+| poem type-token ratio (per unit) | −0.1170 | 0.048 |
+| selection geometry (polygon vs walk) | **+0.0160** | 0.017 |
+
+The geometry term holds at +0.016 to +0.022 across six specifications including origin fixed
+effects, hop count, and an assumption-free contrast inside the overlap band. polygon-pca sits above
+the walk's coherence curve at all four of its coherence values (mean residual +0.0173,
+CI [+0.0084, +0.0267]). The covariate imbalance runs *against* the finding: walk builds in the band
+are more lexically diverse, which inflates the raw gap, and controlling it shrinks the estimate
+rather than removing it.
+
+**A trap worth stealing.** The walk's bivariate coherence curve reads flat (slope −0.043,
+p = 0.15). Inside that family coherence and TTR correlate at r = −0.79 and push drift the same way,
+so they cancel. Controlling either unmasks the other. Stopping at the simple curve would have given
+"coherence does nothing" — the mirror of the error the previous experiment made.
+
+**Still bounding it.** Nothing beats the no-poem baseline of 0.2504; the best of 24 builds is
+0.2429, so every effect here is a difference between kinds of suppression. The build is the unit
+and there are 24. One model, one concept, one target, 16 lines.
 
 Worth stating anyway, because every prior attempt to make a poem *do* something varied what the
 lines are about or where they aim, and both are now dead ends on this measure.
@@ -338,6 +362,7 @@ Valley's self-reported arousal moves -0.053 on average across the three models (
 | 15 | `hypnagogia`, powered | settle it with 100 continuations per condition | **poems suppress drift rather than inducing it**; two earlier conclusions reversed |
 | 16 | `hypnagogia`, polygon-pca | does the odd constructor behave differently here too? | yes — same pool and target as the worst condition, +0.049 drift, ties baseline; **the selection geometry is the lever, not the subject matter** |
 | 17 | `hypnagogia`, rule_vs_text | was that the rule or just those two texts? | the rule, at **half the size** (+0.024, 4 disjoint poems each); the other half was an unexamined trajectory origin, itself a lever of comparable size |
+| 18 | `hypnagogia`, coherence_collinearity | is the rule effect just coherence? | **no — three separable levers**: coherence −0.109/unit, lexical diversity −0.117/unit, geometry +0.016 robust to both. The walk's bivariate coherence curve reads flat only because the two covariates cancel |
 
 Each folder has a `NOTES.md` with the numbers, the caveats, and what it opened up.
 
@@ -396,6 +421,9 @@ Reported because they cost real compute and should not be re-run blind.
 - **The `seed` argument cannot be used to resample a build.** Confirmed again while designing
   `rule_vs_text`: `polygon_pca` constructs a `RandomState` and never reads it. Varying a build means
   varying its trajectory origin, its target, or its length.
+- **Reordering a poem's lines is not a coherence knob.** Greedy max- and min-coherence permutations
+  move a build only 0.05–0.10, because coherence is set by which region of embedding space the
+  lines come from, not by their sequence. Use the walk's `w` instead (0.544–0.859).
 - **Instruct-tuned models analyse the poem instead of inhabiting it.** 18 of 21 free generations
   opened with "This meditation prompts…" or "**Explanation:**", so that channel scored critique prose.
 

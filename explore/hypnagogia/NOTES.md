@@ -719,3 +719,89 @@ type-token ratio move together — TTR 0.84 at w = 0, 0.68 at w = 0.3 — becaus
 nearest-in-meaning selection repeats itself, which is the trap w = 1 fell into. polygon sits at
 0.73–0.82 across its range, comparable to the walk at matched coherence, but the model is refit
 with TTR as a term so the conclusion does not rest on that looking close enough.
+
+## The result: both levers are real, and geometry is not reducible to coherence
+
+24 builds, 100 continuations each, ~2,200 usable generations. The collinearity is gone — walk
+spans 0.544–0.859, polygon 0.653–0.759, and the matched band 0.6531–0.7593 holds four polygon
+builds against seven walk ones.
+
+### The walk curve looks flat, and that is a suppression artifact
+
+| walk family, n = 20 | slope per unit coherence | p |
+|---|--:|--:|
+| coherence alone | −0.0433 | 0.147 |
+| coherence, with poem TTR controlled | **−0.1063** | **0.026** |
+| poem TTR, with coherence controlled | −0.1110 | 0.083 |
+
+Inside the walk family coherence and type-token ratio correlate at **r = −0.79** and push drift the
+same way, so in a bivariate fit they cancel and the curve reads flat. Controlling one unmasks the
+other. Had I stopped at the simple curve I would have concluded coherence does nothing, which is
+the mirror image of the mistake `rule_vs_text` made in the other direction.
+
+### polygon-pca sits above the walk curve at every coherence it occupies
+
+| build | coherence | drift | walk curve predicts | residual |
+|---|--:|--:|--:|--:|
+| polygon@S4 | 0.653 | 0.2254 | 0.2179 | +0.0074 |
+| polygon@S3 | 0.674 | 0.2363 | 0.2170 | +0.0193 |
+| polygon@S1 | 0.716 | 0.2429 | 0.2152 | +0.0277 |
+| polygon@S2 | 0.759 | 0.2280 | 0.2133 | +0.0147 |
+
+Mean residual **+0.0173, 95% CI [+0.0084, +0.0267]**, bootstrapping generations within each build.
+Four of four positive.
+
+### The geometry term survives every specification
+
+| model | family = polygon | p |
+|---|--:|--:|
+| 24 builds ~ coherence | +0.0173 | 0.015 |
+| 24 builds ~ coherence + poem TTR | +0.0160 | 0.017 |
+| 24 builds ~ + mean hops | +0.0162 | 0.007 |
+| 24 builds ~ + origin fixed effects | +0.0159 | 0.013 |
+| matched band, raw difference (n = 11) | +0.0220 | 0.008 |
+| matched band ~ coherence + poem TTR (n = 11) | +0.0179 | 0.078 |
+
+The estimate is stable at +0.016 to +0.022 across all six. The assumption-free version — just
+compare the two families inside the overlap band — agrees on the point estimate and loses
+significance only when both covariates are fit to eleven observations, which is what an
+underpowered specification is supposed to do.
+
+**The covariate imbalance runs against the finding, not for it.** Inside the band the walk builds
+are *more* lexically diverse (TTR 0.822 against 0.779), and TTR carries a negative coefficient, so
+the imbalance inflates the raw gap. Controlling it shrinks +0.0220 to +0.0179 rather than
+eliminating it.
+
+## So the answer is: both, and they are separable
+
+**Coherence is a real lever.** −0.1085 per unit with TTR controlled (p = 0.015), which over the
+observed 0.315 span is −0.034 of drift — larger than the geometry effect. More coherent verse
+produces less associative drift in what follows.
+
+**Lexical diversity is a third lever.** −0.1170 per unit (p = 0.048), and it was hiding the first
+one.
+
+**The selection geometry does something neither explains.** +0.016, robust to coherence, TTR, hop
+count and origin. At matched coherence polygon-pca still drifts further than the walk does.
+
+`rule_vs_text` asked whether "rule" was just "coherence" wearing a different name. It was not. But
+the honest form of the answer is that coherence was never a rival hypothesis to be eliminated — it
+is a second real effect that happened to be collinear with the first, and the design that separated
+them found both.
+
+## What still bounds all of this
+
+**Nothing beats the no-poem baseline.** Baseline drift is 0.2504. The highest build in this run is
+polygon@S1 at 0.2429. Twenty-four builds spanning three levers, and the best of them still only
+approaches what the model does when given no poem at all. Every effect here is a difference between
+kinds of suppression.
+
+**The build is the unit, and there are 24 of them.** The regressions treat build means as
+observations, which is the right unit for a claim about construction rules but discards within-build
+information. The residual bootstrap resamples generations and agrees.
+
+**Four origins, one target, one concept, one model, 16 lines.** The geometry effect is established
+inside a single semantic mask on Llama-1B. Whether it transfers is untested.
+
+**Six specifications were fit and all are reported.** They are not independent tests — same data,
+nested models — and the headline should be read as one finding examined six ways, not six findings.
