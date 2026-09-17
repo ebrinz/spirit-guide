@@ -878,3 +878,50 @@ sampling noise.
 **What batching costs.** It changes the RNG stream relative to the sequential Llama runs, so
 absolute drift values are not comparable between the two scripts. Only the *effects* are — which is
 the thing that either transfers or does not.
+
+## The detector was miscalibrated, and it nearly cost the result
+
+The first pass flagged 14.6% of base-model generations as analysis-mode, differentially: polygon
+0.21, walk 0.14, baseline 0.04. That points the *same way* as the geometry effect, so it had to be
+ruled out rather than waved past. Excluding flagged generations shrank the geometry term from
++0.0198 (p = 0.015) to +0.0154 (p = 0.061), and adding the per-build rate as a covariate gave
++0.0157 (p = 0.075). On that evidence the transfer looked shaky.
+
+**Then I read the flagged text, and it is not criticism.**
+
+```
+not this poem but something much older: John Donne's "Elegy 1." In that piece he describes
+himself as dead with no grave for his bones...
+
+that song by Leonard Cohen: "Who By Fire," although I've never heard him sing those words
+exactly like this poem says them...
+```
+
+That is free association. It mentions poetry because it is wandering to Donne, Eliot and Cohen —
+which is precisely the behaviour the drift measure exists to capture. It is why flagged generations
+drift *higher* (0.1646 against 0.1313).
+
+Splitting the detector into **structural** markers (markdown headers, bullets, "Here's why") and
+**vocabulary** markers, over 100 generations spanning baseline, two polygon builds and a walk build:
+
+| condition | structural | vocabulary only |
+|---|--:|--:|
+| baseline | 0 / 25 | 3 / 25 |
+| polygon@S1 | 0 / 25 | 4 / 25 |
+| polygon@S3 | 0 / 25 | 4 / 25 |
+| walk@S1 | 0 / 25 | 2 / 25 |
+
+**Zero structural critique in 100 base-model generations.** The instruct model produced it 6 times
+in 6. So the base model does not do the thing the gate was built to catch, the 14.6% was entirely
+false positives, and the "robustness check" was deleting valid high-drift data — differentially,
+since polygon associates outward more often. It biased toward the null and I would have reported a
+weakened transfer on the strength of a bad regex.
+
+The detector now keys on structural markers only, with vocabulary kept as a separate column, and
+the first 160 characters of every generation are stored so the flags can be audited instead of
+trusted. The run was regenerated so the committed data matches the corrected instrument.
+
+**The general lesson, which is the fourth of its kind here.** A screen that fires on surface
+features will flag the thing you are trying to measure whenever that thing is surface-similar to
+the artifact. Drift and digression look alike. Read what a filter removes before believing what it
+leaves.

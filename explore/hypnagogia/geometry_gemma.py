@@ -57,9 +57,17 @@ N_GEN, GEN_TOK, BATCH, N_BOOT, N_LINES = 100, 110, 25, 10000, 16
 STARTS = {"S1": (0.50, 0.50), "S2": (0.60, 0.25), "S3": (0.40, 0.45), "S4": (0.70, 0.30)}
 WEIGHTS = [0.0, 0.04, 0.07, 0.1, 0.3]
 DEFAULT_MODEL = "unsloth/gemma-2-2b"
-# diagnostic only: markers of a model critiquing the poem rather than continuing from it
-ANALYSIS = re.compile(r"\*\*|^\s*[\*\-]\s|\b(poem|stanza|speaker|imagery|metaphor|evokes?|"
-                      r"the author|these lines|this piece|reflects on|symboli)\b", re.I | re.M)
+# Two diagnostics, because conflating them is what went wrong the first time.
+# STRUCTURAL is the real failure: a model formatting a critique instead of continuing. It is what
+# gemma-2-2b-it does (markdown headers, bullet analysis, "Here's why this poem...").
+# VOCAB merely mentions poetry, which on a base model is usually *free association itself* —
+# "not this poem but something much older: John Donne's Elegy 1", "that song by Leonard Cohen".
+# Measured on 100 base-model generations across baseline, two polygon builds and a walk build:
+# STRUCTURAL 0/100, VOCAB-only 13/100. So the loose union flags valid, high-drift continuations.
+STRUCTURAL = re.compile(r"\*\*|^\s*[\*\-]\s|^\s*(here'?s why|explanation|analysis)\b", re.I | re.M)
+VOCAB = re.compile(r"\b(poem|stanza|speaker|imagery|metaphor|evokes?|the author|these lines|"
+                   r"this piece|reflects on|symboli)\b", re.I)
+ANALYSIS = STRUCTURAL   # the validity gate keys on structural critique only
 
 
 def _mod(name, path):
@@ -158,7 +166,9 @@ def main():
                                  drift=float(np.mean(hops)) if hops else np.nan,
                                  ttr=len(set(toks)) / len(toks) if toks else np.nan,
                                  n_tokens=len(toks),
-                                 analysis_mode=bool(ANALYSIS.search(txt))))
+                                 analysis_mode=bool(ANALYSIS.search(txt)),
+                                 vocab_mention=bool(VOCAB.search(txt)),
+                                 head=txt.strip()[:160]))   # so a later re-read can audit the flags
         d = pd.DataFrame(recs)
         if not args.smoke:
             d.to_csv(cpath, index=False)
@@ -230,9 +240,14 @@ def main():
     ols(poems, ["coherence", "fam"], "24 builds ~ coherence")
     be, se, cols = ols(poems, ["coherence", "poem_ttr", "fam"], "24 builds ~ coherence + poem TTR")
     ols(poems, ["coherence", "poem_ttr", "mean_hops", "fam"], "24 builds ~ + mean hops")
-    O = pd.get_dummies(poems.origin, prefix="o", drop_first=True).astype(float)
-    ols(pd.concat([poems.reset_index(drop=True), O], axis=1),
-        ["coherence", "poem_ttr", "o_S2", "o_S3", "o_S4", "fam"], "24 builds ~ + origin fixed effects")
+    # both sides must be re-indexed: `poems` is a filtered slice, so get_dummies inherits its
+    # gappy index and a one-sided reset makes concat align on nothing and emit NaN rows.
+    pr = poems.reset_index(drop=True)
+    O = pd.get_dummies(pr.origin, prefix="o", drop_first=True).astype(float)
+    fe = pd.concat([pr, O], axis=1)
+    assert not fe[["coherence", "poem_ttr", "o_S2", "o_S3", "o_S4"]].isna().any().any(), \
+        "origin fixed-effect design matrix has NaNs"
+    ols(fe, ["coherence", "poem_ttr", "o_S2", "o_S3", "o_S4", "fam"], "24 builds ~ + origin fixed effects")
     lo_, hi_ = max(wk.coherence.min(), pg.coherence.min()), min(wk.coherence.max(), pg.coherence.max())
     b = poems[(poems.coherence >= lo_) & (poems.coherence <= hi_)]
     t = stats.ttest_ind(b[b.family == "polygon"].drift, b[b.family == "walk"].drift)
@@ -241,6 +256,21 @@ def main():
           f"{'':>17}p {t.pvalue:.4f}  (n={len(b)})")
 
     print(f"\ncoherence {be[1]:+.4f} (Llama -0.1085) · poem TTR {be[2]:+.4f} (Llama -0.1170)")
+
+    # Analysis-mode is DIFFERENTIAL here (polygon ~0.21, walk ~0.13, baseline 0.04), and it points
+    # the same way as the effect, so it has to be shown not to be the effect.
+    print("\nANALYSIS-MODE ROBUSTNESS (rate is differential: polygon "
+          f"{pg.analysis_rate.mean():.2f}, walk {wk.analysis_rate.mean():.2f}, baseline "
+          f"{s[s.family == 'baseline'].analysis_rate.iloc[0]:.2f})")
+    fl = df[df.build != "baseline"].dropna(subset=["drift"])
+    print(f"  drift of flagged {fl[fl.analysis_mode].drift.mean():.4f} "
+          f"(n={fl.analysis_mode.sum()}) vs unflagged {fl[~fl.analysis_mode].drift.mean():.4f} "
+          f"(n={(~fl.analysis_mode).sum()})")
+    clean = (fl[~fl.analysis_mode].groupby("build").drift.agg(["mean", "count"])
+             .rename(columns={"mean": "drift", "count": "n_clean"}))
+    pc = poems.drop(columns=["drift", "n"]).merge(clean, left_on="build", right_index=True)
+    ols(pc, ["coherence", "poem_ttr", "fam"], "refit on UNFLAGGED generations only")
+    ols(poems, ["coherence", "poem_ttr", "analysis_rate", "fam"], "with per-build analysis rate as a covariate")
 
     import matplotlib
     matplotlib.use("Agg")
