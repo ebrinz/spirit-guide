@@ -925,3 +925,63 @@ trusted. The run was regenerated so the committed data matches the corrected ins
 features will flag the thing you are trying to measure whenever that thing is surface-similar to
 the artifact. Drift and digression look alike. Read what a filter removes before believing what it
 leaves.
+
+## The result: the geometry effect transfers, the other two levers do not
+
+25 conditions, 2,500 generations, 1,861 usable. Structural analysis-mode after the fix: **0.1%**
+(3 of 1,771 poem generations, 0 at baseline), so the measure is valid here. Drift values reproduced
+the pre-fix run exactly, which also confirms the batched pipeline is deterministic under fixed seeds.
+
+| | Gemma-2-2B | Llama-3.2-1B |
+|---|--:|--:|
+| **geometry (polygon vs walk)** | **+0.0198** (p = 0.015) | **+0.0160** (p = 0.017) |
+| line coherence, per unit | +0.0435 (p = 0.39) | −0.1085 (p = 0.015) |
+| poem lexical diversity, per unit | +0.0861 (p = 0.22) | −0.1170 (p = 0.048) |
+
+**The geometry term replicates, and closely.** Across specifications: +0.0188 (coherence only,
+p = 0.021), +0.0198 (+ TTR, p = 0.015), +0.0218 (+ mean hops, p = 0.007), +0.0198 (+ origin fixed
+effects, p = 0.026). polygon sits above the walk's coherence curve at all four of its coherence
+values: residual **+0.0190 [+0.0076, +0.0312], 4/4 positive**, against Llama's +0.0173
+[+0.0084, +0.0267], 4/4 positive. Two models, different families, different tokenizers, same
+stimuli, and the effect lands within 0.004 of itself.
+
+**The other two levers do not replicate — and the honest word is "null", not "reversed".** Both
+coefficients change sign, but neither is distinguishable from zero on Gemma (p = 0.39 and p = 0.22).
+The walk's coherence curve here is flat to three decimals: slope −0.0005, r = −0.00, p = 0.985. So
+coherence and lexical diversity look like properties of how *one* model responds to verse, not
+general ones.
+
+**The baseline bound reverses outright, and this one is significant.** On Llama every poem sat below
+the no-poem baseline and the summary was that all effects were differences between kinds of
+suppression. On Gemma **all 24 poems sit at or above baseline** (0.1134–0.1810 against 0.1111), mean
+difference **+0.0257 [+0.0143, +0.0370]**. On this model verse *induces* drift rather than
+suppressing it. That is the claim the whole folder was organised around failing to find, and it
+holds on the second model tried and not the first.
+
+## What this does and does not license
+
+It licenses saying the selection geometry is the most portable thing found here: the only one of
+three levers that survives a change of model, at nearly identical magnitude, by a rule that needs no
+model in the loop to build.
+
+It does not license "poems induce hypnagogic drift". One model does one thing, another does the
+opposite, on the same 24 stimuli. The direction of the baseline effect is model-dependent, which
+means any claim about what verse does to a language model needs at least two models before it is
+worth stating, and this folder spent fifteen experiments on one.
+
+## What bounds it
+
+**Gemma produces much shorter segmented output.** 1.67 sentence hops per generation against Llama's
+~4.0, and 74% of generations usable against ~90%. Each drift estimate rests on fewer hops, so the
+per-build intervals are wider relative to the effect.
+
+**The assumption-free contrast fails here.** The matched-coherence band gives +0.0109, p = 0.29 at
+n = 11, where on Llama it gave +0.0220, p = 0.008. The full-sample models carry the Gemma result;
+the band version is underpowered and does not independently confirm it.
+
+**Absolute drift is not comparable across the two scripts.** Batched sampling consumes the RNG
+differently from sequential, so only effects transfer, not levels. Gemma's baseline of 0.1111
+against Llama's 0.2504 is mostly a different model and partly that.
+
+**Two models is two.** Both are small, both are decoder-only, both were run on one semantic mask
+with one target at 16 lines.

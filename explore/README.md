@@ -183,6 +183,50 @@ so they cancel. Controlling either unmasks the other. Stopping at the simple cur
 0.2429, so every effect here is a difference between kinds of suppression. The build is the unit
 and there are 24. One model, one concept, one target, 16 lines.
 
+### 6. Of the three levers, only the selection geometry survives a change of model
+
+`geometry_gemma` replays the identical 24 poems through Gemma-2-2B. The stimuli are built from the
+phrase graph with no model in the loop, so only the listener changes.
+
+| | Gemma-2-2B | Llama-3.2-1B |
+|---|--:|--:|
+| **selection geometry** | **+0.0198** (p = 0.015) | **+0.0160** (p = 0.017) |
+| line coherence, per unit | +0.0435 (p = 0.39) | −0.1085 (p = 0.015) |
+| poem lexical diversity, per unit | +0.0861 (p = 0.22) | −0.1170 (p = 0.048) |
+
+The geometry effect lands within 0.004 of itself across two model families, and polygon again sits
+above the walk's coherence curve at all four of its coherence values (+0.0190, CI [+0.0076,
++0.0312], 4/4 positive). The other two coefficients change sign but are indistinguishable from zero
+on Gemma, so the honest word is *null*, not *reversed*.
+
+**The baseline bound genuinely reverses, though.** On Llama every poem drifted below the no-poem
+baseline. On Gemma **all 24 sit at or above it**, mean +0.0257 [+0.0143, +0.0370]. Verse induces
+drift on the second model tried and suppresses it on the first. Any claim about what verse does to
+a language model needs at least two models before it is worth stating — and the first fifteen
+experiments here used one.
+
+→ `hypnagogia/NOTES.md`, final section
+
+### 7. Read what a filter removes before believing what it leaves
+
+The Gemma run nearly died of its own screen. A regex meant to catch models critiquing the poem
+instead of continuing from it flagged 14.6% of generations, differentially by condition (polygon
+0.21, walk 0.14, baseline 0.04) and pointing the same way as the effect under test. Controlling it
+dropped the geometry term from +0.0198 (p = 0.015) to +0.0154 (p = 0.061).
+
+The flagged text was not criticism. It was free association that happens to mention poetry —
+wandering to Donne, Eliot and Leonard Cohen — which is exactly what the drift measure exists to
+capture, and why flagged generations drifted *higher* (0.1646 against 0.1313). Splitting structural
+markers (markdown, bullets, "Here's why") from vocabulary ones over 100 generations: **structural
+0/100**, vocabulary-only 13/100. The instruct model, by contrast, produced structural critique 6
+times in 6.
+
+With the gate keying on structural markers only, the rate is 0.1% and every robustness variant is
+significant again. A screen built on surface features will delete the signal whenever the signal is
+surface-similar to the artifact. Digression and drift look alike.
+
+→ `hypnagogia/NOTES.md`, "The detector was miscalibrated"
+
 Worth stating anyway, because every prior attempt to make a poem *do* something varied what the
 lines are about or where they aim, and both are now dead ends on this measure.
 
@@ -363,6 +407,7 @@ Valley's self-reported arousal moves -0.053 on average across the three models (
 | 16 | `hypnagogia`, polygon-pca | does the odd constructor behave differently here too? | yes — same pool and target as the worst condition, +0.049 drift, ties baseline; **the selection geometry is the lever, not the subject matter** |
 | 17 | `hypnagogia`, rule_vs_text | was that the rule or just those two texts? | the rule, at **half the size** (+0.024, 4 disjoint poems each); the other half was an unexamined trajectory origin, itself a lever of comparable size |
 | 18 | `hypnagogia`, coherence_collinearity | is the rule effect just coherence? | **no — three separable levers**: coherence −0.109/unit, lexical diversity −0.117/unit, geometry +0.016 robust to both. The walk's bivariate coherence curve reads flat only because the two covariates cancel |
+| 19 | `hypnagogia`, geometry_gemma | does any of it transfer to a second model? | **the geometry effect does** (+0.0198 vs +0.0160), the other two levers go null — and the baseline bound **reverses**: on Gemma all 24 poems drift *above* no-poem, where on Llama all sat below |
 
 Each folder has a `NOTES.md` with the numbers, the caveats, and what it opened up.
 
@@ -370,7 +415,7 @@ Each folder has a `NOTES.md` with the numbers, the caveats, and what it opened u
 
 ## Corrections log
 
-The arc revised itself six times. This is the part I would point a sceptic at.
+The arc revised itself seven times. This is the part I would point a sceptic at.
 
 | claim | how it was made | how it was corrected |
 |---|---|---|
@@ -412,9 +457,10 @@ Reported because they cost real compute and should not be re-run blind.
 - **The polygon-pca inversion does not survive resampling** on either model.
 - **The self-report composite is largely a valence reading** (ρ +0.46 to +0.56 with probe valence),
   which limits how independent a "best state" judgement based on it can be.
-- **Poems do not induce associative drift.** No poem tested exceeds a no-poem baseline of 0.250 at
-  100 generations each. Most suppress it, three significantly; the best two — a poem searched
-  against the model, and polygon-pca — only tie it.
+- **Poems do not induce associative drift *on Llama-1B*.** No poem tested exceeds its no-poem
+  baseline of 0.250 at 100 generations each. Most suppress it, three significantly; the best two
+  only tie it. **This does not generalise** — on Gemma-2-2B all 24 of the same poems drift above
+  baseline (+0.0257, CI [+0.0143, +0.0370]). The sign of this effect is model-dependent.
 - **The affective target does not move behaviour at all.** flow 0.2084 against random screened lines
   0.2091 — a difference of 0.0008, the third independent confirmation. A fourth: holding the target
   fixed and changing only the selection rule moves drift ~25 times further.
